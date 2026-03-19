@@ -1,0 +1,74 @@
+name: RPG_Core_V2
+version: 2.0.0-SNAPSHOT
+main: com.lostwilderness.rpgcore.core.RPGCorePlugin
+api-version: '1.21'
+# Load after AuraSkills and BetonQuest when present so bridges can use their APIs/commands
+softdepend: [AuraSkills, BetonQuest]
+
+commands:
+  clan:
+    description: Clan commands – create, invite, leave, info, list, etc.
+    usage: /<command> <create|invite|accept|deny|leave|color|promote|demote|enemy|info|list> [args]
+  war:
+    description: Clan war – declare, ceasefire, status
+    usage: /<command> <declare|ceasefire|status> [clan]
+  alliance:
+    description: Clan alliances – invite, accept, leave, list
+    usage: /<command> <invite|accept|leave|info|list> [clan]
+  v2progress:
+    description: Show your V2 progression milestones
+  v2claim:
+    description: Claim milestone reward (e.g. AuraSkills XP). Use from BetonQuest menu.
+  v2skills:
+    description: Debug – show your AuraSkills fighting level
+  rewards:
+    description: Open the milestone rewards menu (BetonQuest GUI). Journal is separate.
+  milestones:
+    description: Open the milestones menu (same as /rewards).
+  portals:
+    description: List your linked cross-server portals
+  deleteportals:
+    description: Admin – delete all portals for a player
+  v2ping:
+    description: Simple test command to check if V2 commands work
+  v2db:
+    description: Debug – list DB tables
+    permission: op
+  arena-test:
+    description: Admin – test boss arena system
+    permission: op
+  diablo-lair:
+    description: Admin – generate Diablo platform
+    permission: op
+  reputation:
+    description: View your honor and faction standing
+    usage: /reputation
+  class:
+    description: Choose your RPG class
+    usage: /class
+  zodiac:
+    description: View zodiac signs, reveal hidden signs (Lord only), check clan bonuses
+    usage: /<command> <info|reveal|clanbonus> [player]
+  party:
+    description: Party commands - create, invite, accept, leave, disband, info, kick
+    usage: /<command> <create|invite|accept|leave|disband|info|kick> [args]
+
+permissions:
+  lw.clan.use:
+    description: Use /clan commands (create, invite, leave, info, etc.)
+    default: true
+  lw.portals.use:
+    description: Use /portals to list your portals
+    default: true
+  lw.portals.delete:
+    description: Use /deleteportals to remove a player's portals
+    default: op
+  lw.rank.lord:
+    description: Allows revealing hidden zodiac signs and spirit animals
+    default: op
+  lw.zodiac.use:
+    description: Use /zodiac info command
+    default: true
+  lw.party.use:
+    description: Use /party commands (create, invite, accept, leave, etc.)
+    default: true

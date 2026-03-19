@@ -1,0 +1,27 @@
+# Lost Wilderness – fauna / wildlife migration (Aeternum-style).
+# Boosted spawns per season; warm animals can be discouraged in winter.
+
+migration:
+  enabled: true
+  tick_period: 200
+  animals_per_tick: 40
+  search_radius_blocks: 160
+  particles: true
+  spawn:
+    spring_boost_chance: 0.25
+    summer_boost_chance: 0.25
+    autumn_boost_chance: 0.20
+    winter_boost_chance: 0.18
+  soft_despawn: 
+    warm_in_winter_chance: 0.25
+
+# Optional: override favored/discouraged per season (entity type names)
+# If absent, LW uses built-in sets: spring = sheep, rabbit, cow, pig, chicken, etc.
+favored:
+  SPRING: [SHEEP, RABBIT, COW, PIG, CHICKEN, HORSE, BEE]
+  SUMMER: [TROPICAL_FISH, COD, SALMON, DOLPHIN, TURTLE, AXOLOTL, FROG, PARROT, PANDA]
+  AUTUMN: [FOX, WOLF, GOAT, MOOSHROOM, MULE, CAT]
+  WINTER: [WOLF, POLAR_BEAR, SNOW_GOLEM, SKELETON_HORSE, STRAY]
+
+discouraged:
+  WINTER: [PARROT, TROPICAL_FISH, PANDA, FROG, AXOLOTL, TURTLE, DOLPHIN]

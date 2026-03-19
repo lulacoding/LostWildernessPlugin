@@ -1,0 +1,31 @@
+{
+  "models": {
+    "providers": {
+      "amazon-bedrock": {
+        "baseUrl": "https://bedrock-runtime.ap-southeast-2.amazonaws.com",
+        "api": "bedrock-converse-stream",
+        "auth": "aws-sdk",
+        "models": [
+          {
+            "id": "au.anthropic.claude-sonnet-4-5-v1:0",
+            "name": "Claude Sonnet 4.5 (Bedrock Sydney)",
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "au.anthropic.claude-opus-4-6-v1:0",
+            "name": "Claude Opus 4.6 (Bedrock Sydney)",
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          }
+        ]
+      }
+    },
+    "bedrockDiscovery": {
+      "enabled": true,
+      "region": "ap-southeast-2",
+      "providerFilter": ["anthropic"],
+      "refreshInterval": 3600
+    }
+  }
+}

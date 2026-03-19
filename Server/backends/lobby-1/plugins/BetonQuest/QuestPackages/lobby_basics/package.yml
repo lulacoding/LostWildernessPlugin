@@ -1,0 +1,56 @@
+# Lobby basics conversation package for LW lobby NPCs.
+# Assign this conversation to any Citizens NPC by triggering:
+#   lobby_basics.lobby_basics_intro
+
+npcs:
+  '0': lobby_basics_intro
+
+events:
+  greeter_intro_start: "conversation lobby_basics_intro"
+
+conversations:
+  lobby_basics_intro:
+    quester: "Lobby Guide"
+    first: welcome
+    stop: true
+    conversationIO: slowtellraw
+    NPC_options:
+      welcome:
+        text: "Welcome to Lost Wilderness, %player%. This lobby is your starting point. I can explain verification, class selection, and where to go next."
+        pointers: ask_verify, ask_class, ask_portal, ask_factions, bye
+      verify:
+        text: "First, run /verify in-game. Then open Discord and run /verify <your_minecraft_name>. Once linked, you are verified and ready to leave the lobby."
+        pointers: ask_class, ask_portal, ask_factions, back
+      class:
+        text: "After verification, choose your class. Use /class or speak to the class mentor NPC. Your class defines passives, active abilities, and faction gain bonuses."
+        pointers: ask_factions, ask_portal, back
+      portal:
+        text: "Use the lobby teleporter once verified and class-ready. It routes you into the main world flow where your progression starts."
+        pointers: ask_verify, ask_class, back
+      factions:
+        text: "Your actions shape your reputation. Current faction framing is Celestial, Wildlands, Redeemed, Corrupted, and Destroyers. Epochians are legacy players, not an NPC faction."
+        pointers: ask_verify, ask_class, ask_portal, back
+      back_to_start:
+        text: "What do you want to learn next?"
+        pointers: ask_verify, ask_class, ask_portal, ask_factions, bye
+      goodbye:
+        text: "Good luck. Verify, choose your class, then step into the world."
+    player_options:
+      ask_verify:
+        text: "How do I verify?"
+        pointer: verify
+      ask_class:
+        text: "How do classes work?"
+        pointer: class
+      ask_portal:
+        text: "How do I leave the lobby?"
+        pointer: portal
+      ask_factions:
+        text: "Explain reputation and factions."
+        pointer: factions
+      back:
+        text: "Back"
+        pointer: back_to_start
+      bye:
+        text: "Thanks, I am ready."
+        pointer: goodbye

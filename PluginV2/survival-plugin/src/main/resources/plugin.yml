@@ -1,0 +1,46 @@
+name: LW-Survival-V2
+main: com.lostwilderness.survivalv2.SurvivalV2Plugin
+version: 1.0.0
+api-version: 1.21
+description: Thin Survival wrapper plugin for RPG_Core_V2 (V2 core).
+depend: [RPG_Core_V2]
+author: lula0802
+
+commands:
+  date:
+    description: Shows the current in-game date
+  time:
+    description: Shows the current in-game time
+  eoc:
+    description: Shows days since Epoch (Day 0)
+  datejoined:
+    description: Shows when you joined the server
+  season:
+    description: Shows the current season. Use /season guide to open the seasonal guide book.
+  nextday:
+    description: Advance calendar to next day (admin)
+    permission: lw.admin.calendar
+  resetcalendar:
+    description: Resets the calendar
+    permission: lw.admin.calendar
+  event:
+    description: List, info, start or stop seasonal events
+    usage: /<command> <list|info|start|stop> [id] [days]
+  trait:
+    description: Manage personality traits, elements, and Ultimate items
+    usage: /<command> <info|revealelement|bless|temple|set|quiz> [args]
+
+permissions:
+  lw.admin.calendar:
+    description: Allows using /nextday and /resetcalendar to advance/reset the calendar
+    default: op
+  lw.admin.events:
+    description: Allows /event start and /event stop to force-start or stop seasonal events
+    default: op
+  lw.trait.info.others:
+    description: Allows viewing other players' trait info
+    default: op
+  lw.rank.lord:
+    description: Lord rank permissions (revealelement, bless)
+    default: op
+

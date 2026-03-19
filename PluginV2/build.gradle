@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'io.github.goooler.shadow' version '8.1.8'
+}
+
+group = 'com.lostwilderness'
+version = '2.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT'
+    // Only need AuraSkills API at compile-time; AuraSkills plugin provides it at runtime.
+    compileOnly 'dev.aurelium:auraskills-api-bukkit:2.3.3'
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+    implementation 'com.h2database:h2:2.2.224'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs.add('-Xlint:deprecation')
+}
+
+jar {
+    archiveBaseName.set('RPG_Core_V2')
+    archiveVersion.set(project.version.toString())
+}
+
+// Fat JAR with HikariCP and H2 so the server has everything it needs (AuraSkills API provided by plugin at runtime).
+shadowJar {
+    archiveBaseName.set('RPG_Core_V2')
+    archiveVersion.set(project.version.toString())
+    archiveClassifier.set('all')
+    relocate 'com.zaxxer.hikari', 'com.lostwilderness.rpgcore.lib.hikari'
+    relocate 'com.h2database', 'com.lostwilderness.rpgcore.lib.h2'
+    relocate 'org.h2', 'com.lostwilderness.rpgcore.lib.org.h2'
+}
+
+build.dependsOn shadowJar

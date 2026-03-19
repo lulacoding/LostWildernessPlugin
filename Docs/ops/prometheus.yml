@@ -1,0 +1,82 @@
+# Prometheus scrape configuration — Lost Wilderness
+# Deploy to: /etc/prometheus/prometheus.yml
+#
+# Prerequisites (install on Ubuntu/Debian):
+#   sudo apt install prometheus
+#   sudo apt install prometheus-mysqld-exporter   (or download binary)
+#
+# Paper metrics plugin: install spark (https://spark.lucko.me/) on each backend.
+# Spark exposes a Prometheus-compatible endpoint when spark.prometheus.enable = true
+# in its config. Default port is 9100 (spark) or configure via spark config.
+#
+# mysql_exporter: run with DATA_SOURCE_NAME pointing at your minecraft user.
+# Default scrape port: 9104.
+
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+  # Label all metrics with the network name for easy filtering
+  external_labels:
+    network: lostwilderness
+
+rule_files:
+  - /etc/prometheus/rules/lw-alerts.yml
+
+scrape_configs:
+
+  # --------------------------------------------------------------------------
+  # Prometheus self-monitoring
+  # --------------------------------------------------------------------------
+  - job_name: prometheus
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # --------------------------------------------------------------------------
+  # MariaDB / MySQL exporter
+  # Install: sudo apt install prometheus-mysqld-exporter
+  # Run:     DATA_SOURCE_NAME="minecraft:PASSWORD@tcp(127.0.0.1:3306)/" \
+  #          prometheus-mysqld-exporter --web.listen-address=127.0.0.1:9104
+  # (See Docs/ops/mysql-exporter.service for systemd unit)
+  # --------------------------------------------------------------------------
+  - job_name: mariadb
+    static_configs:
+      - targets: ['127.0.0.1:9104']
+        labels:
+          instance: mariadb
+
+  # --------------------------------------------------------------------------
+  # Spark Paper metrics — one entry per backend
+  # Enable in spark config: prometheus.enable = true
+  # Spark serves metrics on http://127.0.0.1:<port>/metrics by default.
+  # Adjust ports if you change spark config.
+  # --------------------------------------------------------------------------
+  - job_name: lw-lobby-1
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['127.0.0.1:9101']
+        labels:
+          server: lobby-1
+
+  - job_name: lw-survival-1
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['127.0.0.1:9102']
+        labels:
+          server: survival-1
+
+  - job_name: lw-amplified-1
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['127.0.0.1:9103']
+        labels:
+          server: amplified-1
+
+  # --------------------------------------------------------------------------
+  # Node exporter (host-level: CPU, RAM, disk, network)
+  # Install: sudo apt install prometheus-node-exporter
+  # --------------------------------------------------------------------------
+  - job_name: node
+    static_configs:
+      - targets: ['127.0.0.1:9100']
+        labels:
+          instance: lw-host

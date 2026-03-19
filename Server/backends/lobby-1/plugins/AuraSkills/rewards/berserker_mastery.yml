@@ -1,0 +1,10 @@
+patterns:
+  - stat: strength
+    value: 1.5
+    pattern:
+      interval: 5
+  - stat: crit_damage
+    value: 1
+    pattern:
+      interval: 10
+file_version: 1

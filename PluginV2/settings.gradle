@@ -1,0 +1,5 @@
+rootProject.name = 'RPG_Core_V2'
+include 'survival-plugin'
+include 'amplified-plugin'
+include 'lobby-plugin'
+

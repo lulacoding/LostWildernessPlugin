@@ -1,0 +1,16 @@
+---
+description: YAML and plugin config conventions
+globs: "**/*.yml"
+alwaysApply: false
+---
+
+# YAML and plugin config
+
+## plugin.yml
+- Commands and permissions must match what the plugin registers in code.
+- Document required permissions and usage in comments or docs where appropriate.
+
+## Config YAML
+- Preserve existing structure and comments when editing.
+- Use the same section layout as in `Plugin/common/src/main/resources/config.yml` and server-specific configs.
+- For ServerUPDATE: never commit live secrets; passwords stay `CHANGE_ME` in repo or use `git update-index --skip-worktree` for local values.

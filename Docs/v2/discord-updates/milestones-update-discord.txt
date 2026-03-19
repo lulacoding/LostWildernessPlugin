@@ -1,0 +1,84 @@
+v**PluginV2 – Milestones update: categories & pagination** (Discord paste)
+Paste each part in a separate message. Use **bold**, `code`, - lists.
+
+─────── PART 1 ───────
+
+**What changed**
+- `/milestones` and `/rewards` now open a **category-based** menu instead of a single screen.
+- Each category has **pages** (7 milestones per page) so everything fits.
+- **New milestones** were added: more join tiers, playtime, seasons, deaths, and clans. The **Events** category is a placeholder for future event-participation milestones (e.g. Survived Eclipse, Festival).
+
+**Commands**
+- `/milestones` – Opens the milestones GUI (same as `/rewards`).
+- `/rewards` – Same as above.
+- `/v2claim <milestone>` – Claim a milestone reward (e.g. `v2claim first_join`, `v2claim playtime_24h`). Open the menu to see all claim keys.
+- `/v2progress` – Lists your unlocked milestone keys (unchanged).
+
+**Menu flow**
+1. **Main menu** – Title `Milestones`. Six category buttons (slots 10–15). Click one to open that category.
+2. **Category menu** – Title `Milestones > <Category>` (e.g. `Milestones > Join & Loyalty`). Up to **7 milestone buttons** per page (slots 10–16). **Slot 0** = Previous page, **Slot 4** = Back to categories, **Slot 8** = Next page. If the category has more than 7 milestones, you get multiple pages (e.g. `Milestones > Join & Loyalty (2/2)`).
+3. **Click a milestone** – Runs `/v2claim <key>` for you and closes the menu. Same behaviour as before (unlock check, claim check, AuraSkills XP grant).
+
+─────── PART 2 ───────
+
+**Categories and milestones**
+
+**1. Join & Loyalty** (Book icon)
+- **First Join** – 50 Fighting XP  
+- **Join 3 Times** – 25 Fighting XP  
+- **Join 10 Times** – 100 Fighting XP  
+- **Join 25 Times** – 50 Fighting XP  
+- **Join 50 Times** – 75 Fighting XP  
+- **Join 100 Times** – 150 Fighting XP  
+
+**2. Playtime** (Clock icon)
+- **1 Hour Online** – 25 Fighting XP  
+- **5 Hours Online** – 50 Fighting XP  
+- **24 Hours Online** – 100 Fighting XP  
+- **100 Hours Online** – 250 Fighting XP  
+*(Total playtime is saved when you leave the server; session time is added on each quit.)*
+
+**3. Seasons** (Sunflower icon)
+- **First Spring** – 30 Farming XP (unlocked the first time you join during Spring)  
+- **First Summer** – 30 Farming XP  
+- **First Autumn** – 30 Farming XP  
+- **First Winter** – 30 Farming XP  
+- **New Year Login** – 100 Fighting XP (first login on March 1 – New Year in our calendar)  
+*(Requires the calendar module to be enabled.)*
+
+**4. Events** (Beacon icon)
+- Placeholder only. Future milestones (e.g. Survived Eclipse, Festival participant) will go here.
+
+**5. Deaths** (Skeleton Skull icon)
+- **First Death** – 10 Fighting XP  
+- **10 Deaths** – 25 Fighting XP  
+
+**6. Clans** (Banner icon)
+- **Joined a Clan** – 50 Fighting XP (unlocked when you're in a clan; checked on join)  
+*(Requires the clans module to be enabled.)*
+
+─────── PART 3 ───────
+
+**How milestones unlock (backend)**
+
+- **Join & Loyalty** – On each join we increment `join_count`. When it reaches 3, 10, 25, 50, or 100 we unlock the matching milestone. First join is unlocked the very first time you join.
+- **Playtime** – When you **quit**, we add your session length (in seconds) to `playtime_seconds`. When that total reaches 1h (3600), 5h (18000), 24h (86400), or 100h (360000) we unlock the matching milestone.
+- **Seasons** – On join we read the current calendar season and date. If it’s Spring/Summer/Autumn/Winter and you’ve never had that season unlocked, we unlock **First Spring** (etc.). If the date is March 1 we unlock **New Year Login**. Needs calendar module.
+- **Deaths** – Each time you die we increment `death_count`. At 1 we unlock **First Death**, at 10 we unlock **10 Deaths**.
+- **Clans** – On join, if you’re in a clan we unlock **Joined a Clan** (if not already unlocked). Needs clans module.
+
+**Claiming**
+- You must **unlock** a milestone first (e.g. play 1 hour total, then **1 Hour Online** appears and can be claimed).
+- Each milestone can be **claimed once**. Claiming gives you the AuraSkills XP (Fighting or Farming as listed). AuraSkills must be installed and working.
+- Claiming is done by clicking the milestone in the menu (or by running `/v2claim <key>`). After claim, that milestone is marked claimed and you can’t claim it again.
+
+**Technical notes**
+- Counters used: `join_count`, `playtime_seconds`, `death_count` (stored in `progression_counters`).
+- Unlock/claimed keys are in `player_achievements`. Plan and full data model: `../05-planning/plan-milestones-categories.md`.
+- BetonQuest is still used only for **tags** on the original three join milestones (first_join, join_3_times, join_10_times) if you use BetonQuest; the new milestones don’t require BQ.
+
+**Summary**
+- **Categories:** Join & Loyalty, Playtime, Seasons, Events (placeholder), Deaths, Clans.  
+- **Pages:** 7 milestones per page; Previous / Back / Next in category view.  
+- **New rewards:** Join 25/50/100, playtime 1h/5h/24h/100h, first season + New Year, first death + 10 deaths, joined clan.  
+- **Commands:** `/milestones` or `/rewards` to open the GUI; `/v2claim <milestone>` to claim by key.

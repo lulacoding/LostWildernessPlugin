@@ -1,0 +1,52 @@
+# RPG_Core_V2 – core config
+environment: dev
+server-role: survival
+enabled-modules:
+  - player
+  - progression
+  - skills
+  - classes
+  - calendar
+  - events
+  - clans
+  - boss
+  - reputation
+  - portals
+  - personality
+  - zodiac
+  - party
+
+classes:
+  CELESTIAL_TEMPLAR:
+    starter-xp:
+      defense: 100.0
+      fighting: 50.0
+      templar_mastery: 150.0
+  WILDLAND_RANGER:
+    starter-xp:
+      archery: 100.0
+      agility: 50.0
+      ranger_mastery: 150.0
+  EPOCHIAN_ARTIFICER:
+    starter-xp:
+      mining: 100.0
+      excavation: 50.0
+      artificer_mastery: 150.0
+  CORRUPTED_CULTIST:
+    starter-xp:
+      alchemy: 100.0
+      fighting: 50.0
+      cultist_mastery: 150.0
+  DESTROYER_BERSERKER:
+    starter-xp:
+      fighting: 100.0
+      mining: 50.0
+      berserker_mastery: 150.0
+
+  # Class Mastery Skill Keys (for AuraSkills integration)
+  mastery-skills:
+    CELESTIAL_TEMPLAR: templar_mastery
+    WILDLAND_RANGER: ranger_mastery
+    REDEEMED_ARTIFICER: artificer_mastery
+    CORRUPTED_CULTIST: cultist_mastery
+    DESTROYER_BERSERKER: berserker_mastery

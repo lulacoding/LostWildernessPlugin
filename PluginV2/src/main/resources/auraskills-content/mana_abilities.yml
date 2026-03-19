@@ -1,0 +1,63 @@
+# AuraSkills Custom Mana Abilities Configuration
+# Auto-loaded by AuraSkills from PluginV2/auraskills-content/
+
+mana_abilities:
+  lostwilderness/smite:
+    enabled: true
+    base_value: 8.0  # Base damage
+    value_per_level: 0.5  # Damage increase per skill level
+    base_cooldown: 8.0  # 8 second cooldown
+    cooldown_per_level: -0.05  # Reduce by 0.05s per level (max -2.5s at level 50)
+    base_mana_cost: 30.0  # Base: 30 mana, upgrades to 50 at level 50
+    mana_cost_per_level: 0.4  # Increase by 0.4 per level (50 mana at level 50)
+    unlock: 1  # Available at level 1
+    level_up: 5  # Levels up every 5 skill levels
+    max_level: 10  # Max ability level 10 (at skill level 50)
+
+  lostwilderness/hunters_mark:
+    enabled: true
+    base_value: 25.0  # +25% damage to marked target
+    value_per_level: 2.0  # +2% per level
+    base_cooldown: 15.0  # 15 second cooldown
+    cooldown_per_level: -0.2  # Reduce cooldown
+    base_mana_cost: 20.0
+    mana_cost_per_level: 0.2
+    unlock: 10  # Unlocks at level 10
+    level_up: 5
+    max_level: 8
+
+  lostwilderness/slam:
+    enabled: true
+    base_value: 4.0  # Base radius
+    value_per_level: 0.4  # Radius increase (6.0 at level 50)
+    base_cooldown: 10.0  # 10 second cooldown
+    cooldown_per_level: -0.1
+    base_mana_cost: 40.0
+    mana_cost_per_level: 0.0  # Constant 40 mana
+    unlock: 1
+    level_up: 5
+    max_level: 10
+
+  lostwilderness/dash:
+    enabled: true
+    base_value: 8.0  # Base teleport range
+    value_per_level: 0.4  # Range increase (12.0 at level 50)
+    base_cooldown: 6.0  # 6 second cooldown
+    cooldown_per_level: -0.05
+    base_mana_cost: 25.0
+    mana_cost_per_level: 0.0
+    unlock: 1
+    level_up: 5
+    max_level: 10
+
+  lostwilderness/war_cry:
+    enabled: true
+    base_value: 6.0  # Base radius
+    value_per_level: 0.0  # Constant radius
+    base_cooldown: 12.0  # 12 second cooldown
+    cooldown_per_level: -0.1
+    base_mana_cost: 35.0
+    mana_cost_per_level: 0.0
+    unlock: 1
+    level_up: 5
+    max_level: 10

@@ -1,0 +1,15 @@
+﻿# Lost Wilderness – Cursor index exclusions
+# Keeps codebase search fast and relevant (source and Docs only).
+
+# ServerUPDATE – worlds, logs, libraries, cache, runtime
+ServerUPDATE/
+
+# Plugin – build outputs and Gradle cache
+Plugin/.gradle/
+Plugin/**/build/
+Plugin/**/bin/
+Plugin/**/out/
+
+# DiscordBot – dependencies and build
+DiscordBot/node_modules/
+DiscordBot/dist/

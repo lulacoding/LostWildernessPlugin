@@ -1,0 +1,35 @@
+# Lost Wilderness – seasonal crops (Aeternum-style). allowed_seasons per crop.
+
+seasonal_crops:
+  enabled: true
+  rain_growth_bonus: 1.0
+  off_season_growth_chance: 0.1
+  underground_slow_multiplier: 0.8
+  low_light_multiplier: 0.7
+  required_light: 4
+
+  crops:
+    WHEAT:
+      allowed_seasons: [SPRING, SUMMER]
+    CARROTS:
+      allowed_seasons: [SPRING, SUMMER, AUTUMN]
+    POTATOES:
+      allowed_seasons: [SPRING, SUMMER]
+    BEETROOTS:
+      allowed_seasons: [SPRING, AUTUMN]
+    MELON_STEM:
+      allowed_seasons: [SUMMER]
+    PUMPKIN_STEM:
+      allowed_seasons: [AUTUMN]
+    SUGAR_CANE:
+      allowed_seasons: [SPRING, SUMMER]
+    CACTUS:
+      allowed_seasons: [SUMMER]
+    SWEET_BERRY_BUSH:
+      allowed_seasons: [SPRING, AUTUMN]
+    BROWN_MUSHROOM:
+      allowed_seasons: [SUMMER, WINTER]
+    RED_MUSHROOM:
+      allowed_seasons: [SUMMER, WINTER]
+    COCOA:
+      allowed_seasons: [SUMMER]

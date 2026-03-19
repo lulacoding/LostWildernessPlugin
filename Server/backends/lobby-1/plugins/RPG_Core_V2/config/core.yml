@@ -1,0 +1,11 @@
+# RPG_Core_V2 – core config
+environment: dev
+server-role: lobby
+enabled-modules:
+  - player
+  - skills
+  - classes
+  - clans
+  - progression
+  - reputation
+

@@ -1,0 +1,29 @@
+# Party System Configuration
+
+party:
+  # Maximum party size
+  max-size: 6
+
+  # Invite timeout (seconds) - for future auto-cleanup
+  invite-timeout-seconds: 300
+
+  # Default party color (hex format: #RRGGBB)
+  color: "#00FF00"
+
+  # Display settings
+  display:
+    # Show [Party] prefix in chat/scoreboard
+    show-party-prefix: true
+    # Enable glowing effect for party members
+    enable-glow: true
+
+  # Combat settings
+  combat:
+    # Disable friendly fire between party members
+    disable-friendly-fire: true
+
+    # Party buffs (damage boost scales with party size)
+    party-buff:
+      enabled: true
+      # Damage boost per additional party member (5% = 0.05)
+      damage-boost-per-member: 0.05

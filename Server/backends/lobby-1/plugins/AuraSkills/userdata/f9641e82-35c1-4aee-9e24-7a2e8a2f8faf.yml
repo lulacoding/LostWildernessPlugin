@@ -1,0 +1,53 @@
+uuid: f9641e82-35c1-4aee-9e24-7a2e8a2f8faf
+skills:
+  auraskills/agility:
+    level: 0
+    xp: 7.0
+  auraskills/enchanting:
+    level: 0
+    xp: 0.0
+  auraskills/fighting:
+    level: 0
+    xp: 0.0
+  auraskills/defense:
+    level: 0
+    xp: 0.0
+  auraskills/archery:
+    level: 0
+    xp: 0.0
+  auraskills/foraging:
+    level: 0
+    xp: 0.0
+  auraskills/excavation:
+    level: 0
+    xp: 0.0
+  auraskills/farming:
+    level: 0
+    xp: 0.0
+  auraskills/mining:
+    level: 0
+    xp: 0.0
+  auraskills/fishing:
+    level: 0
+    xp: 0.0
+  auraskills/alchemy:
+    level: 0
+    xp: 0.0
+  lostwilderness/berserker_mastery:
+    level: 0
+    xp: 0.0
+  lostwilderness/artificer_mastery:
+    level: 0
+    xp: 0.0
+  lostwilderness/cultist_mastery:
+    level: 0
+    xp: 0.0
+  lostwilderness/templar_mastery:
+    level: 0
+    xp: 0.0
+  lostwilderness/ranger_mastery:
+    level: 0
+    xp: 0.0
+mana: 20.0
+action_bar:
+  idle: true

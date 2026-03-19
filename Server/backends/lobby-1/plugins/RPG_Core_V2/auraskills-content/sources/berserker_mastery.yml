@@ -1,0 +1,37 @@
+default:
+  type: entity
+  entity: '{key}'
+  trigger: death
+  damager: player
+  menu_item:
+    material: '{key}_spawn_egg'
+  conditions:
+    - type: item
+      item_key: netherite_axe,diamond_axe,iron_axe,golden_axe,stone_axe,wooden_axe
+      item_type: weapon
+sources:
+  zombie:
+    xp: 20.0
+  skeleton:
+    xp: 20.0
+  creeper:
+    xp: 20.0
+  spider:
+    xp: 20.0
+  enderman:
+    xp: 30.0
+  blaze:
+    xp: 30.0
+  wither_skeleton:
+    xp: 35.0
+  piglin_brute:
+    xp: 50.0
+  ravager:
+    xp: 150.0
+  warden:
+    xp: 1500.0
+  wither:
+    xp: 2000.0
+  ender_dragon:
+    xp: 2000.0
+file_version: 1

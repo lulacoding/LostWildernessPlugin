@@ -1,0 +1,102 @@
+# =============================================================================
+# Lost Wilderness – repo-root .gitignore
+# Private deployment-bundle repo.
+# Covers: DiscordBot, Plugin (Gradle), ServerUPDATE, editor/OS noise.
+# =============================================================================
+
+# ─── DiscordBot ──────────────────────────────────────────────────────────────
+DiscordBot/.env
+DiscordBot/node_modules/
+DiscordBot/dist/
+DiscordBot/*.log
+
+# ─── Plugin (Gradle) ─────────────────────────────────────────────────────────
+Plugin/.gradle/
+Plugin/**/build/
+Plugin/**/bin/
+Plugin/**/out/
+Plugin/**/.idea/
+Plugin/**/*.iml
+Plugin/**/*.iws
+Plugin/**/*.ipr
+
+# ─── PluginV2 (Gradle) ───────────────────────────────────────────────────────
+PluginV2/.gradle/
+PluginV2/**/build/
+PluginV2/**/bin/
+PluginV2/**/out/
+PluginV2/**/.idea/
+PluginV2/**/*.iml
+PluginV2/**/*.iws
+PluginV2/**/*.ipr
+
+# ─── Server / ServerUPDATE – plugin and library JARs (never commit) ─────────
+Server/**/*.jar
+ServerUPDATE/**/*.jar
+
+# ─── PluginV2 – built JARs (never commit) ────────────────────────────────────
+PluginV2/**/build/libs/*.jar
+PluginV2/plugins/*.jar
+
+# ─── ServerUPDATE – runtime caches & generated artifacts ────────────────────
+# Paper server downloaded libraries (regenerated on first start)
+ServerUPDATE/backends/*/libraries/
+ServerUPDATE/proxy/libraries/
+# Paper version cache
+ServerUPDATE/backends/*/versions/
+ServerUPDATE/proxy/versions/
+# Paper remapped plugin cache
+ServerUPDATE/backends/*/plugins/.paper-remapped/
+ServerUPDATE/proxy/plugins/.paper-remapped/
+# Mojang jar cache
+ServerUPDATE/backends/*/cache/
+ServerUPDATE/proxy/cache/
+# Server logs
+ServerUPDATE/backends/*/logs/
+ServerUPDATE/proxy/logs/
+# Crash reports
+ServerUPDATE/backends/*/crash-reports/
+# Velocity/BungeeCord proxy runtime logs and locks
+ServerUPDATE/proxy/proxy.log*
+ServerUPDATE/proxy/*.log
+ServerUPDATE/proxy/*.log.*
+# World / region data (runtime, large binary)
+ServerUPDATE/backends/*/world/
+ServerUPDATE/backends/*/world_nether/
+ServerUPDATE/backends/*/world_the_end/
+ServerUPDATE/backends/*/world_*/
+# Runtime session/lock
+ServerUPDATE/backends/*/.session.lock
+ServerUPDATE/backends/*/session.lock
+
+# ─── ServerUPDATE – sensitive / runtime state ────────────────────────────────
+# Private keys
+ServerUPDATE/**/floodgate/key.pem
+ServerUPDATE/**/*.pem
+# Runtime SQLite databases
+ServerUPDATE/**/calendar.db
+ServerUPDATE/**/*.db
+# Player/ban/op/whitelist runtime data
+ServerUPDATE/backends/*/ops.json
+ServerUPDATE/backends/*/usercache.json
+ServerUPDATE/backends/*/whitelist.json
+ServerUPDATE/backends/*/banned-players.json
+ServerUPDATE/backends/*/banned-ips.json
+ServerUPDATE/proxy/stats/
+
+# ─── Editor / OS noise ───────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Cursor IDE local files ───────────────────────────────────────────────────
+# Keep .cursor/rules/ (shared team rules) but ignore local-only plan files
+.cursor/plans/
+
+# ─── Secrets (never commit live values) ──────────────────────────────────────
+*.env
+.env.*
+!.env.example
+!**/.env.example

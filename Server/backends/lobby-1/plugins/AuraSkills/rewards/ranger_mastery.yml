@@ -1,0 +1,10 @@
+patterns:
+  - stat: speed
+    value: 0.5
+    pattern:
+      interval: 5
+  - stat: luck
+    value: 1
+    pattern:
+      interval: 10
+file_version: 1

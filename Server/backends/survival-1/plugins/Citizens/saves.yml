@@ -1,0 +1,75 @@
+# Citizens NPC Storage
+last-created-npc-id: 1
+npc:
+- traits:
+    owner:
+      uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
+    scoreboardtrait:
+      tags:
+      - CITIZENS_NPC
+    skintrait: {
+      }
+    location:
+      worldid: b8b90308-4bcf-4489-839d-da0cb30e17ba
+      x: 318.6634
+      y: 71.0
+      z: -40.0847
+      bodyYaw: 266.3993
+      pitch: 0.0
+      yaw: -93.6007
+    type: PLAYER
+  traitnames: owner,spawned,scoreboardtrait,skintrait,location,inventory,type,targetable,chunktickettrait
+  name: Joepsh Mama
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: 45bf2c4d-4e64-40da-a2e0-4936792b6335
+- traits:
+    scoreboardtrait:
+      tags:
+      - CITIZENS_NPC
+    owner:
+      uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
+    commandtrait:
+      commands:
+      - npc: false
+        experienceCost: -1
+        op: false
+        delay: 0
+        cost: -1.0
+        globalcooldown: 0
+        gn: -1
+        cooldown: 0
+        command: class
+        n: -1
+        hand: RIGHT
+        player: true
+      - npc: false
+        experienceCost: -1
+        op: false
+        delay: 0
+        cost: -1.0
+        globalcooldown: 0
+        gn: -1
+        cooldown: 0
+        command: class
+        n: -1
+        hand: RIGHT
+        player: true
+    location:
+      worldid: b8b90308-4bcf-4489-839d-da0cb30e17ba
+      x: 327.0337
+      y: 71.0
+      z: -50.5961
+      bodyYaw: -22.649935
+      pitch: 0.0
+      yaw: -3.0017
+    type: PLAYER
+  traitnames: scoreboardtrait,owner,spawned,commandtrait,skintrait,location,inventory,type,targetable,chunktickettrait
+  name: ClassGuide
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: 2cd9e35f-a960-4c87-8b61-ee83b0c928cb

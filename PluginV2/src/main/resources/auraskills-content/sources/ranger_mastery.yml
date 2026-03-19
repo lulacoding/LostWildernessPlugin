@@ -1,0 +1,47 @@
+default:
+  type: entity
+  entity: '{key}'
+  trigger: death
+  damager: player
+  menu_item:
+    material: '{key}_spawn_egg'
+  conditions:
+    - type: item
+      item_key: bow
+      item_type: weapon
+sources:
+  # Bow kills grant XP
+  zombie:
+    xp: 25.0
+  skeleton:
+    xp: 25.0
+  creeper:
+    xp: 25.0
+  spider:
+    xp: 25.0
+  enderman:
+    xp: 35.0
+  blaze:
+    xp: 35.0
+  ender_dragon:
+    xp: 2000.0
+  wither:
+    xp: 2000.0
+taming:
+  type: custom
+  menu_item:
+    material: bone
+  sources:
+    wolf:
+      xp: 50.0
+    cat:
+      xp: 50.0
+    parrot:
+      xp: 50.0
+    horse:
+      xp: 50.0
+    llama:
+      xp: 50.0
+    fox:
+      xp: 50.0
+file_version: 1

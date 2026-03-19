@@ -1,0 +1,23 @@
+# Portals module: cross-server (Survival <-> Amplified) portal frames and transfer.
+# BungeeCord server name for transfer (must match proxy config.yml servers).
+target-server: amplified-1
+# When server-role is amplified, target-server is overridden to survival-1 by default (see PortalsModule).
+
+# Max portal pairs per player (to/from counts as one pair).
+max-pairs: 5
+
+# Frame: Crying Obsidian rectangle, interior filled with End Gateway. Dimensions are outer (including border).
+frame:
+  min-width: 4
+  min-height: 5
+  max-width: 7
+  max-height: 7
+
+# Clear blocks around exit spot to prevent suffocation (never clears Crying Obsidian or End Gateway).
+exit-clearance:
+  enabled: true
+  radius: 1
+  height: 3
+  large-enabled: true
+  large-radius: 3
+  large-height: 6

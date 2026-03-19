@@ -1,0 +1,29 @@
+# AuraSkills Custom Skills Configuration
+# Auto-loaded by AuraSkills from PluginV2/auraskills-content/
+
+skills:
+  lostwilderness/templar_mastery:
+    enabled: true
+    max_level: 50
+    mana_ability: lostwilderness/smite
+
+  lostwilderness/ranger_mastery:
+    enabled: true
+    max_level: 50
+    mana_ability: lostwilderness/hunters_mark
+
+  lostwilderness/artificer_mastery:
+    enabled: true
+    max_level: 50
+    mana_ability: lostwilderness/slam
+
+  lostwilderness/cultist_mastery:
+    enabled: true
+    max_level: 50
+    mana_ability: lostwilderness/dash
+
+  lostwilderness/berserker_mastery:
+    enabled: true
+    max_level: 50
+    mana_ability: lostwilderness/war_cry
+file_version: 1

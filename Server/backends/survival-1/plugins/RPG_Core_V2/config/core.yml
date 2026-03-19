@@ -1,0 +1,16 @@
+# RPG_Core_V2 – core config
+environment: dev
+server-role: survival
+enabled-modules:
+  - player
+  - progression
+  - skills
+  - classes
+  - calendar
+  - events
+  - clans
+  - boss
+  - reputation
+  - portals
+  - zodiac 
+  - party

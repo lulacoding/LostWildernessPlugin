@@ -1,0 +1,22 @@
+target-server: survival-1
+teleporter-block: END_GATEWAY
+
+database:
+  mysql: true  # Use MySQL upsert syntax (false for H2)
+
+spawn:
+  x: 0.5
+  y: 100
+  z: 0.5
+  yaw: 0.0
+  pitch: 0.0
+
+greeter-intro:
+  enabled: true
+  event: lobby_basics.greeter_intro_start
+  lock-ticks: 60
+  trigger-radius: 5.0
+  focus:
+    x: 2.5
+    y: 100.0
+    z: 0.5

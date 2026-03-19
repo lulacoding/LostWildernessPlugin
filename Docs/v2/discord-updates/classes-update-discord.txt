@@ -1,0 +1,105 @@
+**PluginV2 – Class Skill Tree System** 
+─────── PART 1 ───────
+
+**Overview**
+- Choose one of **5 PlayerClasses** on first join: **Celestial Templar** (Holy Warrior), **Wildland Ranger** (Nature Archer), **Redeemed Artificer** (Master Crafter), **Corrupted Cultist** (Dark Mage), **Destroyer Berserker** (Brutal Axeman).
+- Each class has a **Mastery Skill** that levels from 1-50 by performing class-specific actions (killing mobs, crafting, PvP, etc.).
+- Every 5-10 levels, you unlock **new abilities and passives**. At level 50, you receive a **Class Mastery Item** (legendary weapon/armor with max enchants).
+- Mastery skills are fully integrated with **AuraSkills** – view progression in `/skills` menu alongside vanilla skills like Mining and Fighting.
+- System uses **AuraSkills Custom Content API** with custom skill registration and XP sources.
+
+**The 5 Classes**
+
+**1. Celestial Templar** (Holy Warrior)
+- **Mastery Skill:** `lostwilderness/templar_mastery` – Levels by killing undead mobs (zombies, skeletons, withers)
+- **Stat Bonuses:** +0.2 Strength/level, +0.1 Health/2 levels
+- **Abilities:**
+  - **Smite** (Lv1): Right-click + sneak with sword → Divine lightning strikes nearby enemy (1 target, 8 damage, 8s cooldown, 30 mana)
+  - **Divine Strike** (Lv15): Smite now hits 2 targets
+  - **Ascension** (Lv50): Smite hits 3 targets, mana cost 50
+- **Ultimate Item:** **Holy Avenger** (Diamond Sword) – Sharpness X, Smite X, Unbreaking X, Fire Aspect III
+
+**2. Wildland Ranger** (Nature Archer)
+- **Mastery Skill:** `lostwilderness/ranger_mastery` – Levels by killing mobs with bow and taming animals
+- **Stat Bonuses:** +0.1 Speed/level, +0.2 Luck/2 levels
+- **Abilities:**
+  - **Volley** (Lv1): Right-click + sneak with bow → Shoot 5 arrows in spread pattern (8s cooldown, 25 mana)
+  - **Animal Companion** (Lv20): Tamed wolves deal +15% damage
+  - **Eagle Eye** (Lv30): Volley arrows have +2 block range
+- **Ultimate Item:** **Ranger's Quiver** (Leather Chestplate) – Protection X, Projectile Protection X, Unbreaking X
+
+─────── PART 2 ───────
+
+**3. Redeemed Artificer** (Master Crafter)
+- **Mastery Skill:** `lostwilderness/artificer_mastery` – Levels by crafting items and repairing gear at anvils
+- **Stat Bonuses:** +0.2 Wisdom/level, +0.1 Toughness/2 levels
+- **Abilities:**
+  - **Slam** (Lv1): Right-click + sneak with pickaxe → Ground slam deals damage + slowness in 4 block radius (10s cooldown, 35 mana)
+  - **Power Slam** (Lv15): Slam radius 6 blocks, Slowness III effect
+  - **Master Craftsman** (Lv30): Crafting yields +1 item (for gear/tools)
+- **Ultimate Item:** **Eternal Hammer** (Netherite Pickaxe) – Efficiency X, Fortune X, Unbreaking X, Mending
+
+**4. Corrupted Cultist** (Dark Mage)
+- **Mastery Skill:** `lostwilderness/cultist_mastery` – Levels by PvP kills and lifesteal procs
+- **Stat Bonuses:** +0.2 Regeneration/level, +0.1 Luck/2 levels
+- **Abilities:**
+  - **Dash** (Lv1): Right-click + sneak with ender pearl → Dash forward 8 blocks (6s cooldown, 20 mana)
+  - **Shadow Step** (Lv10): Dash range 12 blocks with particle trail
+  - **Lifesteal** (Lv5): 5% chance to heal 1 heart on melee hit
+  - **Soul Drain** (Lv30): Lifesteal upgraded to 15% chance for 1.5 hearts
+- **Ultimate Item:** **Mirror Shard** (Ender Pearl) – Custom item for teleportation abilities
+
+**5. Destroyer Berserker** (Brutal Axeman)
+- **Mastery Skill:** `lostwilderness/berserker_mastery` – Levels by killing mobs with axe and dealing damage at low HP
+- **Stat Bonuses:** +0.3 Strength/level, +0.2 Crit Damage/2 levels
+- **Abilities:**
+  - **War Cry** (Lv1): Right-click + sneak with axe → Roar gives Strength I to self (12s cooldown, 30 mana)
+  - **Brutal War Cry** (Lv15): War Cry also gives Strength I to allies in 8 block radius
+  - **Berserker's Rage** (Lv5): Gain Strength I when below 30% HP (passive)
+  - **Unstoppable** (Lv50): Gain Resistance I when below 20% HP (passive)
+- **Ultimate Item:** **Ragnarok Axe** (Netherite Axe) – Sharpness X, Efficiency X, Unbreaking X, Sweeping Edge V
+
+─────── PART 3 ───────
+
+**How to Use**
+- **Choose Class:** On first join, you're prompted to select a class. Once chosen, cannot be changed.
+- **Earn XP:** Perform class-specific actions to level your mastery skill (view XP sources in `/skills` menu).
+- **View Progress:** Run `/skills` → click your class mastery skill icon (4th row) → see level progression, stat rewards, and ability unlocks.
+- **Use Abilities:** Right-click + sneak with the appropriate item (sword/bow/pickaxe/pearl/axe) when you have enough mana.
+- **Mana System:** All abilities use AuraSkills mana. Mana regenerates over time. View mana bar above hotbar.
+
+**Leveling Time**
+- Expected time to reach level 50: **15-25 hours** of class-specific gameplay.
+- Abilities unlock at levels: 1, 5, 10, 15, 20, 30, 50
+- Stat bonuses apply at every level (or every 2 levels for secondary stat)
+
+**XP Sources Examples**
+- **Templar:** 20 XP per zombie/skeleton kill, 10 XP per Smite ability use
+- **Ranger:** 25 XP per bow kill, 50 XP per tame, 10 XP per Volley ability use
+- **Artificer:** 5 XP per crafted item (max 50/event), 15 XP per anvil repair, 10 XP per Slam ability use
+- **Cultist:** 40 XP per PvP kill, 8 XP per lifesteal proc, 10 XP per Dash ability use
+- **Berserker:** 20 XP per axe kill, 5 XP per low-HP damage dealt, 10 XP per War Cry ability use
+
+**Commands**
+- `/skills` – Open AuraSkills GUI (shows all skills including class mastery)
+- `/class info` – View your selected class and mastery level
+- `/class select` – Select class (first-time only)
+
+**Permissions**
+- **lw.class.use** – Use class selection and view class info
+
+─────── PART 4 ───────
+
+**Technical Details**
+- **Integration:** Uses AuraSkills Custom Content API v2.3.10 with `NamespacedRegistry` for skill registration
+- **Namespace:** All custom skills use `lostwilderness` namespace (e.g. `lostwilderness/templar_mastery`)
+- **Config Files:** 12 auto-extracted files in `plugins/RPG_Core_V2/auraskills-content/` (skills.yml, mana_abilities.yml, 5 sources, 5 rewards)
+- **Menu Support:** Skills appear in `/skills` GUI with multiple naming variations for clickability (GitHub issue #461 solution)
+- **Database:** `player_classes` table tracks class selection, `class_ultimate_items` tracks level 50 item grants
+- **Starter XP:** New players receive 150 XP in their chosen class to immediately reach level 1
+
+**Phase 8 Hotfixes**
+- **Hotfix 1 (Clickability):** Fixed custom skills not opening level progression pages. Solution: Added reward files, fixed skills.yml mana_ability references, bundled configs in JAR with auto-extraction.
+- **Hotfix 2 (Locked Levels):** Fixed locked level tooltips showing only "Level X Locked" without reward info. Solution: Changed reward intervals from 5-10 levels to 1-2 levels (matching vanilla AuraSkills frequency).
+
+**Status:** ✅ **COMPLETE** – All 8 phases finished (Phase 6 skipped). System ready for production with full AuraSkills integration.

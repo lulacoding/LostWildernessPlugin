@@ -1,0 +1,7 @@
+# One database for all tables (player, clans, progression, reputation, calendar, portals, etc.)
+datasources:
+  player:
+    jdbc-url: "jdbc:mysql://localhost:3306/lw_player?useSSL=false&allowPublicKeyRetrieval=true"
+    username: "root"
+    password: ""
+    maximum-pool-size: 20

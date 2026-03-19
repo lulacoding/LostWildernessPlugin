@@ -1,0 +1,42 @@
+# Package "default" – bridge tags + milestones menu. PluginV2 opens default.milestones via /rewards and /milestones.
+
+events:
+  milestone_first_join_unlocked: "tag add milestone_first_join_unlocked"
+  milestone_join_3_times_unlocked: "tag add milestone_join_3_times_unlocked"
+  milestone_join_ten_times_unlocked: "tag add milestone_join_ten_times_unlocked"
+  milestone_first_join_claimed: "tag add milestone_first_join_claimed"
+  milestone_join_3_times_claimed: "tag add milestone_join_3_times_claimed"
+  milestone_join_ten_times_claimed: "tag add milestone_join_ten_times_claimed"
+  claim_first_join: "chat /v2claim first_join"
+  claim_join_3_times: "chat /v2claim join_3_times"
+  claim_join_ten_times: "chat /v2claim join_10_times"
+
+items:
+  btn_first_join: "PAPER name:&eFirst Join"
+  btn_join_3: "GOLD_INGOT name:&6Join 3 Times"
+  btn_join_ten: "EMERALD name:&aJoin Ten Times"
+
+menus:
+  milestones:
+    title: "&6Milestones"
+    height: 3
+    slots:
+      11: "btn_first_join"
+      13: "btn_join_3"
+      15: "btn_join_ten"
+    items:
+      btn_first_join:
+        item: "btn_first_join"
+        text: "&eFirst Join&7\n50 Fighting XP\n&aClick to claim."
+        click: "claim_first_join"
+        close: true
+      btn_join_3:
+        item: "btn_join_3"
+        text: "&6Join 3 Times&7\n25 Fighting XP\n&aClick to claim."
+        click: "claim_join_3_times"
+        close: true
+      btn_join_ten:
+        item: "btn_join_ten"
+        text: "&aJoin Ten Times&7\nOne Hundred Fighting XP\n&aClick to claim."
+        click: "claim_join_ten_times"
+        close: true

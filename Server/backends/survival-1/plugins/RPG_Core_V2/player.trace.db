@@ -1,0 +1,56 @@
+2026-03-16 12:16:32.586085+11:00 jdbc[3]: exception
+com.lostwilderness.rpgcore.lib.org.h2.jdbc.JdbcSQLSyntaxErrorException: (Message 42001 not found); SQL statement:
+CREATE TABLE IF NOT EXISTS calendar_state (
+    id INT PRIMARY KEY,
+    epoch_day BIGINT NOT NULL,
+    mc_day BIGINT NOT NULL,
+    year INT NOT NULL,
+    month INT NOT NULL,
+    day INT NOT NULL,
+    season VARCHAR(16) NOT NULL
+)
+ [42001-224]
+2026-03-16 12:20:00.680648+11:00 jdbc[3]: exception
+com.lostwilderness.rpgcore.lib.org.h2.jdbc.JdbcSQLSyntaxErrorException: (Message 42001 not found); SQL statement:
+CREATE TABLE IF NOT EXISTS progression_counters (
+    player_uuid VARCHAR(36) NOT NULL,
+    counter_key VARCHAR(255) NOT NULL,
+    value BIGINT NOT NULL,
+    PRIMARY KEY (player_uuid, counter_key)
+)
+ [42001-224]
+2026-03-16 15:51:15.654010+11:00 database: wrong user or password; user: "MINECRAFT"
+com.lostwilderness.rpgcore.lib.org.h2.message.DbException: (Message 28000 not found) [28000-224]
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.org.h2.message.DbException.get(DbException.java:223)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.org.h2.message.DbException.get(DbException.java:199)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.org.h2.message.DbException.get(DbException.java:188)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.org.h2.engine.Engine.openSession(Engine.java:154)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.org.h2.engine.Engine.openSession(Engine.java:222)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.org.h2.engine.Engine.createSession(Engine.java:201)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:343)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:125)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.org.h2.Driver.connect(Driver.java:59)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:137)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.hikari.pool.PoolBase.newConnection(PoolBase.java:360)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.hikari.pool.HikariPool.checkFailFast(HikariPool.java:550)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.hikari.pool.HikariPool.<init>(HikariPool.java:98)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.infra.db.DatabaseProvider.<init>(DatabaseProvider.java:36)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.core.RPGCorePlugin.onEnable(RPGCorePlugin.java:63)
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:279)
+	at io.papermc.paper.plugin.manager.PaperPluginInstanceManager.enablePlugin(PaperPluginInstanceManager.java:207)
+	at io.papermc.paper.plugin.manager.PaperPluginManagerImpl.enablePlugin(PaperPluginManagerImpl.java:109)
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:520)
+	at org.bukkit.craftbukkit.CraftServer.enablePlugin(CraftServer.java:639)
+	at org.bukkit.craftbukkit.CraftServer.enablePlugins(CraftServer.java:596)
+	at net.minecraft.server.MinecraftServer.initPostWorld(MinecraftServer.java:636)
+	at net.minecraft.server.dedicated.DedicatedServer.initServer(DedicatedServer.java:365)
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1253)
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:388)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: com.lostwilderness.rpgcore.lib.org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: (Message 28000 not found) [28000-224]
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
+	at RPG_Core_V2-2.0.0-SNAPSHOT-all.jar//com.lostwilderness.rpgcore.lib.org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 29 more

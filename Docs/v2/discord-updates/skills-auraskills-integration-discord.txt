@@ -1,0 +1,215 @@
+**PluginV2 – Skills Module (AuraSkills Integration)** (Discord paste)
+Paste each part in a separate message. Use **bold**, `code`, - lists.
+
+─────── PART 1 ───────
+
+**Overview**
+- **AuraSkills integration bridge** that allows Lost Wilderness modules to grant XP to vanilla AuraSkills skills
+- **Soft dependency:** System works with or without AuraSkills plugin installed
+- **Milestone rewards:** Progression milestones can reward AuraSkills XP (e.g., First Join → +50 Fighting XP)
+- **Custom content:** Classes system uses this module to register 5 custom mastery skills
+- **API wrapper:** Provides clean interface to AuraSkills API for other modules
+
+**What is AuraSkills?**
+AuraSkills is a popular RPG skills plugin that adds 15 vanilla skills:
+- **Combat:** Fighting, Archery, Defense
+- **Gathering:** Mining, Foraging, Excavation, Fishing, Farming
+- **Utility:** Agility, Alchemy, Enchanting, Sorcery, Healing, Endurance, Forging
+
+Players level skills by performing related actions (mining ores, fighting mobs, etc.) and gain stat bonuses (Strength, Luck, Speed, Health, etc.).
+
+**Lost Wilderness Integration**
+Our Skills module extends AuraSkills by:
+1. **Granting XP rewards** from progression milestones
+2. **Registering custom skills** (5 class mastery skills via Classes module)
+3. **Providing API bridge** for other modules to interact with AuraSkills
+
+─────── PART 2 ───────
+
+**Milestone XP Rewards**
+
+When players unlock progression milestones, they can claim AuraSkills XP rewards:
+
+**Join Milestones:**
+- **First Join** → +50 Fighting XP
+- **Join 3 Times** → +25 Fighting XP
+- **Join 10 Times** → +100 Fighting XP
+
+**Playtime Milestones:**
+- **1 Hour Played** → +50 Endurance XP
+- **5 Hours Played** → +100 Endurance XP
+
+**Boss Kill Milestones:**
+- **Wither x36** → +500 Fighting XP
+- **Devoider x6** → +1000 Fighting XP + +500 Defense XP
+- **El Diablo** → +2000 Fighting XP + +1000 Defense XP
+
+**Seasonal Milestones:**
+- **First Spring** → +50 Farming XP
+- **First Summer** → +50 Farming XP
+- **First Autumn** → +50 Farming XP
+- **First Winter** → +50 Foraging XP
+
+**How to Claim:**
+1. Open `/milestones` menu
+2. Click on unlocked milestone (green glass pane)
+3. Rewards granted automatically including AuraSkills XP
+4. Check `/skills` to see your new XP and levels
+
+─────── PART 3 ───────
+
+**AuraSkills Bridge API**
+
+The **AuraSkillsBridge** provides a simple API for other modules:
+
+**Methods:**
+- `addSkillXp(UUID player, String skillKey, double amount)` – Grant XP to a skill
+- `getSkillLevel(UUID player, String skillKey)` – Get player's current level in a skill
+- `isAvailable()` – Check if AuraSkills plugin is installed
+
+**Skill Keys:**
+- `fighting`, `archery`, `defense`, `endurance` (combat)
+- `mining`, `foraging`, `excavation`, `fishing`, `farming` (gathering)
+- `agility`, `alchemy`, `enchanting`, `sorcery`, `healing`, `forging` (utility)
+- Custom skills: `lostwilderness/templar_mastery`, `lostwilderness/ranger_mastery`, etc.
+
+**Example Usage:**
+```java
+AuraSkillsBridge bridge = plugin.getAuraSkillsBridge();
+if (bridge.isAvailable()) {
+    bridge.addSkillXp(playerUuid, "fighting", 100.0);
+}
+```
+
+**Fallback Behavior:**
+If AuraSkills is not installed:
+- `addSkillXp()` does nothing (silently fails)
+- `getSkillLevel()` returns 0
+- Milestone rewards still unlock but XP rewards are skipped
+
+─────── PART 4 ───────
+
+**Custom Skill Registration**
+
+The Skills module allows other modules (like Classes) to register custom AuraSkills skills:
+
+**Classes Integration:**
+- Classes module registers 5 custom mastery skills via `AuraSkillsIntegration`
+- Skills appear in `/skills` menu alongside vanilla skills
+- Custom namespace: `lostwilderness/skill_name`
+- Full config support: XP sources, rewards, mana abilities
+
+**How It Works:**
+1. Classes module creates `AuraSkillsIntegration` instance
+2. Integration uses `NamespacedRegistry` API to register skills
+3. Config files extracted to `plugins/RPG_Core_V2/auraskills-content/`
+4. AuraSkills loads custom skills on startup
+5. Players can view and level custom skills like vanilla ones
+
+**Benefits:**
+- **Unified progression:** All skills (vanilla + custom) in one menu
+- **Consistent UX:** Same level-up sounds, stat bonuses, and progression display
+- **API compatibility:** Custom skills work with AuraSkills API methods
+- **No conflicts:** Namespace separation prevents collision with vanilla skills
+
+─────── PART 5 ───────
+
+**Commands**
+
+**Player Commands:**
+- `/skills` – Open AuraSkills menu (shows vanilla + custom skills)
+- `/milestones` → `/rewards` – Claim milestone rewards including AuraSkills XP
+- `/v2claim` – Alternative command to claim rewards directly
+
+**Admin Commands:**
+- `/v2skills <player> <skill> <xp>` – Grant XP to player (debug command)
+
+**Permissions:**
+- No special permissions required – uses AuraSkills permissions
+
+**Configuration** (`config/core.yml`)
+
+```yaml
+enabled-modules:
+  - player
+  - skills      # Enable AuraSkills integration
+  - progression
+  - classes
+```
+
+**Dependency:**
+- `compileOnly 'dev.aurelium:auraskills-api-bukkit:2.3.10'` in `build.gradle`
+- AuraSkills plugin must be installed for integration to work
+- Module gracefully degrades if AuraSkills is not present
+
+─────── PART 6 ───────
+
+**Technical Details**
+
+**Module Components:**
+- **SkillsModule** – RpgModule implementation, registers AuraSkillsBridge service
+- **AuraSkillsBridge** – API wrapper for AuraSkills plugin
+- **SkillXpService** – Internal service for granting XP (used by other modules)
+- **AuraSkillsIntegration** (Classes) – Custom skill registration system
+
+**Service Registration:**
+```java
+@Override
+public void onLoad(ModuleContext ctx) {
+    AuraSkillsBridge bridge = new AuraSkillsBridge(plugin);
+    ctx.getServiceRegistry().register(AuraSkillsBridge.class, bridge);
+}
+```
+
+**Integration Points:**
+- **ProgressionModule:** Claims milestone rewards via AuraSkillsBridge
+- **ClassesModule:** Registers custom mastery skills and grants class XP
+- **EventsModule:** Can grant XP rewards from event participation (future)
+
+**Error Handling:**
+- **Plugin missing:** Methods return gracefully without throwing exceptions
+- **Invalid skill key:** Logs warning and skips XP grant
+- **Player offline:** Skips XP grant (AuraSkills API requires online player)
+
+**Performance:**
+- **Minimal overhead:** Only checks plugin availability once on startup
+- **Async-safe:** Can be called from async contexts (AuraSkills handles sync)
+- **No database:** Uses AuraSkills internal storage
+
+─────── PART 7 ───────
+
+**Progression System Integration**
+
+The Skills module is a **key component** of the progression system:
+
+**Progression Flow:**
+1. Player completes a milestone (e.g., kills Wither)
+2. Milestone unlocked in database
+3. Player opens `/milestones` menu
+4. Player clicks unlocked milestone
+5. **Rewards granted:**
+   - BetonQuest events fired (tags, journal)
+   - Item rewards given
+   - **AuraSkills XP granted** via SkillsModule
+6. Milestone marked as claimed
+
+**Why Use AuraSkills?**
+- **Proven system:** Well-maintained plugin with years of development
+- **Rich features:** Stats, abilities, mana, job system, leaderboards
+- **Extensible:** Custom Content API allows adding our own skills
+- **Performance:** Optimized for large servers
+- **No reinventing the wheel:** Focus our development on unique Lost Wilderness features
+
+**Lost Wilderness Additions:**
+- **Milestone rewards:** Grant AuraSkills XP for completing story milestones
+- **Class mastery skills:** 5 custom skills for class progression
+- **Event rewards:** Future events can grant XP bonuses
+- **Integration:** Bridge allows all modules to interact with skills
+
+**Status:** ✅ **COMPLETE** – Skills module fully integrated with AuraSkills API. Used by Progression and Classes modules for XP rewards and custom skill registration.
+
+**Future Enhancements:**
+- Event participation XP bonuses
+- PvP kill XP rewards
+- Clan achievement XP rewards
+- Custom stat modifiers for Lost Wilderness traits

@@ -1,0 +1,23 @@
+name: LW-Amplified-V2
+main: com.lostwilderness.amplifiedv2.AmplifiedV2Plugin
+version: 1.0.0
+api-version: 1.21
+description: Thin Amplified wrapper plugin for RPG_Core_V2 (V2 core).
+depend: [RPG_Core_V2]
+author: lula0802
+
+commands:
+  date:
+    description: Shows the current in-game date
+  time:
+    description: Shows the current in-game time
+  eoc:
+    description: Shows days since Epoch (Day 0)
+  datejoined:
+    description: Shows when you joined the server
+  season:
+    description: Shows the current season. Use /season guide to open the seasonal guide book.
+  event:
+    description: List or show info about seasonal events (read-only)
+    usage: /<command> <list|info>
+

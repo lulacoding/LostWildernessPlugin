@@ -1,0 +1,14 @@
+# RPG_Core_V2 – core config
+environment: dev
+server-role: amplified
+enabled-modules:
+  - player
+  - progression
+  - skills
+  - classes
+  - calendar
+  - events
+  - clans
+  - boss
+  - reputation
+  - portals

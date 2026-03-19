@@ -1,0 +1,58 @@
+# Lost Wilderness — MariaDB tuning drop-in
+# Deploy to: /etc/mysql/mariadb.conf.d/99-lostwilderness.cnf
+# Adjust innodb_buffer_pool_size before copying (see database-architecture-and-tuning.md §4b).
+
+[mysqld]
+
+# ---------------------------------------------------------------------------
+# InnoDB / storage engine
+# ---------------------------------------------------------------------------
+
+# Set to ~50-70% of RAM dedicated to MariaDB.
+# Examples: 4 GB host → 1G | 8 GB host → 3G | 16 GB host → 6G
+innodb_buffer_pool_size         = 2G
+
+# Safest durability: fsync log + data on every commit.
+# Change to 2 only if you accept slight data-loss risk in exchange for speed.
+innodb_flush_log_at_trx_commit  = 1
+
+# Larger redo log = fewer checkpoints under write bursts.
+innodb_log_file_size            = 256M
+
+# ---------------------------------------------------------------------------
+# Connections
+# ---------------------------------------------------------------------------
+
+# Hikari pools: ~10-15 per JVM × 3 backends + bot ≈ 50-60 active.
+# Leave generous headroom so spikes do not hit the ceiling.
+max_connections                 = 150
+
+# Timeout idle connections faster to free descriptors.
+wait_timeout                    = 600
+interactive_timeout             = 600
+
+# ---------------------------------------------------------------------------
+# Character set
+# ---------------------------------------------------------------------------
+
+character_set_server            = utf8mb4
+collation_server                = utf8mb4_unicode_ci
+
+# ---------------------------------------------------------------------------
+# Slow query log (disabled by default; enable temporarily to diagnose)
+# ---------------------------------------------------------------------------
+
+slow_query_log                  = 0
+slow_query_log_file             = /var/log/mysql/slow.log
+long_query_time                 = 1
+
+# ---------------------------------------------------------------------------
+# Binary log / replication (disabled until you add replicas)
+# ---------------------------------------------------------------------------
+
+# Uncomment if you ever set up replication:
+# log_bin        = /var/log/mysql/mariadb-bin
+# sync_binlog    = 1
+
+[client]
+default-character-set           = utf8mb4

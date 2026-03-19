@@ -1,0 +1,13 @@
+# Database datasources. One DB (player) holds all tables: verification, classes, clans, progression, reputation, calendar, portals, etc.
+datasources:
+  player:
+    jdbc-url: "jdbc:h2:./plugins/RPG_Core_V2/player;AUTO_SERVER=TRUE"
+    username: ""
+    password: ""
+    maximum-pool-size: 10
+# Example MySQL – single database for everything:
+#  player:
+#    jdbc-url: "jdbc:mysql://localhost:3306/lw_player?useSSL=false"
+#    username: lw
+#    password: CHANGE_ME
+#    maximum-pool-size: 20

@@ -1,0 +1,63 @@
+crafting:
+  type: crafting
+  menu_item:
+    material: crafting_table
+  sources:
+    diamond_sword:
+      xp: 50.0
+    diamond_pickaxe:
+      xp: 50.0
+    diamond_axe:
+      xp: 50.0
+    diamond_shovel:
+      xp: 40.0
+    diamond_hoe:
+      xp: 40.0
+    diamond_helmet:
+      xp: 45.0
+    diamond_chestplate:
+      xp: 60.0
+    diamond_leggings:
+      xp: 55.0
+    diamond_boots:
+      xp: 40.0
+    netherite_sword:
+      xp: 80.0
+    netherite_pickaxe:
+      xp: 80.0
+    netherite_axe:
+      xp: 80.0
+    netherite_shovel:
+      xp: 70.0
+    netherite_hoe:
+      xp: 70.0
+    netherite_helmet:
+      xp: 75.0
+    netherite_chestplate:
+      xp: 100.0
+    netherite_leggings:
+      xp: 90.0
+    netherite_boots:
+      xp: 70.0
+    iron_sword:
+      xp: 10.0
+    iron_pickaxe:
+      xp: 10.0
+    iron_axe:
+      xp: 10.0
+    iron_shovel:
+      xp: 8.0
+    iron_hoe:
+      xp: 8.0
+    golden_sword:
+      xp: 12.0
+    golden_pickaxe:
+      xp: 12.0
+    golden_axe:
+      xp: 12.0
+anvil_repairs:
+  type: custom
+  menu_item:
+    material: anvil
+  xp: 15.0
+file_version: 1

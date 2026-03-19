@@ -1,0 +1,42 @@
+# common/src/main/resources/config.yml
+
+server-name: survival
+
+# Both Survival and Amplified must use the same MySQL database so calendar day and events stay in sync.
+mysql:
+  host: localhost
+  port: 3306
+  database: minecraft
+  username: minecraft
+  password: changeme123
+
+# Optional: database pool and timeouts (for portals/Common DB). Tune for high player counts.
+# database:
+#   type: mysql
+#   host: localhost
+#   port: 3306
+#   name: minecraft
+#   user: root
+#   password: changeme123
+#   pool-size: 20
+#   connection-timeout-ms: 30000
+#   idle-timeout-ms: 600000
+#   max-lifetime-ms: 1800000
+
+# Optional: Discord webhook for war declare/end messages. Leave empty to disable.
+discord:
+  war-webhook-url: ""
+
+# Calendar item: right-click with this item to open calendar book (date + season). Texture/datapack for placeable block is separate.
+calendar-item:
+  material: CLOCK
+  display-name: "Calendar"
+
+# Disc rewards (200% = Main Theme, etc.). Material names for vanilla or custom discs.
+discs:
+  main-theme: MUSIC_DISC_PIGSTEP
+  get-lost: MUSIC_DISC_OTHERSIDE
+
+resource-packs:
+  default: "https://github.com/lulacoding/packs/raw/main/empty.zip"
+  eclipse: "https://github.com/lulacoding/packs/raw/main/eclipse.zip"

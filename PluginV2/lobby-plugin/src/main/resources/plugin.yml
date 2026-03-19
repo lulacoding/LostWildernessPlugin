@@ -1,0 +1,10 @@
+name: LW_Lobby_V2
+version: 1.0.0-SNAPSHOT
+main: com.lostwilderness.lobbyv2.LobbyV2Plugin
+api-version: '1.21'
+depend: [RPG_Core_V2]
+description: Lost Wilderness Lobby wrapper plugin. Handles Verification, Lobby Protection, and Lobby specific events.
+commands:
+  verify:
+    description: Start Discord verification. Then run /verify <your_mc_name> in Discord.
+    usage: /verify

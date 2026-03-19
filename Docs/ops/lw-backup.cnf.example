@@ -1,0 +1,13 @@
+# MariaDB credentials file for backup script.
+# Copy to /etc/mysql/lw-backup.cnf and fill in real values.
+# CRITICAL: chmod 600 and chown root:root after copying.
+#
+# sudo cp /path/to/repo/Docs/ops/lw-backup.cnf.example /etc/mysql/lw-backup.cnf
+# sudo chmod 600 /etc/mysql/lw-backup.cnf
+# sudo chown root:root /etc/mysql/lw-backup.cnf
+
+[mysqldump]
+user     = CHANGE_ME_DB_USER
+password = CHANGE_ME_DB_PASSWORD
+host     = 127.0.0.1
+port     = 3306

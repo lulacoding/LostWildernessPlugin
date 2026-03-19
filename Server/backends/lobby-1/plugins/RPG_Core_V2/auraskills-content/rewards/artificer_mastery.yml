@@ -1,0 +1,13 @@
+patterns:
+  - type: stat
+    stat: wisdom
+    value: 0.2
+    pattern:
+      interval: 1
+  - type: stat
+    stat: toughness
+    value: 0.1
+    pattern:
+      interval: 2
+levels:
+file_version: 1

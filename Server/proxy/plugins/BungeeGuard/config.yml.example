@@ -1,0 +1,9 @@
+## BungeeGuard (proxy-side) example config
+## - Install the BungeeGuard plugin jar in `Server/proxy/plugins/`
+## - Copy this file to `config.yml` and set a strong secret
+##
+## IMPORTANT: This secret must match the backend-side BungeeGuard config(s).
+
+allowed-tokens:
+  - "CHANGE_ME__GENERATE_A_LONG_RANDOM_TOKEN"
+

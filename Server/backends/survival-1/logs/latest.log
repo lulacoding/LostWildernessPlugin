@@ -1,0 +1,11 @@
+[07:57:50] [Server thread/INFO]: 🌧 A seasonal storm rolls in… 🌧
+[07:57:50] [Server thread/INFO]: ☾ Thunderstorm Eclipse! Undead cavalry charges through the lightning! ☾
+[08:02:45] [Server thread/INFO]: The seasonal storm subsides…
+[08:02:45] [Server thread/INFO]: The thunderstorm subsides… the skies clear by dawn.
+[09:17:53] [Netty NIO IO #1/WARN]: Failed to deliver packet, sending fallback clientbound/minecraft:system_chat
+io.netty.channel.StacklessClosedChannelException
+	at io.netty.channel.AbstractChannel.close(ChannelPromise)(Unknown Source) ~[netty-transport-4.2.7.Final.jar:4.2.7.Final]
+[09:17:53] [Server thread/INFO]: lula0802 lost connection: Disconnected
+[09:17:53] [Server thread/INFO]: lula0802 left the game
+[09:17:57] [Server thread/INFO]: ☁ A thunderstorm rolls across the land ☁
+[09:17:57] [Server thread/INFO]: ☾ Thunderstorm Eclipse! Undead cavalry charges through the lightning! ☾

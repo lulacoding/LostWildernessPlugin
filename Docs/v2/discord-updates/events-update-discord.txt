@@ -1,0 +1,259 @@
+**PluginV2 – Dynamic World Events System** (Discord paste)
+Paste each part in a separate message. Use **bold**, `code`, - lists.
+
+─────── PART 1 ───────
+
+**Overview**
+- **20+ dynamic world events** that trigger automatically based on calendar, season, and chance
+- Events can be **seasonal** (Spring Bloom, Autumn Leaf Fall), **weather-based** (Blizzard, Fog, Thunder), **combat-focused** (Blood Moon, Eclipse), or **community-focused** (Festival, Fishing Festival)
+- Each event has unique **environmental effects**, **gameplay buffs/debuffs**, and **visual changes**
+- **Event cascades:** Some events can trigger child events (e.g., Eclipse → Paranoia, Eclipse → Thunderstorm Eclipse)
+- **Player preferences:** Toggle specific events or event boss bar with `/event toggle <name>` and `/event togglebar`
+- **TPS guard:** Events can be skipped if server TPS drops below threshold
+- **Block restoration:** Events that modify blocks (Blizzard, Frost) save changes to disk and restore after crashes
+
+**Major Events**
+
+**Blood Moon** (Rare, Any Season)
+- **Trigger:** 5% chance per night
+- **Duration:** Full night
+- **Effects:**
+  - Sky turns red
+  - Hostile mob spawn rate +50%
+  - All hostile mobs deal +25% damage
+  - Moon appears blood red
+- **Announce:** "The Blood Moon rises... Stay vigilant."
+
+**Eclipse** (Rare, Any Season)
+- **Trigger:** 3% chance per day
+- **Duration:** 10 minutes
+- **Effects:**
+  - Sky darkens to night level during day
+  - Hostile mobs spawn and burn immunity
+  - +25% hostile mob damage
+  - Can cascade into **Thunderstorm Eclipse** or **Paranoia**
+- **Horde Spawn:** Every 30 seconds, spawns 5 zombies + 3 skeletons near players
+- **Announce:** "An Eclipse has begun. Darkness consumes the sun."
+
+**Paranoia** (Eclipse Cascade, Rare)
+- **Trigger:** 20% chance when Eclipse starts
+- **Duration:** Same as Eclipse (10 minutes)
+- **Effects:**
+  - Plays randomized horror sounds to all players (cave ambience, ghast cries, wither sounds)
+  - Sounds play every 15-45 seconds
+  - Psychological atmosphere event (no gameplay changes)
+- **Announce:** "You feel watched..."
+
+─────── PART 2 ───────
+
+**Blizzard** (Winter Only)
+- **Trigger:** 15% chance per winter day
+- **Duration:** 15 minutes
+- **Effects:**
+  - Heavy snowfall particle effects
+  - Freezing damage (0.5 hearts/5s unless near fire/lava)
+  - Slowness I effect in snow biomes
+  - Snow accumulation on blocks (saved to disk for crash restoration)
+- **Block Changes:** Places snow layers on valid blocks, restored when event ends
+- **Announce:** "A Blizzard approaches. Seek shelter!"
+
+**Frost** (Winter Only)
+- **Trigger:** 10% chance per winter day
+- **Duration:** 20 minutes
+- **Effects:**
+  - Water freezes to ice
+  - Wet sponges freeze
+  - Farmland freezes
+  - All block changes saved to `block_restore.yml` for crash safety
+- **Restoration:** Blocks restored on event end or server restart
+- **Announce:** "Frost grips the land."
+
+**Festival** (Spring Only)
+- **Trigger:** Fixed date (calendar day 50-52 of Spring)
+- **Duration:** 3 days
+- **Effects:**
+  - Villagers within 48 blocks of players become "Festival Merchants"
+  - Merchants have custom names and PDC markers
+  - Better trades (not implemented yet)
+  - Fireworks at night
+- **Restoration:** Merchants restored to normal when event ends
+- **Announce:** "The Spring Festival begins! Villagers celebrate."
+
+**Spring Bloom** (Spring Only)
+- **Trigger:** First day of Spring
+- **Duration:** Permanent (seasonal)
+- **Effects:**
+  - Flowers spread naturally in Plains and Forest biomes
+  - Grass grows faster
+  - Bees more active
+  - Bone meal more effective (+20% growth chance)
+- **Visual:** Particle effects around growing plants
+
+─────── PART 3 ───────
+
+**Autumn Leaf Fall** (Autumn Only)
+- **Trigger:** Throughout Autumn season
+- **Duration:** Seasonal
+- **Effects:**
+  - Falling leaf particles (orange/brown)
+  - Leaves decay faster
+  - Pumpkins grow faster
+  - Harvest yields +10%
+- **Visual:** Constant leaf particle effects in Forest biomes
+
+**Summer Heatwave** (Summer Only)
+- **Trigger:** 10% chance per summer day
+- **Duration:** 1 Minecraft day
+- **Effects:**
+  - Players take heat damage in deserts/badlands (0.5 hearts/10s)
+  - Crops grow faster (+25% tick speed)
+  - Water evaporates in hot biomes (cauldrons drain)
+  - Fire spreads faster
+- **Announce:** "A Heatwave scorches the land."
+
+**Fog** (Any Season)
+- **Trigger:** 8% chance per day
+- **Duration:** 10 minutes
+- **Effects:**
+  - Render distance reduced to 4 chunks (client-side)
+  - Blindness I effect to all players
+  - Eerie atmosphere
+- **Announce:** "Thick fog rolls in..."
+
+**Thunder** (Any Season, Rain Required)
+- **Trigger:** 15% chance when raining
+- **Duration:** 5 minutes
+- **Effects:**
+  - Thunderstorm weather
+  - Lightning strikes near players (safe)
+  - Charged creepers spawn
+  - Tridents deal +50% damage
+- **Announce:** "Thunder rumbles across the sky."
+
+─────── PART 4 ───────
+
+**Magic Storm** (Rare, Any Season)
+- **Trigger:** 2% chance per day
+- **Duration:** 8 minutes
+- **Effects:**
+  - Purple particle effects
+  - Random potion effects on players (Speed, Jump Boost, Slow Falling, Glowing)
+  - Mobs glow
+  - Enchanting costs reduced by 25%
+- **Announce:** "A Magic Storm swirls above!"
+
+**Fishing Festival** (Any Season)
+- **Trigger:** 5% chance per day
+- **Duration:** 1 Minecraft day
+- **Effects:**
+  - Fishing luck +50%
+  - Treasure catch rate doubled
+  - Fishing XP +100%
+  - All fish caught are larger/better quality
+- **Announce:** "The Fishing Festival has begun! Cast your lines."
+
+**Mining Blessing** (Any Season)
+- **Trigger:** 5% chance per day
+- **Duration:** 1 Minecraft day
+- **Effects:**
+  - Fortune effect on all blocks (as if Fortune III)
+  - Mining speed +20%
+  - Rare ore chance +25%
+  - Double XP from mining
+- **Announce:** "The earth blesses your mining efforts."
+
+**Restful Sleep** (Any Season)
+- **Trigger:** 8% chance per night
+- **Duration:** Until dawn
+- **Effects:**
+  - Players who sleep gain Regeneration II for 5 minutes after waking
+  - Sleep clears all negative potion effects
+  - Nightmares disabled (no phantoms)
+- **Announce:** "A peaceful night settles over the world."
+
+─────── PART 5 ───────
+
+**New Year** (Special Holiday)
+- **Trigger:** Calendar day 1 of Year
+- **Duration:** 1 day
+- **Effects:**
+  - Firework display at midnight (multi-stage show)
+  - All players receive gift items
+  - XP bonus +50% all day
+  - Milestones unlocked: `MILESTONE_NEW_YEAR`
+- **Fireworks:** 5 stages (5min, 3min, 1min, 30s, 0s countdown) with colored fireworks
+- **Announce:** "Happy New Year! May this year bring prosperity."
+
+**Holiday** (Christmas/Easter)
+- **Trigger:** Real-world holidays (Dec 25, Easter Sunday)
+- **Duration:** 1 day
+- **Effects:**
+  - Holiday-themed decorations
+  - Special drops from mobs (gifts, eggs)
+  - Community events
+- **Announce:** "Happy [Holiday]! Celebrate with the community."
+
+**Tornado** (Rare, Any Season)
+- **Trigger:** 1% chance per day
+- **Duration:** 3 minutes
+- **Effects:**
+  - Pulls players and mobs toward center (Launch + slow spiral)
+  - Deals damage if too close to center
+  - Particles and wind sound effects
+  - Items scatter randomly
+- **Announce:** "A Tornado has formed! Take cover!"
+
+**Jungle Monsoon** (Jungle Biomes Only)
+- **Trigger:** 12% chance per day in jungle
+- **Duration:** 15 minutes
+- **Effects:**
+  - Heavy rain
+  - Jungle crops grow 2x faster
+  - Vines spread faster
+  - Muddy terrain (Slowness I)
+- **Announce:** "Monsoon rains flood the jungle."
+
+─────── PART 6 ───────
+
+**Event Cascades**
+Some events can trigger child events probabilistically:
+- **Eclipse** → **Thunderstorm Eclipse** (30% chance if raining)
+- **Eclipse** → **Paranoia** (20% chance)
+
+These create more dynamic and unpredictable gameplay experiences.
+
+**Event Boss Bar**
+- Shows currently active events at the top of screen
+- Per-player toggle: `/event togglebar` (preference saved to database)
+- Color-coded by event type
+- Only shows events with `isActive()` detection
+
+**Player Commands**
+- `/event toggle <event_name>` – Disable/enable specific event for yourself
+- `/event togglebar` – Show/hide event boss bar
+- `/event list` – View all available events and your preferences
+
+**Admin Commands**
+- `/event trigger <event_name>` – Manually start an event
+- `/event end <event_name>` – Forcefully end an active event
+- `/event cooldown <event_name> <days>` – Set cooldown for event
+
+**Config**
+- `config/lw-events-extra.yml` – Event enable/disable, chance rates, durations
+- `events.mob-buffs.*` – Mob buffs during Eclipse and Winter
+- `events.cooldowns.*` – Per-event day cooldowns
+- `events.tps-guard.enabled` – Skip events when TPS < threshold
+- `events.paranoia.*` – Horror sound configuration
+
+**Permissions**
+- **lw.event.toggle** – Toggle personal event preferences
+- **lw.event.admin** – Trigger/end events manually
+
+**Technical Details**
+- **Module:** `events` in `config/core.yml` enabled-modules
+- **Crash-Safe:** Block restoration uses `block_restore.yml` disk backup
+- **Cascade Registry:** `EventCascadeRegistry` manages parent→child event triggers
+- **Cooldown Tracker:** Prevents event spam with configurable day cooldowns
+- **Boss Bar Manager:** Per-player preference system with MySQL persistence
+
+**Status:** ✅ **COMPLETE** – All 20+ events implemented with cascade support, block restoration, and player preferences.

@@ -1,0 +1,10 @@
+patterns:
+  - stat: wisdom
+    value: 1
+    pattern:
+      interval: 5
+  - stat: toughness
+    value: 0.5
+    pattern:
+      interval: 10
+file_version: 1

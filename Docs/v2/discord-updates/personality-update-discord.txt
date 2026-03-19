@@ -1,0 +1,243 @@
+**PluginV2 – Personality Trait & Elemental Quest System**
+
+─────── PART 1 ───────
+
+**Overview**
+- Take a **10-question personality quiz** in the lobby on first join to discover your **Personality Trait** and **Elemental Affinity**.
+- Progress through **4 tiers** (Apprentice → Trait → Master → Ultimate) as you complete story milestones from 0% to 300%.
+- Unlock **passive abilities** at each tier that enhance your playstyle.
+- Receive a **Trait Ultimate Item** at 100% completion (legendary weapon/armor with custom enchants).
+- Discover **5 Elemental Temples** and unlock **god-tier elemental passives** at 300% completion.
+- Bless Ultimate items with **13 Holy Enchants** for additional power.
+
+**The 13 Personality Traits**
+
+**Combat-Focused Traits:**
+1. **MAGE** – Master of arcane magic and potions
+   - **Apprentice (0%):** Splash potions have +50% radius
+   - **Trait (25%):** Potions stack duration instead of replacing
+   - **Master (50%):** Potion effects last +50% longer
+   - **Ultimate (100%):** Receive **Mage's Focus Bow** (Power X, Infinity, Flame III, homing arrows)
+
+2. **WARRIOR** – Melee combat specialist
+   - **Apprentice (0%):** +10% melee damage with swords
+   - **Trait (25%):** Shield cooldown -50%
+   - **Master (50%):** +20% damage when using shield
+   - **Ultimate (100%):** Receive **Warlord's Blade** (Sharpness X, Knockback V, Fire Aspect III)
+
+3. **ARCHER** – Ranged combat expert
+   - **Apprentice (0%):** +15% projectile damage
+   - **Trait (25%):** Arrows pierce +1 entity
+   - **Master (50%):** +25% arrow speed
+   - **Ultimate (100%):** Receive **Celestial Bow** (Power X, Infinity, Punch V, homing arrows)
+
+4. **BERSERKER** – Brutal close-combat fighter
+   - **Apprentice (0%):** Gain Strength I when <30% HP
+   - **Trait (25%):** +20% damage when not wearing chestplate
+   - **Master (50%):** -25% damage taken at low HP
+   - **Ultimate (100%):** Receive **Ragnarok Axe** (Sharpness X, Efficiency X, Sweeping Edge V)
+
+─────── PART 2 ───────
+
+**Support & Utility Traits:**
+5. **HEALER** – Master of restoration (Alignment-based: Good = Regen aura, Evil = Wither aura)
+   - **Apprentice (0%):** AoE healing/damage every 15s (alignment-based)
+   - **Trait (25%):** Potion effects last +50% longer
+   - **Master (50%):** +100% potion healing
+   - **Ultimate (100%):** Receive **Flask of Eternity** (Grants random positive potion effect)
+
+6. **RANGER** – Nature and animal companion specialist
+   - **Apprentice (0%):** +20% movement speed in Forest/Jungle biomes
+   - **Trait (25%):** Tamed mobs deal +15% damage
+   - **Master (50%):** +30% taming success rate
+   - **Ultimate (100%):** Receive **Ranger's Quiver** (Protection X, Thorns V, Unbreaking X)
+
+7. **ALCHEMIST** – Potion brewing expert
+   - **Apprentice (0%):** Brewed potions last +25% longer
+   - **Trait (25%):** Can brew 4 potions simultaneously
+   - **Master (50%):** Brewing stand never requires fuel
+   - **Ultimate (100%):** Receive **Philosopher's Stone** (Grants brewing bonuses)
+
+8. **SMITH** – Master craftsman and repairer
+   - **Apprentice (0%):** Anvil costs -2 levels
+   - **Trait (25%):** -20% material cost for gear crafting
+   - **Master (50%):** Tools lose durability 50% slower
+   - **Ultimate (100%):** Receive **Eternal Hammer** (Efficiency X, Unbreaking X, 50% repair chance)
+
+9. **SCOUT** – Speed and stealth specialist
+   - **Apprentice (0%):** Permanent Speed I (+15%)
+   - **Trait (25%):** Sneak movement = walk speed
+   - **Master (50%):** -75% fall damage
+   - **Ultimate (100%):** Receive **Shadowstep Boots** (Feather Falling X, Depth Strider X, double-sneak teleport)
+
+─────── PART 3 ───────
+
+**Specialized Traits:**
+10. **SAGE** – Knowledge and experience master
+   - **Apprentice (0%):** +25% XP from all sources
+   - **Trait (25%):** +1 extra enchant option at enchanting table
+   - **Master (50%):** -50% enchanting cost
+   - **Ultimate (100%):** Receive **Tome of Wisdom** (Grants 5 XP levels on use)
+
+11. **TAMER** – Animal companion specialist
+   - **Apprentice (0%):** +25% taming success rate
+   - **Trait (25%):** Tamed mobs have +30% max HP
+   - **Master (50%):** Tamed mobs regenerate health faster
+   - **Ultimate (100%):** Receive **Ancient Whistle** (Summons wolf companion)
+
+12. **RUNEKEEPER** – Enchantment specialist
+   - **Apprentice (0%):** Enchanted items glow with particles, +10% enchant effectiveness
+   - **Trait (25%):** No lapis required for enchanting
+   - **Master (50%):** +2 enchant levels on all gear
+   - **Ultimate (100%):** Receive **Runeblade** (Sharpness X, all enchants, random crit effects)
+
+13. **ILLUSIONIST** – Deception and misdirection expert
+   - **Apprentice (0%):** `/trait decoy` spawns fake player (5s, 2min cooldown)
+   - **Trait (25%):** Invisibility potions last 3x longer
+   - **Master (50%):** Mobs ignore you when invisible
+   - **Ultimate (100%):** Receive **Mirror Shard** (Swap positions with target player)
+
+**Progression Tiers**
+- **Apprentice (0%):** Starting tier, basic passive ability
+- **Trait (25%):** Unlock at 25% story completion, improved passive
+- **Master (50%):** Unlock at 50% story completion, advanced passive
+- **Ultimate (100%):** Unlock at 100% story completion, receive Trait Ultimate Item + max passive
+
+─────── PART 4 ───────
+
+**The 5 Elemental Affinities**
+
+Your element is secretly assigned during the personality quiz but remains hidden until a Lord reveals it to you. Once revealed, you can discover 5 Elemental Temples to unlock god-tier passives.
+
+**FIRE** – Passion and destruction
+- **Passive (300%):** Immune to fire and lava damage
+- **Temple:** Hidden in Nether fortress
+
+**EARTH** – Stability and endurance
+- **Passive (300%):** Immune to suffocation damage
+- **Temple:** Hidden deep underground
+
+**WIND** – Freedom and mobility
+- **Passive (300%):** Elytra never loses durability
+- **Temple:** Hidden at high altitude
+
+**WATER** – Flow and adaptability
+- **Passive (300%):** Permanent Water Breathing, immune to drowning
+- **Temple:** Hidden in ocean monument
+
+**AETHER** – Balance and transcendence
+- **Passive (300%):** -90% fall damage, levitation effects last longer
+- **Temple:** Hidden in End dimension
+
+**Post-Game State (300% Completion)**
+- Complete ALL 5 Elemental Temples
+- Reach 300% story completion (100% story + 100% advancements + 100% temples)
+- All 5 elemental passives become active simultaneously
+- Receive +50% bonus drops/XP from all world events
+- Title: "⭐ Post-Game God" displayed in `/datejoined`
+
+─────── PART 5 ───────
+
+**Holy Enchants System**
+
+Ultimate items can be **blessed** by Lords to receive **Holy Enchants** (custom enchantments with unique effects):
+
+1. **SOULFIRE** – Attacks set targets on fire + bonus fire damage
+2. **DIVINE_SHIELD** – Blocking grants absorption hearts
+3. **CELESTIAL_STRIKE** – 20% chance to summon lightning on hit
+4. **VOID_PIERCE** – Ignores 50% of target's armor
+5. **NATURES_GRASP** – Hits root targets in place for 3 seconds
+6. **THUNDERCLAP** – Sprint attacks create knockback wave
+7. **SERPENTS_FANG** – Attacks apply stacking poison
+8. **LUNAR_BLESSING** – Heal 1 heart when killing under moonlight
+9. **STARFALL** – Charged attacks rain down star projectiles
+10. **ANCIENT_WARD** – Reduce all damage by 2 flat hearts
+11. **PHOENIX_FLAME** – 10% chance to revive with 3 hearts (once per day)
+12. **TITANIC_FORCE** – Attacks deal +10% of target's max HP as damage
+13. **ECHO_STEP** – Leave teleport trail that lasts 5 seconds
+
+**Blessing Mechanic:**
+- Lord uses `/trait bless <player>` while player holds Ultimate item
+- Enchantment levels doubled (up to hard cap)
+- Random Holy Enchant added to item
+- Can only bless each item once
+
+**Christmas Event (Dec 25):**
+- Players at 300% completion receive **9 random Holy Enchants** as gifts
+- Can be applied to any Ultimate items
+- Once per year per player
+
+─────── PART 6 ───────
+
+**Completion % Calculation**
+
+**0-100%: Story Milestones**
+- Nether Portal: 10%
+- Ender Dragon: 20%
+- 36 Wither Kills: 30%
+- 6 Devoider Kills: 40%
+- El Diablo Kill: 50%
+- Heavenly Tower: 70%
+- Lord's Plateau: 100%
+
+**100-200%: Vanilla Advancements**
+- Each advancement completed adds to completion %
+- Includes all Minecraft advancements (Story, Nether, End, Adventure, Husbandry)
+
+**200-300%: Elemental Temples**
+- Each of 5 temples completed: +20%
+- Fire Temple: 220%
+- Earth Temple: 240%
+- Wind Temple: 260%
+- Water Temple: 280%
+- Aether Temple: 300%
+
+**Commands**
+- `/trait info [player]` – View trait, tier, element status, completion %
+- `/trait revealelement <player>` – Lord only: Reveal element to player
+- `/trait bless <player>` – Lord only: Bless held Ultimate item with Holy Enchant
+- `/trait temple <element>` – Admin: Mark temple complete
+- `/trait set <trait>` – Admin: Force trait assignment
+- `/datejoined` – Extended to show trait/element info after zodiac
+
+**Permissions**
+- **lw.rank.lord** – Reveal elements and bless items
+- **op** – Admin commands (temple, set, quiz reset)
+
+─────── PART 7 ───────
+
+**How to Progress**
+
+1. **First Join:** Take personality quiz in lobby (10 questions, movement frozen)
+2. **0-25%:** Play as Apprentice, basic passive unlocked
+3. **25%:** Reach 25% completion → auto-advance to **Trait** tier
+4. **50%:** Reach 50% completion → auto-advance to **Master** tier
+5. **100%:** Reach 100% completion → auto-advance to **Ultimate** tier, receive Trait Ultimate Item
+6. **Element Reveal:** Ask a Lord to run `/trait revealelement` to discover your element
+7. **Temple Quests:** Complete 5 Elemental Temple BetonQuest chains
+8. **300%:** Complete all temples + all advancements → **Post-Game God** status
+
+**Database Tables**
+- `player_traits` – Trait assignment, tier, element reveal status
+- `player_temples` – Temple completion tracking (5 rows per player)
+- `player_quiz_answers` – Quiz analytics (10 rows per player)
+- `player_holy_enchants` – Holy Enchant grants tracking
+- `player_christmas_claims` – Christmas event claim tracking
+
+**Technical Details**
+- **Module:** `personality` in `config/core.yml` enabled-modules
+- **PDC Storage:** Trait enchants stored in `lw:trait_enchant` key
+- **Holy Enchants:** Stored in `lw:holy_enchant_1`, `lw:holy_enchant_2`, etc.
+- **Lore Display:** Purple text for Trait enchants, gold text for Holy enchants
+- **Event Integration:** `EventServiceImpl` checks post-game status for reward multiplier
+- **Quiz Integration:** Lobby plugin integration (quiz files not yet created)
+
+**Status:** ✅ **Phases 1-6 COMPLETE** – Core system implemented (Survival side). Quiz integration pending (Lobby side). System ready for testing with manual trait assignment.
+
+**Not Yet Implemented:**
+- Lobby personality quiz (Phase 2 quiz files)
+- 11 advanced trait passive mechanics (marked TODO)
+- 4 complex Holy Enchants (LUNAR_BLESSING, STARFALL, PHOENIX_FLAME, ECHO_STEP)
+- 7 Ultimate item special mechanics (marked TODO)
+
+**Future Work:** BetonQuest temple quest packages for 5 elemental temples.

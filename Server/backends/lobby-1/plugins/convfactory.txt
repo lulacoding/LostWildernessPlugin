@@ -1,0 +1,99 @@
+﻿Compiled from "ConversationEventFactory.java"
+public class org.betonquest.betonquest.quest.event.conversation.ConversationEventFactory implements org.betonquest.betonquest.api.quest.event.EventFactory {
+  private final org.betonquest.betonquest.api.logger.BetonQuestLoggerFactory loggerFactory;
+
+  private final org.betonquest.betonquest.quest.PrimaryServerThreadData data;
+
+  public org.betonquest.betonquest.quest.event.conversation.ConversationEventFactory(org.betonquest.betonquest.api.logger.BetonQuestLoggerFactory, org.betonquest.betonquest.quest.PrimaryServerThreadData);
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: aload_0
+       5: aload_1
+       6: putfield      #7                  // Field loggerFactory:Lorg/betonquest/betonquest/api/logger/BetonQuestLoggerFactory;
+       9: aload_0
+      10: aload_2
+      11: putfield      #13                 // Field data:Lorg/betonquest/betonquest/quest/PrimaryServerThreadData;
+      14: return
+
+  public org.betonquest.betonquest.api.quest.event.Event parseEvent(org.betonquest.betonquest.Instruction) throws org.betonquest.betonquest.exceptions.InstructionParseException;
+    Code:
+       0: new           #17                 // class org/betonquest/betonquest/id/ConversationID
+       3: dup
+       4: aload_1
+       5: invokevirtual #19                 // Method org/betonquest/betonquest/Instruction.getPackage:()Lorg/betonquest/betonquest/api/config/quest/QuestPackage;
+       8: aload_1
+       9: invokevirtual #25                 // Method org/betonquest/betonquest/Instruction.next:()Ljava/lang/String;
+      12: invokespecial #29                 // Method org/betonquest/betonquest/id/ConversationID."<init>":(Lorg/betonquest/betonquest/api/config/quest/QuestPackage;Ljava/lang/String;)V
+      15: astore_2
+      16: goto          33
+      19: astore_3
+      20: new           #34                 // class org/betonquest/betonquest/exceptions/InstructionParseException
+      23: dup
+      24: aload_3
+      25: invokevirtual #36                 // Method org/betonquest/betonquest/exceptions/ObjectNotFoundException.getMessage:()Ljava/lang/String;
+      28: aload_3
+      29: invokespecial #39                 // Method org/betonquest/betonquest/exceptions/InstructionParseException."<init>":(Ljava/lang/String;Ljava/lang/Throwable;)V
+      32: athrow
+      33: aload_0
+      34: aload_1
+      35: aload_2
+      36: invokevirtual #42                 // Method getStartOption:(Lorg/betonquest/betonquest/Instruction;Lorg/betonquest/betonquest/id/ConversationID;)Ljava/lang/String;
+      39: astore_3
+      40: new           #46                 // class org/betonquest/betonquest/quest/event/PrimaryServerThreadEvent
+      43: dup
+      44: new           #48                 // class org/betonquest/betonquest/api/quest/event/online/OnlineEventAdapter
+      47: dup
+      48: new           #50                 // class org/betonquest/betonquest/quest/event/conversation/ConversationEvent
+      51: dup
+      52: aload_0
+      53: getfield      #7                  // Field loggerFactory:Lorg/betonquest/betonquest/api/logger/BetonQuestLoggerFactory;
+      56: aload_2
+      57: aload_3
+      58: invokespecial #52                 // Method org/betonquest/betonquest/quest/event/conversation/ConversationEvent."<init>":(Lorg/betonquest/betonquest/api/logger/BetonQuestLoggerFactory;Lorg/betonquest/betonquest/id/ConversationID;Ljava/lang/String;)V
+      61: aload_0
+      62: getfield      #7                  // Field loggerFactory:Lorg/betonquest/betonquest/api/logger/BetonQuestLoggerFactory;
+      65: ldc           #50                 // class org/betonquest/betonquest/quest/event/conversation/ConversationEvent
+      67: invokeinterface #55,  2           // InterfaceMethod org/betonquest/betonquest/api/logger/BetonQuestLoggerFactory.create:(Ljava/lang/Class;)Lorg/betonquest/betonquest/api/logger/BetonQuestLogger;
+      72: aload_1
+      73: invokevirtual #19                 // Method org/betonquest/betonquest/Instruction.getPackage:()Lorg/betonquest/betonquest/api/config/quest/QuestPackage;
+      76: invokespecial #61                 // Method org/betonquest/betonquest/api/quest/event/online/OnlineEventAdapter."<init>":(Lorg/betonquest/betonquest/api/quest/event/online/OnlineEvent;Lorg/betonquest/betonquest/api/logger/BetonQuestLogger;Lorg/betonquest/betonquest/api/config/quest/QuestPackage;)V
+      79: aload_0
+      80: getfield      #13                 // Field data:Lorg/betonquest/betonquest/quest/PrimaryServerThreadData;
+      83: invokespecial #64                 // Method org/betonquest/betonquest/quest/event/PrimaryServerThreadEvent."<init>":(Lorg/betonquest/betonquest/api/quest/event/Event;Lorg/betonquest/betonquest/quest/PrimaryServerThreadData;)V
+      86: areturn
+    Exception table:
+       from    to  target type
+           0    16    19   Class org/betonquest/betonquest/exceptions/ObjectNotFoundException
+
+  private java.lang.String getStartOption(org.betonquest.betonquest.Instruction, org.betonquest.betonquest.id.ConversationID) throws org.betonquest.betonquest.exceptions.InstructionParseException;
+    Code:
+       0: aload_1
+       1: ldc           #67                 // String option
+       3: invokevirtual #69                 // Method org/betonquest/betonquest/Instruction.getOptional:(Ljava/lang/String;)Ljava/lang/String;
+       6: astore_3
+       7: aload_3
+       8: ifnonnull     13
+      11: aconst_null
+      12: areturn
+      13: aload_2
+      14: invokevirtual #73                 // Method org/betonquest/betonquest/id/ConversationID.getBaseID:()Ljava/lang/String;
+      17: aload_3
+      18: invokedynamic #76,  0             // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+      23: astore        4
+      25: aload_2
+      26: invokevirtual #80                 // Method org/betonquest/betonquest/id/ConversationID.getPackage:()Lorg/betonquest/betonquest/api/config/quest/QuestPackage;
+      29: invokeinterface #81,  1           // InterfaceMethod org/betonquest/betonquest/api/config/quest/QuestPackage.getConfig:()Lorg/betonquest/betonquest/api/bukkit/config/custom/multi/MultiConfiguration;
+      34: aload         4
+      36: invokeinterface #87,  2           // InterfaceMethod org/betonquest/betonquest/api/bukkit/config/custom/multi/MultiConfiguration.contains:(Ljava/lang/String;)Z
+      41: ifne          59
+      44: new           #34                 // class org/betonquest/betonquest/exceptions/InstructionParseException
+      47: dup
+      48: aload_3
+      49: aload_2
+      50: invokedynamic #93,  0             // InvokeDynamic #1:makeConcatWithConstants:(Ljava/lang/String;Lorg/betonquest/betonquest/id/ConversationID;)Ljava/lang/String;
+      55: invokespecial #96                 // Method org/betonquest/betonquest/exceptions/InstructionParseException."<init>":(Ljava/lang/String;)V
+      58: athrow
+      59: aload_3
+      60: areturn
+}

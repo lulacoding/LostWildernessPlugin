@@ -1,0 +1,24 @@
+**PluginV2 – Portals Update** (Discord paste)
+Paste each part in a separate message. Use **bold**, `code`, - lists.
+
+─────── PART 1 ───────
+
+**🌌 Cross-Server Portals – Overview**
+The massive Phase 3 Portal System is fully operational! Portals allow for seamless 1:1 travel between different worlds and servers (like Survival and Amplified) using custom Crying Obsidian frames. 
+
+**✨ Features & Mechanics**
+- **Seamless Travel**: Build a portal frame out of **Crying Obsidian** and light it with Flint & Steel. Stepping inside will instantly transfer you to the destination server.
+- **1:1 Coordinate Mapping**: Traveling through a portal puts you at the exact same X/Z coordinates on the other server. 
+- **Auto-Return Portals**: When you arrive on the other side, the system automatically builds a matching return portal for you! It intelligently searches for the ground to ensure you don't spawn in mid-air or suffocate in a wall.
+- **Vehicle Support**: Portals now fully support entities! If you ride a horse, pig, or even a strider into a portal, your mount will seamlessly transfer across servers with you.
+
+─────── PART 2 ───────
+
+**🛠️ Building & Breaking**
+- **Custom Sizes**: Portals can be built in various shapes and sizes (minimum 4x3). The return portal generated on the other side will perfectly match your original portal's dimensions.
+- **Smart Deactivation**: Breaking any Crying Obsidian block of an active portal frame will instantly deactivate it, clearing out the portal gateway blocks inside automatically.
+
+**📜 Commands** (`/portals`, `/deleteportals`)
+- `/portals list` - View all active portal links and coordinates.
+- `/portals give <player>` - Give a player the Crying Obsidian needed to build a portal.
+- `/deleteportals <radius>` - Admin command to safely remove any portals within a specific radius. It has been upgraded to intelligently detect the exact width and height of the portals to ensure clean removal.

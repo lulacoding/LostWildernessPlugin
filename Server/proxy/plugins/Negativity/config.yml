@@ -1,0 +1,82 @@
+###################################################################
+#                                                                 #
+#                            Negativity                           #
+#                      AntiCheat by Elikill58                     #
+#                                                                 #
+#              If you have a problem or a suggestion,             #
+#                    You can contact me on:                       #
+#                  - Discord: @Elikill58#0743                     #
+#       - my Discord server: https://discord.gg/KHRVTX2           #
+#               - Mail: arpetzouille@gmail.com                    #
+#                   - SpigotMC: Elikill58                         #
+#                  - Minecraft.fr: Elikill                        #
+#                                                                 #
+###################################################################
+
+Database:
+  isActive: false
+  # To get the information. We use the player uuid to get the information.
+  # We get only what you write. We never add or remove something.
+  # We don't save your private information about your database
+  url: "127.0.0.1/myDb"
+  user: root
+  password: "myPassword"
+
+Translation:
+  active: false # enable or disable the translation
+  lang_available:
+  - ar_EG
+  - cs_CZ
+  - de_DE
+  - en_GB
+  - en_US
+  - es_ES
+  - fr_FR
+  - hu_HU
+  - it_IT
+  - id_ID
+  - ja_JP
+  - ko_KR
+  - nl_NL
+  - no_NO
+  - pl_PL
+  - pt_BR
+  - ro_RO
+  - ru_RU
+  - sq_SQ
+  - sv_SV
+  - th_TH
+  - vi_VN
+  - zh_CN
+  default: en_US
+  # The provider used to get translated messages, useful if you want to customize the way Negativity gets its messages.
+  # The only one available out-of-the-box is "platform".
+  provider: platform
+
+# Accounts hold player-specific data of the plugin, like their language and alerts count.
+accounts:
+  storage:
+    # The ID of the storage to use.
+    # For proxies it is only used for loading account's data, saving must be handled by the game server
+    #
+    # The following are available out-of-the-box:
+    # - database : uses a database
+    # Defaults to "database"
+    id: "database"
+
+
+# Configuration of the permissions subsystem. For more information
+# see https://github.com/Elikill58/Negativity/wiki/Permissions
+Permissions:
+  # The checker indicates if a player has a specific permission.
+  # By default only 'platform' is available
+  checker: platform
+  showAlert:
+    default: "negativity.alert"
+  admin:
+    default: "negativity.admin"
+  showReport:
+    default: "negativity.seereport"
+  # To bypass ban system
+  notBanned:
+    default: "negativity.notbanned"

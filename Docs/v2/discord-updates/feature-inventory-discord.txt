@@ -1,0 +1,139 @@
+**PluginV2 – Complete Feature Inventory** (Discord paste)
+Paste each part in a separate message. Use **bold**, `code`, - lists. Same detail as feature-inventory.md.
+
+─────── PART 1 ───────
+
+**1. Core and module system**
+- **RPGCorePlugin** – Entry point. Loads ConfigService (core.yml, db.yml), DatabaseProvider, SchedulerService, StubClusterMessagingService, ServiceRegistry; reads `enabled-modules`, registers modules. Registers core commands (v2progress, v2claim, v2skills, rewards, v2ping; /clan when clans enabled). `getInstance()`, `getService(Class)` for wrappers.
+- **ModuleManager** – Load order: Player → Skills → Calendar → Events → Progression; **Clans** when `clans` in enabled-modules. `load(ModuleContext)` then `onEnable()` per RpgModule.
+- **ModuleContext / ServiceRegistry** – Plugin, config, DB, scheduler, messaging, typed get/register.
+
+**2. Infrastructure**
+- **ConfigService** – config/core.yml (environment, server-role, enabled-modules), config/db.yml (datasources). JAR defaults to data folder if missing.
+- **DatabaseProvider** – HikariCP from db.yml. **SqlExecutor** – async query/update. Used by player, progression, calendar, clans.
+- **SchedulerService** – runSync, runAsync, runSyncDelayed, runSyncRepeating.
+- **ClusterMessagingService** – Interface; **StubClusterMessagingService** no-op.
+
+─────── PART 2 ───────
+
+**3. Player module**
+- **PlayerProfile** – Model (UUID, first-join, lastSeenAt). **PlayerProfileService** – Cache. loadProfileAsync, getProfile, saveProfileAsync (save then evict). **PlayerProfileRepository** – DB load/save, creates table.
+
+**PlayerProfilePreloadListener**
+- **When it runs:** AsyncPlayerPreLoginEvent (async, before login).
+- **What it does:** Calls loadProfileAsync(uuid), waits up to **5s**. If profile loads or is created → allow. If timeout/fail → disallow login + kick message.
+- **Cleanup:** None.
+
+**PlayerSessionListener**
+- **When it runs:** PlayerJoinEvent (ensure cache); PlayerQuitEvent (save + evict).
+- **What it does:** Join: ensure profile in cache (async load if missing). Quit: saveProfileAsync — set lastSeenAt, async save, then evict from cache.
+- **Cleanup:** None. Flow: pre-login load (5s) → join cache → quit save and evict. H2/MySQL via db.yml.
+
+─────── PART 3 ───────
+
+**4. Progression module**
+- **ProgressionService** – hasUnlocked, unlock, getCounter, incrementCounter (5s timeout on repo). **ProgressionRepository** – player_achievements, progression_counters. **Milestones:** first_join, join_3_times, join_10_times. Claimed keys stored separately.
+
+**ProgressionJoinListener**
+- **When it runs:** PlayerJoinEvent; work in **async** task.
+- **What it does:** (1) If !hasUnlocked(first_join): unlock first_join, BetonQuestBridge.onMilestoneUnlocked if present. (2) joinCount = incrementCounter(join_count). (3) If joinCount >= 3 and !hasUnlocked(join_3_times): unlock, notify BetonQuest. (4) If joinCount >= 10 and !hasUnlocked(join_10_times): unlock, notify BetonQuest. No XP here; AuraSkillsBridge.isAvailable() for lazy-init only.
+- **Cleanup:** None.
+
+**V2ClaimCommand**
+- **When it runs:** Player runs `/v2claim <milestone>` (first_join, join_3_times, join_10_times).
+- **What it does:** Resolve to MilestoneReward. Async: check unlocked(milestoneKey), !unlocked(claimedKey), AuraSkills available; unlock(claimedKey). Sync: addSkillXp, message, BetonQuestBridge.onMilestoneClaimed. Rewards: first_join 50 Fighting, join_3 25, join_10 100.
+- **RewardsCommand** – `/rewards` → console `rpgmenu open default.milestoneRewards <player>`. **V2ProgressCommand** – lists unlocked keys.
+
+─────── PART 4 ───────
+
+**5. Skills** – AuraSkillsBridge (lazy init, isAvailable(), addSkillXp online only, getSkillLevel). /v2skills = fighting level. XP only via /v2claim.
+
+**6. Calendar**
+- **CalendarServiceV2** – CalendarSnapshot (date, dayCount, season, mcDay). advanceToNextDay(), resetCalendar(), getPlayerJoinDate. **CalendarDayAdvancedEvent** – fired on day advance (MC day or /nextday); payload newSnapshot, previousSnapshot.
+
+**CalendarDayChangeTitleListener**
+- **When it runs:** CalendarDayAdvancedEvent.
+- **What it does:** NewYearFireworkHandler.onDayAdvanced; title (e.g. "March 1, 1MC"); subtitle (season or Easter week via EasterWeekHelper). **SeasonGuideBook** – /season guide. Wrapper commands: date, time, eoc, season, datejoined; Survival: nextday, resetcalendar (lw.admin.calendar), season biomes (lw.admin.biomes).
+
+**7. Events – Engine**
+- **EventServiceImpl** – Listens CalendarDayAdvancedEvent; per overworld: TPS skip or dispatch DailyWorldEvent.onCalendarDay (effectiveDay = day + world-day-offset). Every 40 ticks: SeasonalEvent.onTick(), EventBossBarManager.tick().
+- **EventContext** – Overworlds, disabled worlds, world-day-offsets. **EventCooldownTracker**, **EventCascadeRegistry** (Eclipse → Paranoia, Thunder). **BlockRestoreManager**, **LWConfigs**. **SeasonalWeatherListener**, **WildlifeMigrationListener**, **SeasonalCropsListener**, **BiomeBackupStore**.
+
+─────── PART 5 ───────
+
+**ParanoiaEvent** — display: "Paranoia"
+- **When it starts:** Only when Eclipse is already active. On calendar day tick, if Eclipse active and Paranoia isn't → start. Cascade chance in events.paranoia.chance.
+- **Duration:** 1 MC night (24000 ticks). Delayed task calls forceEndEarly() after 24000 ticks.
+- **While active:** PlayerJoin/PlayerQuit. Per overworld player: repeating tasks play random horror sounds (default AMBIENT_CAVE, ENTITY_ENDERMAN_STARE, ENTITY_WITHER_AMBIENT or events.paranoia.sounds) at events.paranoia.min-interval-seconds to max-interval-seconds (default 20–60). New joiners get sound loop; leavers task cancelled.
+- **End/cleanup:** forceEndEarly(): active=false, cancel all per-player sound tasks and stop task. No world/block/mob restore.
+
+**BloodMoonEvent** — display: "Blood Moon"
+- **When it starts:** Each day, overworld; enabled (blood_moon.enabled / events.blood-moon.enabled), day ≥ min_day (default 10), roll < chance_per_night (default 0.08).
+- **Duration:** 1 MC night (24000 ticks). End task: time 6000, restore mobs.
+- **While active:** Optional freeze (world_time_night, freeze_night → DO_DAYLIGHT_CYCLE false, time 18000). Title "§4Blood Moon" / "You cannot sleep tonight…". CreatureSpawnEvent: overworld monsters PDC + health/damage multiplier (default 1.5×), tag lw_blood_moon. PlayerBedEnterEvent: sleep cancelled. ChunkLoadEvent: when not active restore tagged mobs.
+- **End/cleanup:** Restore all Blood Moon mobs, re-enable daylight, time 6000.
+
+─────── PART 6 ───────
+
+**MagicStormEvent** — "Magic Storm". When: overworld, enabled, roll < base_chance_per_day (0.08), season in allowed_seasons. Duration: 1 MC day. While active: storm+thunder; CreatureSpawnEvent rare_mob_chance (0.35) → storm mobs (glow, buffs, tag lw_magic_storm); EntityDeathEvent extra_loot_chance (0.40) enchanted book/apple; ChunkLoad restore. End: clear weather, restore storm mobs.
+
+**FishingFestivalEvent** — "Fishing Festival". When: overworld, fishing.enabled, roll < 0.10. Duration: 1 MC day. While active: message; PlayerFishEvent CAUGHT_FISH: treasure_chance (0.35), double_catch_chance (0.30). End: none.
+
+**MiningBlessingEvent** — "Miner's Blessing". When: overworld, mining.enabled, roll < 0.12. Duration: 1 MC day. While active: message; BlockBreakEvent ore: extra_ore_chance (0.35), exp_boost_chance (0.40). End: none.
+
+**RestfulSleepEvent** — "Restful Sleep". When: overworld, restful_sleep.enabled, roll < 0.10. Duration: 1 MC day. While active: message; PlayerBedLeaveEvent: Absorption + Regeneration (health_boost_seconds default 600). End: none.
+
+**EclipseEvent** — "Eclipse". When: (day-offset)%interval==0 (e.g. interval 30, offset 0), chance-pct (80). Duration: 1 MC night. While active: resource-packs.eclipse, daylight off, time 18000; EclipseHordeTask every 6000 ticks (hostiles near players, horde-size 8). End: daylight on, time 6000, resource-packs.eclipse-empty, cancel horde.
+
+─────── PART 7 ───────
+
+**BlizzardEvent** — "Blizzard". When: overworld, roll < events.blizzard.chance-pct (25). Duration: until sunset (ticks to 13000). While active: storm on; per chunk Stray + surface water→ice (BlockRestore "blizzard"). End: restoreAndClear("blizzard"), clear storm.
+
+**FogEvent** — "Fog". When: overworld, roll < events.fog.chance-pct (20). Duration: events.fog.restore-delay-ticks (6000). While active: broadcast only. End: broadcast, active=false.
+
+**SummerHeatwaveEvent** — "Heatwave". When: SUMMER only, overworld, roll < chance-pct (25). Duration: until sunset. While active: desert/savanna farmland moisture 0, husks; repeating (100 ticks) Hunger in hot biomes; exposed + < min_armor → Weakness + damage. End: remove Hunger, cancel task. Farmland not re-moistened.
+
+**TornadoEvent** — "Tornado". When: overworld, tornado.enabled, world not in disabled_worlds, roll < 0.05. Duration: real-time 5–10 min. While active: moving center (drift); radius_blocks (10): damage no-roof, pull entities, 20% crop break, particles. End: cancel task. No block restore.
+
+**FestivalEvent** — "Festival". When: overworld, festival.enabled, roll < 0.10. Duration: 1 MC day. While active: message only. End: none.
+
+─────── PART 8 ───────
+
+**NewYearEvent** — "New Year". When: First day of Spring (March 1), first overworld, events.new-year.enabled. Duration: instant + firework phase (firework-phase-duration-ticks). While active: title, gift fireworks/gunpowder; firework every 40 ticks at random player. End: cancel firework task.
+
+**HolidayEvent** — "Holiday". When: Oct 31 (halloween.enabled) or Dec 25 (christmas.enabled), first overworld. Duration: one tick. While active: Halloween title + pumpkin chance (mob-radius 24, pumpkin-chance 0.02); Christmas title + heal (heal-amount 2) + cookies/snowballs. End: none.
+
+**ThunderEvent** — "Thunderstorm". When: Daily roll < base-chance-pct (15) or Eclipse cascade (eclipse-chance-pct 40). Duration: until 6 AM. While active: storm+thunder; Eclipse mode: zombie horses + golden zombie riders (horses-per-eclipse). End: clear storm/thunder.
+
+**JungleMonsoonEvent** — "Jungle Monsoon". When: SUMMER, overworld, roll < 20; start delayed to sunset (13000). Duration: sunset→6 AM. While active: jungle biomes player weather DOWNFALL; slimes 2–5/chunk, parrots 1–3/player. End: reset player weather.
+
+**SeasonalStormEvent** — "Seasonal Storm". When: Late autumn/winter (month ≥10 or ≤2), roll < 25. Duration: until 6 AM. While active: storm+thunder; clustered lightning every 3 MC min (log/leaves/player). End: clear storm, cancel lightning task.
+
+─────── PART 9 ───────
+
+**FrostEvent** — "Frost". When: WINTER, overworld, roll < 30; start delayed to events.frost.target-tick (13000). Duration: target tick to sunrise. While active: cold biomes water→ice (BlockRestore "frost"), Slowness + Mining Fatigue (1 min), particles; repeating (5 ticks) reapply in cold, remove near heat; optional frost damage (min-armor-pieces 2). End: restoreAndClear("frost"), remove effects.
+
+**SpringBloomEvent** — "Spring Bloom". When: First day of Spring (March 1). Duration: one tick. While active: age crops +1; bees near flowers per player (5 attempts). End: none.
+
+**AutumnLeafFallEvent** — "Autumn Leaf Fall". When: Any autumn day. Duration: one tick. While active: 30 falling-dust oak-leaf particles per player. End: none.
+
+**TestEvent** (Seasonal) — id "test", "Test Event". When: Never by calendar; force /event start test. Duration: 1 day. While active: start/end messages only. End: none.
+
+**8. Clans** (when `clans` in enabled-modules)
+- **ClanService** – create, getById/ByName, getClanOfPlayer, invite, getPendingInvites, add/removeMember, updateClanColor, getMemberCount, getMemberRank, addClanRelation, removeClanAndData, getAllClans, getClanMembersWithRanks, updatePlayerDisplay, refreshClanDisplay. **ClanServiceImpl** – blocks on repo (10s). Main scoreboard; team prefix "[ClanName] " hex color.
+
+**ClanCommand** (lw.clan.use): create <name> <#hex>, invite, accept, deny, leave, color <#hex>, promote, demote, enemy/opposition <clan>, info [name], list. After create/accept/leave/color: updatePlayerDisplay or refreshClanDisplay.
+
+**ClanDisplayListener** – PlayerJoinEvent → updatePlayerDisplay(player). Removes player from all teams, then if in clan adds to clan team (prefix [ClanName] with hex color).
+
+─────── PART 10 ───────
+
+**9. World** – BiomeBackupData, BiomeBackupStore (ChunkLoadEvent, restore queue). Events + Survival /season biomes.
+
+**10. Wrappers** – **LW-Survival-V2:** date, time, eoc, datejoined, season (guide, biomes lw.admin.biomes), nextday, resetcalendar (lw.admin.calendar), event list|info|start|stop (lw.admin.events). **LW-Amplified-V2:** date, time, eoc, datejoined, season, guide, event list|info. No admin.
+
+**11. Configs** – config.yml (events.*, disabled_worlds, world-day-offsets, resource-packs.eclipse). config/core.yml, config/db.yml. lw-climate.yml, lw-crops.yml, lw-fauna.yml, lw-events-extra.yml.
+
+**12. Commands** – RPG_Core_V2: v2ping, v2progress, v2claim, v2skills, rewards, clan (lw.clan.use). Survival/Amplified: as above.
+
+**13. Public API** – getInstance(), getService(Class) → ProgressionService, BetonQuestBridge, AuraSkillsBridge, CalendarServiceV2, EventService, PlayerProfileService, ClanService, BiomeBackupStore. Interfaces: CalendarServiceV2, EventService, SeasonalEvent, ProgressionService, PlayerProfileService, ClanService, ClusterMessagingService. No separate API JAR.

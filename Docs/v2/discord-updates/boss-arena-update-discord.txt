@@ -1,0 +1,96 @@
+**PluginV2 – Boss & Arena System** (Discord paste)
+Paste each part in a separate message. Use **bold**, `code`, - lists.
+
+─────── PART 1 ───────
+
+**Overview**
+- Boss system transforms **Withers** spawned on the **Nether roof** (Y=127/128) into powerful custom bosses if kill requirements are met.
+- **Two bosses:** **Devoider** (Survival world) and **El Diablo** (Amplified world).
+- **Arena system** creates sandboxed boss fight areas with barrier walls and boundary enforcement.
+- **Kill tracking** stores player and clan kills in database for progression milestones.
+- **Custom drops** include Nether Stars, XP multipliers, and reputation rewards.
+
+**The Bosses**
+
+**Devoider** (Survival)
+- **Requirements:** Survive for **36 Wither kills** (tracked per player)
+- **Transformation:** When you spawn a Wither on Nether roof (Y=127/128) after 36 kills, it transforms into **Devoider**
+- **Health:** 600 HP (2x normal Wither)
+- **Abilities:** Standard Wither attacks + enhanced projectiles
+- **Drops:** 3 Nether Stars, bonus XP, high reputation gain
+- **Milestone:** Unlocks `MILESTONE_WITHER_36` progression reward
+
+**El Diablo** (Amplified)
+- **Requirements:** Kill **6 Devoiders** (tracked per player)
+- **Transformation:** Spawn Wither on Nether roof after 6 Devoider kills → transforms into **El Diablo**
+- **Health:** 900 HP (3x normal Wither)
+- **Abilities:**
+  - Standard Wither attacks
+  - **Horde Summon:** At 50% HP, spawns 10 zombies, 5 skeletons, 3 wither skeletons in arena
+  - Enhanced projectile damage
+- **Drops:** 5 Nether Stars, massive XP, highest reputation gain
+- **Arena:** Automatically creates bedrock platform arena with barrier walls
+- **Milestone:** Unlocks `MILESTONE_EL_DIABLO` progression reward
+
+─────── PART 2 ───────
+
+**Arena System**
+- **Creation:** Arenas are created programmatically when bosses spawn (or via `/arena-test create` for testing)
+- **Boundary:** AABB (axis-aligned bounding box) containment system prevents players from leaving during fight
+- **Barriers:** Temporary barrier walls placed around arena perimeter, removed after boss dies
+- **Sandbox Mode:** Restricted arenas prevent escape until boss is defeated
+- **Visual Feedback:** Impact particles when players try to leave boundary
+
+**Kill Tracking**
+- **Database:** `boss_kills` table tracks individual player kills and clan kills for each boss type
+- **Types:** WITHER (normal), DEVOIDER, EL_DIABLO
+- **Clan Credit:** If killer is in a clan, clan also receives kill credit
+- **Progression Integration:** Killing bosses unlocks milestones via `ProgressionModule`
+
+**Diablo Lair Generation**
+- **Command:** `/diablo-lair` (requires permission `lw.boss.diablo-lair`)
+- **Function:** Generates a **31x31 bedrock platform** 50 blocks below your current position
+- **Purpose:** Creates flat arena for El Diablo fight in Nether
+- **Usage:** Run in Nether at desired location before spawning boss
+
+**Custom Drops**
+- **Wither:** Normal drops (Nether Star + some coal)
+- **Devoider:** 3 Nether Stars + 500 bonus XP + high reputation
+- **El Diablo:** 5 Nether Stars + 1000 bonus XP + highest reputation
+- **War Mode:** If killer and victim are in warring clans, victim's head also drops
+
+─────── PART 3 ───────
+
+**Commands**
+- `/diablo-lair` – Generate bedrock platform 50 blocks below you (permission: `lw.boss.diablo-lair`)
+- `/arena-test create` – Create test arena at your location (admin only, permission: `lw.boss.arena-test`)
+- `/arena-test show` – Show arena boundaries (admin only)
+- `/arena-test clear` – Remove all test arenas (admin only)
+
+**Permissions**
+- **lw.boss.diablo-lair** – Generate Diablo lair platforms
+- **lw.boss.arena-test** – Admin arena testing commands
+
+**How to Progress**
+1. **Step 1:** Kill 36 normal Withers anywhere in the world
+2. **Step 2:** Go to Nether roof (Y=127/128) and spawn a Wither → transforms into **Devoider**
+3. **Step 3:** Kill Devoider 6 times (track via `/progress` or `/milestones`)
+4. **Step 4:** Run `/diablo-lair` in Nether to generate arena platform
+5. **Step 5:** Spawn Wither on Nether roof → transforms into **El Diablo**
+6. **Step 6:** Defeat El Diablo in arena for ultimate rewards
+
+**Tips**
+- **Team up:** Boss fights are challenging, bring clan members
+- **Prepare:** Stock potions, enchanted gear, and golden apples
+- **Arena:** El Diablo fight is contained, you can't escape once it starts
+- **Horde:** At 50% HP, El Diablo summons adds – prepare AOE weapons
+- **Tracking:** Check your kill counts with `/class info` or database queries
+
+**Technical Details**
+- **Module:** `boss` in `config/core.yml` enabled-modules
+- **Boss Transform:** `RoofWitherListener` checks spawn location (Y=127/128) and kill requirements
+- **Arena Manager:** In-memory registry of active arenas with boundary enforcement
+- **Database:** `boss_kills` table (player_uuid, boss_type, kill_count, last_kill_time, clan_uuid)
+- **Integration:** ProgressionModule, ReputationModule, ClansModule for rewards and tracking
+
+**Status:** ✅ **COMPLETE** – System ported from legacy plugin and adapted to PluginV2 architecture.

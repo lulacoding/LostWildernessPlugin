@@ -1,0 +1,65 @@
+# Example systemd service for a Lost Wilderness Paper backend.
+# Deploy to: /etc/systemd/system/lw-survival-1.service
+# Copy and adapt for lobby-1 and amplified-1 (change WorkingDirectory, ExecStart port, description).
+#
+# Install:
+#   sudo cp Docs/ops/lw-survival-1.service.example /etc/systemd/system/lw-survival-1.service
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable lw-survival-1
+#   sudo systemctl start  lw-survival-1
+#
+# Crash notification requires /etc/lw-ops.env (see lw-ops.env.example) and
+# Docs/ops/crash-notify.sh to be deployed.
+
+[Unit]
+Description=Lost Wilderness — survival-1 Paper backend
+After=network.target mariadb.service
+Wants=mariadb.service
+
+[Service]
+Type=simple
+User=minecraft
+Group=minecraft
+
+WorkingDirectory=/opt/lostwilderness/Server/backends/survival-1
+
+# Load ops secrets (Discord webhook URL, MC_BASE)
+EnvironmentFile=/etc/lw-ops.env
+
+# Adjust heap size and jar name to match your setup
+ExecStart=/usr/bin/java \
+    -Xms2G -Xmx4G \
+    -XX:+UseG1GC \
+    -XX:+ParallelRefProcEnabled \
+    -XX:MaxGCPauseMillis=200 \
+    -XX:+UnlockExperimentalVMOptions \
+    -XX:+DisableExplicitGC \
+    -XX:G1NewSizePercent=30 \
+    -XX:G1MaxNewSizePercent=40 \
+    -XX:G1HeapRegionSize=8M \
+    -XX:G1ReservePercent=20 \
+    -XX:G1HeapWastePercent=5 \
+    -XX:G1MixedGCCountTarget=4 \
+    -XX:InitiatingHeapOccupancyPercent=15 \
+    -XX:G1MixedGCLiveThresholdPercent=90 \
+    -XX:G1RSetUpdatingPauseTimePercent=5 \
+    -XX:SurvivorRatio=32 \
+    -XX:+PerfDisableSharedMem \
+    -XX:MaxTenuringThreshold=1 \
+    -jar paper.jar --nogui
+
+# Restart automatically if the server crashes (not on clean stop)
+Restart=on-failure
+RestartSec=10s
+
+# Send a Discord crash alert when the service stops unexpectedly
+ExecStopPost=/bin/bash /opt/lostwilderness/Docs/ops/crash-notify.sh survival-1
+
+# Allow up to 60s for graceful shutdown (save-all takes time with large worlds)
+TimeoutStopSec=60s
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

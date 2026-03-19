@@ -1,0 +1,183 @@
+**PluginV2 – Seasonal Biome Painting (Aeternum-style)** (Discord paste)
+Paste each part in a separate message. Use **bold**, `code`, - lists.
+
+─────── PART 1 ───────
+
+**Overview**
+- **Dynamic biome transformation** system that changes biomes based on the current season
+- Inspired by **Aeternum MMO's** seasonal world changes
+- **Automatic painting:** Chunks around players are painted with seasonal biomes every 10 ticks
+- **Crash-safe:** Original biomes saved to disk (YAML) before painting, restored on chunk unload or server restart
+- **Performance-optimized:** Budget system limits chunks painted per tick to prevent lag
+- **Configurable:** Exclude specific biomes, respect naturally snowy biomes, customize season mappings
+
+**How It Works**
+1. **Chunk Classification:** System identifies if a chunk is LAND, OCEAN, or RIVER based on dominant biome
+2. **Season Lookup:** Based on current calendar season (SPRING/SUMMER/AUTUMN/WINTER), looks up target biome from config
+3. **Backup:** Saves original biomes to `biome_backups/<world>/<chunkX>_<chunkZ>.yml` before painting
+4. **Paint:** Changes all biomes in chunk to seasonal target (e.g., Plains → Snowy Plains in winter)
+5. **Restore:** When chunk unloads or painting is disabled, restores original biomes from backup
+
+**Seasonal Transformations**
+
+**SPRING** (Calendar Days 1-91)
+- **Land:** → PLAINS (green grass, flowers, mild weather)
+- **Ocean:** → OCEAN (normal ocean temperature)
+- **River:** → RIVER (flowing water, normal temperature)
+- **Effect:** Lush, green world with blooming flowers
+
+**SUMMER** (Calendar Days 92-182)
+- **Land:** → SAVANNA (warm, dry grass, fewer trees)
+- **Ocean:** → WARM_OCEAN (tropical, coral reefs)
+- **River:** → RIVER (warm water)
+- **Effect:** Hot, dry landscape with warm waters
+
+**AUTUMN** (Calendar Days 183-273)
+- **Land:** → TAIGA (cool, fall colors, pine trees)
+- **Ocean:** → OCEAN (cooling waters)
+- **River:** → RIVER (cool water)
+- **Effect:** Cooler temperatures, fall foliage colors
+
+**WINTER** (Calendar Days 274-365)
+- **Land:** → SNOWY_PLAINS (snow-covered, cold, ice)
+- **Ocean:** → FROZEN_OCEAN (icy waters, icebergs)
+- **River:** → FROZEN_RIVER (frozen water surface)
+- **Effect:** Snow-covered world with ice and cold
+
+─────── PART 2 ───────
+
+**Features**
+
+**Backup & Restoration**
+- Original biomes saved to YAML files before painting
+- Format: `biome_backups/<world>/<chunkX>_<chunkZ>.yml` with palette + indices
+- Restored on chunk unload, server restart, or when painting disabled
+- Crash-safe: If server crashes during painting, backups restored on next startup
+
+**Performance Budget**
+- **Budget:** Configurable chunks-per-tick limit (default: 5 chunks/tick)
+- **Radius:** Configurable chunks around players (default: 8 chunk radius)
+- **Smart Caching:** Already-painted chunks skip painting until season changes
+- **TPS Protection:** Can disable painting if TPS drops below threshold
+
+**Biome Exclusions**
+- **Excluded Biomes:** Config list of biomes to never paint (e.g., Mushroom Islands, Nether, End)
+- **Naturally Snowy:** Option to respect biomes that are naturally snowy (e.g., Ice Spikes, Frozen Peaks)
+- **Ocean Variants:** Option to preserve deep ocean variants (DEEP_OCEAN, DEEP_FROZEN_OCEAN)
+
+**Chunk Classification**
+- **LAND:** Chunks with >50% land biomes (Plains, Forest, Desert, etc.)
+- **OCEAN:** Chunks with >50% ocean biomes (Ocean, Deep Ocean, etc.)
+- **RIVER:** Chunks with >50% river biomes (River, Frozen River)
+- Used to determine appropriate seasonal target biome
+
+**Commands** (Survival Server Only)
+- `/season biomes on` – Enable biome painting (admin only)
+- `/season biomes off` – Disable biome painting (admin only)
+- `/season biomes restore` – Force restore all painted chunks to original biomes (admin only)
+- `/season biomes status` – Check if painting is enabled
+
+**Permissions**
+- **lw.season.biomes** – Admin biome painting commands
+
+─────── PART 3 ───────
+
+**Configuration** (`config/lw-events-extra.yml`)
+
+```yaml
+events:
+  biome-painting:
+    enabled: true
+    radius-chunks: 8              # Chunks around players to paint
+    budget-chunks-per-tick: 5     # Max chunks to paint per tick
+    respect-naturally-snowy-biomes: true
+    excluded-biomes:
+      - MUSHROOM_FIELDS
+      - NETHER_WASTES
+      - THE_END
+      - DEEP_DARK
+
+    seasons:
+      SPRING:
+        land: PLAINS
+      SUMMER:
+        land: SAVANNA
+      AUTUMN:
+        land: TAIGA
+      WINTER:
+        land: SNOWY_PLAINS
+
+    oceans:
+      enabled: true
+      keep-deep-variants: true
+      seasons:
+        SPRING:
+          normal: OCEAN
+        SUMMER:
+          normal: WARM_OCEAN
+        AUTUMN:
+          normal: OCEAN
+        WINTER:
+          normal: FROZEN_OCEAN
+
+    rivers:
+      enabled: true
+      seasons:
+        SPRING: RIVER
+        SUMMER: RIVER
+        AUTUMN: RIVER
+        WINTER: FROZEN_RIVER
+```
+
+**How to Use**
+1. Biome painting starts automatically when enabled in config
+2. Walk around the world – chunks near you will transform to match current season
+3. Original biomes are backed up before changes
+4. When season changes, biomes update to new season's targets
+5. Disable with `/season biomes off` if needed
+6. Restore all chunks with `/season biomes restore`
+
+─────── PART 4 ───────
+
+**Technical Details**
+
+**BiomePainter**
+- Runs every 10 ticks when enabled
+- Finds chunks within radius of all online players
+- Classifies chunks (LAND/OCEAN/RIVER)
+- Checks if chunk needs painting (season changed since last paint)
+- Paints up to budget limit per tick
+
+**BiomeBackupStore**
+- Saves pre-painting biome grids to disk (YAML with palette + indices)
+- Restores biomes on chunk unload or disable
+- Clears in-memory cache on chunk load to detect external changes
+- Handles restore queue for async chunk processing
+
+**BiomeBackupData**
+- Immutable record storing original biomes
+- Compact storage: palette of unique biomes + indices grid
+- Efficient serialization to YAML
+
+**Integration**
+- **EventsModule:** Creates BiomePainter instance, registers as listener
+- **CalendarModule:** Season changes trigger re-painting check
+- **Survival Only:** Leader server (survival) handles biome painting, followers (amplified) don't paint
+
+**Performance Impact**
+- **Minimal:** Budget system prevents lag spikes
+- **Configurable:** Adjust radius and budget for server capacity
+- **Smart:** Only paints chunks when season changes or first time near player
+
+**Restoration Modes**
+1. **Chunk Unload:** Auto-restore when chunk unloads naturally
+2. **Disable Painting:** Restore all painted chunks when `/season biomes off`
+3. **Force Restore:** Admin command `/season biomes restore` restores everything
+4. **Crash Recovery:** On startup, detects painted chunks and restores from backups
+
+**Known Limitations**
+- Painting only works in Overworld (Nether/End excluded)
+- Client render distance may cause brief visual flicker on chunk load
+- Backup files accumulate in `biome_backups/` folder (can be cleaned periodically)
+
+**Status:** ✅ **COMPLETE** – System ported from Aeternum inspiration and adapted to Lost Wilderness calendar system.

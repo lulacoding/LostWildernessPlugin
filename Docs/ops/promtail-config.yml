@@ -1,0 +1,114 @@
+# Promtail configuration — Lost Wilderness log shipping
+# Deploy to: /etc/promtail/promtail-config.yml
+#
+# Adjust `__path__` globs to match your deploy path (MC_BASE).
+# Loki URL should point at your Loki instance (default local: http://localhost:3100).
+#
+# Install Promtail on Ubuntu/Debian:
+#   sudo apt install promtail
+#   sudo cp Docs/ops/promtail-config.yml /etc/promtail/promtail-config.yml
+#   sudo systemctl enable promtail && sudo systemctl start promtail
+
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /var/lib/promtail/positions.yaml
+
+clients:
+  - url: http://localhost:3100/loki/api/v1/push
+
+scrape_configs:
+
+  # -------------------------------------------------------------------------
+  # BungeeCord proxy logs
+  # -------------------------------------------------------------------------
+  - job_name: lw-proxy
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job:    lw-proxy
+          server: proxy
+          __path__: /opt/lostwilderness/Server/proxy/logs/*.log
+    pipeline_stages:
+      - multiline:
+          firstline: '^\d{2}:\d{2}:\d{2}'
+          max_wait_time: 3s
+      - labels:
+          server: proxy
+
+  # -------------------------------------------------------------------------
+  # lobby-1
+  # -------------------------------------------------------------------------
+  - job_name: lw-lobby-1
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job:    lw-lobby-1
+          server: lobby-1
+          __path__: /opt/lostwilderness/Server/backends/lobby-1/logs/*.log
+    pipeline_stages:
+      - multiline:
+          firstline: '^\[\d{2}:\d{2}:\d{2}'
+          max_wait_time: 3s
+      - regex:
+          # Extract level (INFO/WARN/ERROR) from Paper log lines:
+          # [HH:MM:SS INFO]: message
+          expression: '^\[(?P<time>[^\]]+)\] \[(?P<thread>[^\]]+)/(?P<level>[^\]]+)\]'
+      - labels:
+          level:
+
+  # -------------------------------------------------------------------------
+  # survival-1
+  # -------------------------------------------------------------------------
+  - job_name: lw-survival-1
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job:    lw-survival-1
+          server: survival-1
+          __path__: /opt/lostwilderness/Server/backends/survival-1/logs/*.log
+    pipeline_stages:
+      - multiline:
+          firstline: '^\[\d{2}:\d{2}:\d{2}'
+          max_wait_time: 3s
+      - regex:
+          expression: '^\[(?P<time>[^\]]+)\] \[(?P<thread>[^\]]+)/(?P<level>[^\]]+)\]'
+      - labels:
+          level:
+
+  # -------------------------------------------------------------------------
+  # amplified-1
+  # -------------------------------------------------------------------------
+  - job_name: lw-amplified-1
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job:    lw-amplified-1
+          server: amplified-1
+          __path__: /opt/lostwilderness/Server/backends/amplified-1/logs/*.log
+    pipeline_stages:
+      - multiline:
+          firstline: '^\[\d{2}:\d{2}:\d{2}'
+          max_wait_time: 3s
+      - regex:
+          expression: '^\[(?P<time>[^\]]+)\] \[(?P<thread>[^\]]+)/(?P<level>[^\]]+)\]'
+      - labels:
+          level:
+
+  # -------------------------------------------------------------------------
+  # Backup logs (mariadb-backup, world-backup, prune)
+  # -------------------------------------------------------------------------
+  - job_name: lw-backup-logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job:    lw-backup
+          server: ops
+          __path__: /var/log/lw-backup/*.log

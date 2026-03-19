@@ -1,0 +1,142 @@
+# Citizens NPC Storage
+last-created-npc-id: 1
+npc:
+- traits:
+    owner:
+      uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
+    scoreboardtrait:
+      tags:
+      - CITIZENS_NPC
+    skintrait: {
+      }
+    location:
+      worldid: 191a95b5-afb5-4d87-b29f-99aa4b37d8c3
+      x: 10.7248
+      y: -49.0
+      z: -8.6967
+      bodyYaw: 138.5599
+      pitch: 5.4439
+      yaw: 143.9243
+    type: PLAYER
+    lookclose:
+      enabled: true
+      randomPitchRange:
+      - 0.0
+      - 0.0
+      randomYawRange:
+      - 0.0
+      - 360.0
+    commandtrait:
+      commands:
+      - npc: false
+        experienceCost: -1
+        op: false
+        delay: 0
+        cost: -1.0
+        globalcooldown: 0
+        gn: -1
+        cooldown: 0
+        command: q conversation <p> lobby_basics.lobby_basics_intro
+        n: -1
+        hand: RIGHT
+        player: false
+      - npc: false
+        experienceCost: -1
+        op: false
+        delay: 0
+        cost: -1.0
+        globalcooldown: 0
+        gn: -1
+        cooldown: 0
+        command: q conversation <p> lobby_basics.lobby_basics_intro
+        n: -1
+        hand: RIGHT
+        player: false
+    hologramtrait:
+      lines:
+      - renderer:
+          seeThrough: true
+          interpolationDelay: 0
+          shadowed: true
+          billboard: CENTER
+        margin:
+          top: 0.0
+          bottom: 0.0
+        text: Lost Wilderness Greeter
+  traitnames: owner,spawned,scoreboardtrait,rotationtrait,commandtrait,skintrait,lookclose,inventory,type,targetable,hologramtrait,location,chunktickettrait
+  name: Joepsh Mama
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: 45bf2c4d-4e64-40da-a2e0-4936792b6335
+  metadata:
+    nameplate-visible: 'false'
+- traits:
+    scoreboardtrait:
+      tags:
+      - CITIZENS_NPC
+    owner:
+      uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
+    commandtrait:
+      commands:
+      - npc: false
+        experienceCost: -1
+        op: false
+        delay: 0
+        cost: -1.0
+        globalcooldown: 0
+        gn: -1
+        cooldown: 0
+        command: class
+        n: -1
+        hand: RIGHT
+        player: true
+      - npc: false
+        experienceCost: -1
+        op: false
+        delay: 0
+        cost: -1.0
+        globalcooldown: 0
+        gn: -1
+        cooldown: 0
+        command: class
+        n: -1
+        hand: RIGHT
+        player: true
+      - npc: false
+        experienceCost: -1
+        op: false
+        delay: 0
+        cost: -1.0
+        globalcooldown: 0
+        gn: -1
+        cooldown: 0
+        command: class
+        n: -1
+        hand: RIGHT
+        player: false
+    location:
+      worldid: 191a95b5-afb5-4d87-b29f-99aa4b37d8c3
+      x: -41.446
+      y: -53.0
+      z: -28.8764
+      bodyYaw: -107.6994
+      pitch: 0.0
+      yaw: -107.6994
+    type: PLAYER
+    lookclose:
+      enabled: true
+      randomPitchRange:
+      - 0.0
+      - 0.0
+      randomYawRange:
+      - 0.0
+      - 360.0
+  traitnames: scoreboardtrait,owner,spawned,rotationtrait,commandtrait,skintrait,lookclose,location,inventory,type,targetable,chunktickettrait
+  name: ClassGuide
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: 2cd9e35f-a960-4c87-8b61-ee83b0c928cb

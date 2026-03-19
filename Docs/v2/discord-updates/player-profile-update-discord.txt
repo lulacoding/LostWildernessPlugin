@@ -1,0 +1,193 @@
+**PluginV2 – Player Profile & Session System** (Discord paste)
+Paste each part in a separate message. Use **bold**, `code`, - lists.
+
+─────── PART 1 ───────
+
+**Overview**
+- **Core player data system** that tracks player profiles, sessions, and join history
+- **Async database loading** pre-loads player profiles before join to prevent lag
+- **Session tracking** monitors play time, join counts, and last seen timestamps
+- **Shared database** used by all modules (progression, classes, clans, reputation, etc.)
+- **H2 and MySQL support** with connection pooling via HikariCP
+
+**Player Profile Data**
+- **UUID** – Unique player identifier (primary key)
+- **Last Seen** – Timestamp of last logout
+- **Join Count** – Total number of times joined the server
+- **Total Playtime** – Accumulated playtime in seconds
+- **Join Date** – First join timestamp (for `/datejoined` command)
+- **Verification Status** – Discord verification flag (lobby system)
+- **Class Selection** – Selected PlayerClass (ClassesModule)
+- **Trait & Element** – Personality trait and elemental affinity (PersonalityModule)
+- **Clan Membership** – Current clan (ClansModule)
+- **Reputation** – Honor score and faction standings (ReputationModule)
+
+**Profile Loading Flow**
+1. **Pre-Login:** `PlayerProfilePreloadListener` listens to `AsyncPlayerPreLoginEvent`
+2. **Async Load:** Profile loaded from database (or created if new player) before player joins
+3. **Cache:** Profile stored in memory for fast access during session
+4. **Session Start:** `PlayerSessionListener` tracks join time on `PlayerJoinEvent`
+5. **Session End:** On `PlayerQuitEvent`, playtime added and profile saved to database
+6. **Auto-Save:** Profiles periodically saved every 5 minutes for crash safety
+
+─────── PART 2 ───────
+
+**Database Schema**
+
+**`player_profiles` table:**
+```sql
+CREATE TABLE player_profiles (
+    player_uuid VARCHAR(36) PRIMARY KEY,
+    last_seen BIGINT NOT NULL,
+    join_count INT DEFAULT 1,
+    total_playtime_seconds INT DEFAULT 0,
+    first_join_timestamp BIGINT NOT NULL,
+    discord_verified BOOLEAN DEFAULT FALSE,
+    selected_class VARCHAR(50),
+    primary_trait VARCHAR(50),
+    element VARCHAR(20),
+    clan_id INT,
+    honor_score INT DEFAULT 0
+);
+```
+
+**Indexes:**
+- Primary key on `player_uuid` for fast lookups
+- Index on `last_seen` for inactive player queries
+- Index on `clan_id` for clan member queries
+
+**Connection Pooling:**
+- **HikariCP** manages database connections efficiently
+- **Pool size:** 10 connections (configurable in `config/db.yml`)
+- **Timeout:** 10 seconds for connection acquisition
+- **Leak detection:** Warns if connections held too long (15 seconds)
+
+─────── PART 3 ───────
+
+**Session Tracking**
+
+**Join Tracking:**
+- **Join count** incremented on each login
+- **First join** timestamp stored for new players
+- **Milestones** triggered at join counts: 1, 3, 10, 25, 50, 100
+- **Example:** `/milestones` shows "First Join" unlocked automatically
+
+**Playtime Tracking:**
+- **Start time** recorded on `PlayerJoinEvent`
+- **End time** recorded on `PlayerQuitEvent`
+- **Session playtime** = end - start (in seconds)
+- **Total playtime** = sum of all sessions
+- **Milestones** triggered at playtime thresholds: 1h, 5h, 24h, 100h
+- **Auto-save:** Playtime saved every 5 minutes while online
+
+**Last Seen:**
+- **Updated** on every logout
+- **Used by:** Clan inactivity checks, admin tools, player search
+- **Format:** Unix timestamp (milliseconds since epoch)
+
+**Performance:**
+- **Async loading:** Pre-login async load prevents main thread blocking
+- **Caching:** In-memory cache (`ConcurrentHashMap`) for fast access
+- **Batching:** Multiple profile saves batched when possible
+
+─────── PART 4 ───────
+
+**Integration with Other Modules**
+
+**Progression Module:**
+- Uses `join_count` for join milestones (First Join, Join 3 Times, Join 10 Times, etc.)
+- Uses `total_playtime_seconds` for playtime milestones (1h, 5h, 24h, 100h)
+- Stores unlocked achievements in `player_achievements` table
+
+**Classes Module:**
+- Stores `selected_class` in player profile
+- Links to `player_classes` table for class-specific data (XP, unlocks)
+- `/class info` displays class from profile
+
+**Clans Module:**
+- Stores `clan_id` in player profile
+- Fast clan member lookups via clan_id index
+- `/clan info` shows members from profile table
+
+**Personality Module:**
+- Stores `primary_trait` and `element` in player profile
+- Links to `player_traits` table for detailed trait data (tier, temples)
+- `/trait info` displays trait from profile
+
+**Reputation Module:**
+- Stores `honor_score` in player profile
+- Links to `reputation` table for faction standings
+- `/reputation` displays honor from profile
+
+─────── PART 5 ───────
+
+**Commands**
+
+**Player Commands:**
+- `/datejoined` – View your join date, zodiac signs, and trait/element info
+- `/profile [player]` – View player profile summary (planned feature)
+
+**Admin Commands:**
+- None directly – admin tools access profile data via other modules
+
+**Permissions:**
+- No special permissions required – all players have profile access
+
+**Technical Details**
+
+**PlayerProfileService:**
+- **Interface:** Defines async profile operations (load, save, get, update)
+- **Implementation:** `PlayerProfileServiceImpl` with in-memory cache
+- **Methods:**
+  - `loadProfile(UUID)` – Async load from database
+  - `saveProfile(PlayerProfile)` – Async save to database
+  - `getProfile(UUID)` – Get cached profile (null if not loaded)
+  - `updateLastSeen(UUID)` – Update last seen timestamp
+  - `incrementJoinCount(UUID)` – Increment join counter
+  - `addPlaytime(UUID, long seconds)` – Add session playtime
+
+**PlayerProfileRepository:**
+- **Database layer** with async SQL operations via `SqlExecutor`
+- **H2 support:** File-based database for development/testing
+- **MySQL support:** Production database with connection pooling
+- **Table creation:** Auto-creates `player_profiles` table on first run
+- **UPSERT:** Uses `MERGE` (H2) or `ON DUPLICATE KEY UPDATE` (MySQL)
+
+─────── PART 6 ───────
+
+**Configuration** (`config/db.yml`)
+
+```yaml
+datasources:
+  player:
+    type: h2  # or mysql
+    host: localhost
+    port: 3306
+    database: lostwilderness
+    username: lw_user
+    password: CHANGE_ME
+    pool-size: 10
+    connection-timeout-ms: 10000
+```
+
+**Module Registration** (`config/core.yml`)
+
+```yaml
+enabled-modules:
+  - player      # Required by all other modules
+  - progression
+  - classes
+  - clans
+  - reputation
+  - personality
+```
+
+**Player Module** is a **required dependency** for all other modules. It must be enabled first.
+
+**Status:** ✅ **COMPLETE** – Core infrastructure implemented in Phase 1. Used by all modules for player data storage and retrieval.
+
+**Future Enhancements:**
+- `/profile [player]` command to view detailed player stats
+- Player search by name/UUID
+- Inactive player cleanup tools
+- Profile export/import for backups

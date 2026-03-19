@@ -1,0 +1,29 @@
+default:
+  type: entity
+  entity: '{key}'
+  trigger: death
+  damager: player
+  menu_item:
+    material: '{key}_spawn_egg'
+sources:
+  zombie:
+    xp: 20.0
+  zombie_villager:
+    xp: 20.0
+  husk:
+    xp: 20.0
+  skeleton:
+    xp: 20.0
+  stray:
+    xp: 20.0
+  wither_skeleton:
+    xp: 40.0
+  phantom:
+    xp: 25.0
+  drowned:
+    xp: 20.0
+  zombified_piglin:
+    xp: 20.0
+  wither:
+    xp: 2000.0
+file_version: 1

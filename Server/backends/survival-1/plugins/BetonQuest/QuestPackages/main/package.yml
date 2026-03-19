@@ -1,0 +1,80 @@
+npcs:
+  '0': joe_mama
+
+# Spawn Greeter (Citizens NPC 0): welcome, Class Hall, progression rewards, calendar/travel hints.
+conversations:
+  joe_mama:
+    quester: "Greeter"
+    first: greeting
+    stop: true
+    conversationIO: slowtellraw
+    final_events: cutscene_end
+    NPC_options:
+      greeting:
+        text: "Welcome, %player%. You're in the real world now — Survival. Not the lobby. First thing: go to the Class Hall and choose your path. Everything else can wait."
+        events: cutscene_start
+        pointers: where_class_hall, how_rewards, what_else, bye
+      class_hall:
+        text: "The Class Hall is the building by the square. Step inside and speak with the Class Master. Pick your role before you head out — it matters here."
+        pointers: how_rewards, what_else, bye
+      rewards:
+        text: "New here? You can claim welcome rewards — first join, more visits — as skill XP. Use /rewards to open the rewards menu, or type /v2claim and we'll tell you what you can claim. The Quartermaster can explain it too."
+        pointers: where_class_hall, what_else, bye
+      other_stuff:
+        text: "Check the calendar square for the date and season. Travel is by roads and lodestones — no /home. Clans and events? You'll learn. For now: Class Hall, then the world."
+        pointers: where_class_hall, how_rewards, bye
+      goodbye:
+        text: "Good luck out there."
+    player_options:
+      where_class_hall:
+        text: "Where is the Class Hall?"
+        pointer: class_hall
+      how_rewards:
+        text: "How do I redeem my progression rewards?"
+        pointer: rewards
+      what_else:
+        text: "What else should I know?"
+        pointer: other_stuff
+      bye:
+        text: "Thanks, I'll go."
+        pointer: goodbye
+
+# Events for cutscene feel: title + freeze at start, unfreeze at end
+events:
+  cutscene_start: "folder show_cutscene_title,freeze_player"
+  show_cutscene_title: "notify Greeter\nSpawn Village. io:title"
+  freeze_player: "effect SLOW 999 15 hidden"
+  cutscene_end: "deleffect any"
+  claim_first_join: "chat /v2claim first_join"
+  claim_join_3_times: "chat /v2claim join_3_times"
+  claim_join_ten_times: "chat /v2claim join_10_times"
+
+items:
+  btn_first_join: "PAPER name:&eFirst Join"
+  btn_join_3: "GOLD_INGOT name:&6Join 3 Times"
+  btn_join_ten: "EMERALD name:&aJoin Ten Times"
+
+menus:
+  milestones:
+    title: "&6Milestones"
+    height: 3
+    slots:
+      11: "btn_first_join"
+      13: "btn_join_3"
+      15: "btn_join_ten"
+    items:
+      btn_first_join:
+        item: "btn_first_join"
+        text: "&eFirst Join&7\n50 Fighting XP\n&aClick to claim."
+        click: "claim_first_join"
+        close: true
+      btn_join_3:
+        item: "btn_join_3"
+        text: "&6Join 3 Times&7\n25 Fighting XP\n&aClick to claim."
+        click: "claim_join_3_times"
+        close: true
+      btn_join_ten:
+        item: "btn_join_ten"
+        text: "&aJoin Ten Times&7\nOne Hundred Fighting XP\n&aClick to claim."
+        click: "claim_join_ten_times"
+        close: true

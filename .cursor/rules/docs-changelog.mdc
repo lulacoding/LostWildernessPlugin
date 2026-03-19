@@ -1,0 +1,13 @@
+---
+description: When and how to update CHANGELOG and implementation-status
+globs: "**/CHANGELOG.md", "Docs/**/*.md"
+alwaysApply: false
+---
+
+# Docs and changelog
+
+## CHANGELOG.md
+- When adding or changing **user-facing or implemented behaviour**, add an entry to `CHANGELOG.md` under the appropriate heading (Added / Changed / Fixed).
+
+## implementation-status.md
+- When implementing something that appears in the design or implementation-status list, update `Docs/implementation-status.md` (e.g. mark items implemented, adjust priority list, or add a short note).

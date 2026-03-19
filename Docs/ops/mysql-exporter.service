@@ -1,0 +1,48 @@
+# systemd service for prometheus-mysqld-exporter
+# Deploy to: /etc/systemd/system/mysql-exporter.service
+#
+# Install binary:
+#   sudo apt install prometheus-mysqld-exporter
+#   OR download from https://github.com/prometheus/mysqld_exporter/releases
+#
+# Create a dedicated MariaDB user with minimal permissions:
+#   CREATE USER 'exporter'@'127.0.0.1' IDENTIFIED BY 'CHANGE_ME_EXPORTER_PASSWORD';
+#   GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'127.0.0.1';
+#   FLUSH PRIVILEGES;
+#
+# Then set DATA_SOURCE_NAME in /etc/lw-ops.env:
+#   MYSQL_EXPORTER_DSN=exporter:CHANGE_ME_EXPORTER_PASSWORD@tcp(127.0.0.1:3306)/
+#
+# Install:
+#   sudo cp Docs/ops/mysql-exporter.service /etc/systemd/system/mysql-exporter.service
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable mysql-exporter
+#   sudo systemctl start mysql-exporter
+
+[Unit]
+Description=Prometheus MySQL/MariaDB exporter
+After=network.target mariadb.service
+
+[Service]
+Type=simple
+User=prometheus
+
+EnvironmentFile=/etc/lw-ops.env
+Environment=DATA_SOURCE_NAME=${MYSQL_EXPORTER_DSN}
+
+ExecStart=/usr/bin/prometheus-mysqld-exporter \
+    --web.listen-address=127.0.0.1:9104 \
+    --collect.global_status \
+    --collect.global_variables \
+    --collect.info_schema.tables \
+    --collect.perf_schema.eventsstatements \
+    --collect.perf_schema.eventsstatementssum
+
+Restart=on-failure
+RestartSec=5s
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

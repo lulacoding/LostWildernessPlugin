@@ -1,0 +1,13 @@
+patterns:
+  - type: stat
+    stat: strength
+    value: 0.2
+    pattern:
+      interval: 1
+  - type: stat
+    stat: health
+    value: 0.1
+    pattern:
+      interval: 2
+levels:
+file_version: 1

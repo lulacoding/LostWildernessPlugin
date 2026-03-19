@@ -1,0 +1,40 @@
+# Lost Wilderness – climate (Aeternum-style). Seasonal weather + migration.
+
+seasonal_weather:
+  enabled: true
+  worlds: ["world"]
+  rainy_days_per_season: 9
+  rainy_days:
+    SPRING: 12
+    SUMMER: 5
+    AUTUMN: 4
+    WINTER: 8
+  thunder_chance: 0.20
+  storm_duration_ticks:
+    min: 6000
+    max: 18000
+  clear_duration_ticks:
+    min: 6000
+    max: 24000
+  reseed_each_season: true
+  respect_manual_commands: true
+
+migration:
+  enabled: true
+  tick_period: 200
+  animals_per_tick: 40
+  search_radius_blocks: 160
+  particles: true
+  spawn:
+    spring_boost_chance: 0.25
+    summer_boost_chance: 0.25
+    autumn_boost_chance: 0.20
+    winter_boost_chance: 0.18
+  soft_despawn:
+    warm_in_winter_chance: 0.25
+  winter_cleanup:
+    enabled: false
+    days: 3
+    base_radius_blocks: 64
+    radius_step_blocks: 64
+    max_per_tick: 40

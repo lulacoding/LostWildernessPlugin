@@ -1,0 +1,43 @@
+﻿Compiled from "ConversationEvent.java"
+public class org.betonquest.betonquest.quest.event.conversation.ConversationEvent implements org.betonquest.betonquest.api.quest.event.online.OnlineEvent {
+  private final org.betonquest.betonquest.api.logger.BetonQuestLoggerFactory loggerFactory;
+
+  private final org.betonquest.betonquest.id.ConversationID conversation;
+
+  private final java.lang.String startOption;
+
+  public org.betonquest.betonquest.quest.event.conversation.ConversationEvent(org.betonquest.betonquest.api.logger.BetonQuestLoggerFactory, org.betonquest.betonquest.id.ConversationID, java.lang.String);
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: aload_0
+       5: aload_1
+       6: putfield      #7                  // Field loggerFactory:Lorg/betonquest/betonquest/api/logger/BetonQuestLoggerFactory;
+       9: aload_0
+      10: aload_2
+      11: putfield      #13                 // Field conversation:Lorg/betonquest/betonquest/id/ConversationID;
+      14: aload_0
+      15: aload_3
+      16: putfield      #17                 // Field startOption:Ljava/lang/String;
+      19: return
+
+  public void execute(org.betonquest.betonquest.api.profiles.OnlineProfile) throws org.betonquest.betonquest.exceptions.QuestRuntimeException;
+    Code:
+       0: new           #21                 // class org/betonquest/betonquest/conversation/Conversation
+       3: dup
+       4: aload_0
+       5: getfield      #7                  // Field loggerFactory:Lorg/betonquest/betonquest/api/logger/BetonQuestLoggerFactory;
+       8: ldc           #21                 // class org/betonquest/betonquest/conversation/Conversation
+      10: invokeinterface #23,  2           // InterfaceMethod org/betonquest/betonquest/api/logger/BetonQuestLoggerFactory.create:(Ljava/lang/Class;)Lorg/betonquest/betonquest/api/logger/BetonQuestLogger;
+      15: aload_1
+      16: aload_0
+      17: getfield      #13                 // Field conversation:Lorg/betonquest/betonquest/id/ConversationID;
+      20: aload_1
+      21: invokeinterface #29,  1           // InterfaceMethod org/betonquest/betonquest/api/profiles/OnlineProfile.getPlayer:()Lorg/bukkit/entity/Player;
+      26: invokeinterface #35,  1           // InterfaceMethod org/bukkit/entity/Player.getLocation:()Lorg/bukkit/Location;
+      31: aload_0
+      32: getfield      #17                 // Field startOption:Ljava/lang/String;
+      35: invokespecial #41                 // Method org/betonquest/betonquest/conversation/Conversation."<init>":(Lorg/betonquest/betonquest/api/logger/BetonQuestLogger;Lorg/betonquest/betonquest/api/profiles/OnlineProfile;Lorg/betonquest/betonquest/id/ConversationID;Lorg/bukkit/Location;Ljava/lang/String;)V
+      38: pop
+      39: return
+}

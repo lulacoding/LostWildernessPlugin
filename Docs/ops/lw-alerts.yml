@@ -1,0 +1,173 @@
+# Prometheus alert rules — Lost Wilderness
+# Deploy to: /etc/prometheus/rules/lw-alerts.yml
+# Referenced by prometheus.yml via rule_files.
+#
+# Alerts fire → Alertmanager → Discord webhook (see alertmanager.yml).
+# Adjust thresholds to match your observed baseline once you have real data.
+
+groups:
+
+  # --------------------------------------------------------------------------
+  # Server availability
+  # --------------------------------------------------------------------------
+  - name: lw_availability
+    rules:
+
+      - alert: LWServerDown
+        # Fires when a Paper backend stops sending metrics for > 60s.
+        # Requires spark (or another Paper metrics plugin) scraping to work.
+        expr: up{job=~"lw-.*"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Server {{ $labels.server }} is DOWN"
+          description: >
+            Prometheus has received no metrics from {{ $labels.server }}
+            for more than 60 seconds. The server may have crashed or been stopped.
+
+      - alert: LWProxyDown
+        expr: up{job="lw-proxy"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "BungeeCord proxy is DOWN"
+          description: >
+            The proxy is not responding to metrics scrapes.
+            New players cannot connect to the network.
+
+  # --------------------------------------------------------------------------
+  # TPS / performance
+  # --------------------------------------------------------------------------
+  - name: lw_performance
+    rules:
+
+      - alert: LWLowTPS
+        # spark exposes tps as spark_tps (exact metric name may vary — check
+        # your spark version at /metrics endpoint and adjust accordingly).
+        expr: spark_tps{server=~"survival-1|amplified-1"} < 18
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low TPS on {{ $labels.server }}"
+          description: >
+            TPS on {{ $labels.server }} has been below 18 for more than
+            60 seconds (current: {{ $value | printf "%.1f" }}).
+            Players may be experiencing lag.
+
+      - alert: LWCriticalTPS
+        expr: spark_tps{server=~"survival-1|amplified-1"} < 12
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical TPS on {{ $labels.server }}"
+          description: >
+            TPS on {{ $labels.server }} has dropped below 12 for 30s
+            (current: {{ $value | printf "%.1f" }}). Server may be near-frozen.
+
+      - alert: LWHighHeapUsage
+        # node_jvm_memory_used_bytes is exported by many JVM exporters.
+        # Adjust metric name if your spark/JMX exporter uses a different name.
+        expr: >
+          (spark_heap_used_bytes / spark_heap_max_bytes) * 100 > 85
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High JVM heap on {{ $labels.server }}"
+          description: >
+            Heap on {{ $labels.server }} is above 85%
+            ({{ $value | printf "%.0f" }}%). Risk of GC pauses or OOM.
+
+  # --------------------------------------------------------------------------
+  # Database
+  # --------------------------------------------------------------------------
+  - name: lw_database
+    rules:
+
+      - alert: LWMariaDBDown
+        expr: up{job="mariadb"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "MariaDB is DOWN"
+          description: >
+            The MariaDB exporter is unreachable; the database may be down.
+            All backends and the Discord bot will lose DB connectivity.
+
+      - alert: LWDBConnectionSaturation
+        # mysql_global_status_threads_connected / mysql_global_variables_max_connections
+        expr: >
+          (mysql_global_status_threads_connected /
+           mysql_global_variables_max_connections) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "MariaDB connection pool > 80%"
+          description: >
+            {{ $value | printf "%.0f" }}% of max_connections in use for > 5 min.
+            Consider increasing max_connections or reducing Hikari pool sizes.
+
+      - alert: LWDBHighQueryLatency
+        # mysql_perf_schema_events_statements_seconds_total is available when
+        # performance_schema is enabled on MariaDB.
+        expr: >
+          rate(mysql_perf_schema_events_statements_seconds_total[5m]) > 1
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High MariaDB query latency"
+          description: >
+            Average query time has exceeded 1 second for 3 minutes.
+            Check for missing indexes or slow queries (enable slow_query_log).
+
+  # --------------------------------------------------------------------------
+  # Host resources
+  # --------------------------------------------------------------------------
+  - name: lw_host
+    rules:
+
+      - alert: LWDiskSpaceLow
+        expr: >
+          (1 - (node_filesystem_avail_bytes{mountpoint="/"} /
+                node_filesystem_size_bytes{mountpoint="/"})) * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk space above 85% on /"
+          description: >
+            Root filesystem is {{ $value | printf "%.0f" }}% full.
+            World data and backups may fill disk quickly. Clean up or expand.
+
+      - alert: LWDiskSpaceCritical
+        expr: >
+          (1 - (node_filesystem_avail_bytes{mountpoint="/"} /
+                node_filesystem_size_bytes{mountpoint="/"})) * 100 > 95
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Disk space critical (>95%) on /"
+          description: >
+            Root filesystem is {{ $value | printf "%.0f" }}% full.
+            Servers may stop saving or crash if disk fills completely.
+
+      - alert: LWHighMemoryUsage
+        expr: >
+          (1 - (node_memory_MemAvailable_bytes /
+                node_memory_MemTotal_bytes)) * 100 > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host RAM usage above 90%"
+          description: >
+            Available RAM is critically low ({{ $value | printf "%.0f" }}% used).
+            Risk of OOM kills affecting backends or MariaDB.

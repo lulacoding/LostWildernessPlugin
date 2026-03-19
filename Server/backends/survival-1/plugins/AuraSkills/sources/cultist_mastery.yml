@@ -1,0 +1,13 @@
+default:
+  type: entity
+  entity: '{key}'
+  trigger: death
+  damager: player
+  menu_item:
+    material: '{key}_spawn_egg'
+sources:
+  player:
+    xp: 40.0
+    menu_item:
+      material: player_head
+file_version: 1

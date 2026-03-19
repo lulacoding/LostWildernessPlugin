@@ -1,0 +1,48 @@
+**PluginV2 – Clans update** (Discord paste)
+Paste each part in a separate message. Use **bold**, `code`, - lists.
+
+─────── PART 1 ───────
+
+**Overview**
+- Clans are enabled when `clans` is in `config/core.yml` → **enabled-modules**.
+- Create clans with a name and hex color. Invite players, accept/deny, leave. Leaders can set clan color, promote/demote members, and mark other clans as enemies. Your clan name appears as a **colored prefix** in front of your name (e.g. `[MyClan] PlayerName`) using the main scoreboard. All clan data is stored in the database (clans, clan_members, clan_invites, clan_relations).
+- **War** – Leaders can declare war on another clan, call a ceasefire (or end the current war), and check status. When your clan is at war and you kill an enemy clan member in PvP, the victim’s **player head** drops.
+- **Alliances** – Leaders can invite another clan to an alliance, accept/leave alliance invites, and list allies and pending invites. Alliances are separate from wars (you can be allied with some clans and at war with others).
+
+**Permission**
+- **lw.clan.use** – Required for all `/clan`, `/war`, and `/alliance` commands.
+
+**Clan commands** (`/clan` …)
+- **create** `<name>` `<#hex>` – Create a clan (name 1–32 chars, color e.g. `#FFAA00`). You become Leader. You must not already be in a clan.
+- **invite** `<player>` – Leader invites an online player. They get a message and can `/clan accept` or `/clan deny`.
+- **accept** – Accept your first pending invite and join that clan as Member.
+- **deny** – Clear all pending invites for you.
+- **leave** – Leave your clan. If you were the last member, the clan is deleted.
+- **color** `<#hex>` – Leader changes the clan color. All online members’ name prefixes update.
+- **promote** / **demote** `<player>` – Leader changes a member’s rank (Leader or Member). You cannot demote yourself.
+- **enemy** / **opposition** `<clanName>` – Leader marks another clan as an enemy (stored as a relation; used for roleplay or future features).
+- **info** `[clanName]` – Show your clan’s (or another clan’s) name, color, and members with ranks.
+- **list** – List all clans with name, color, and member count.
+
+─────── PART 2 ───────
+
+**War commands** (`/war` …) – **Leader only**
+- **declare** `<clan name>` – Declare war on that clan. You can’t declare on your own clan.
+- **ceasefire** `[clan name]` – End war with the given clan. If you omit the name, ends war with your one active war if you have exactly one.
+- **end** – Same as ceasefire.
+- **status** – Shows whether your clan is at war and with whom.
+
+**War head drops**
+- When a player kills another in PvP and **both are in clans that are at war with each other**, the victim’s **player head** drops at their death location. No head drops for non-war kills or if either player isn’t in a clan.
+
+**Alliance commands** (`/alliance` …) – **Leader only** for invite/accept/leave
+- **invite** `<clan name>` – Send an alliance invite to that clan (their leader accepts).
+- **accept** `[clan name]` – Accept a pending alliance invite. If you omit the name, accepts the first pending one.
+- **leave** `<clan name>` – Leave the alliance with that clan.
+- **info** / **list** – Show your allies and any pending alliance invites.
+
+**Display**
+- On **join**, the plugin refreshes your name: if you’re in a clan, your tab/chat name gets the prefix `[ClanName] ` in your clan’s hex color. Same after you create a clan, accept an invite, leave, or when the leader changes the clan color.
+
+**Summary**
+- **Clan:** create, invite, accept, deny, leave, color, promote, demote, enemy, info, list. **War:** declare, ceasefire, status; PvP kills in war drop victim head. **Alliances:** invite, accept, leave, info/list. Permission: **lw.clan.use**. Clan name shows as colored prefix in tab/chat.

@@ -1,0 +1,8 @@
+**🏛️ The Lobby Update**
+
+Your journey into the Lost Wilderness now begins in the new dedicated **Lobby Server**! This ensures a smooth onboarding experience before you set foot in the wild.
+
+- **Verification First:** Upon joining, you'll be prompted to link your Discord account using the `/verify` command. This keeps our community secure and ensures you stay connected.
+- **Choose Your Path:** After verifying, you must speak with the **NPCs in the Lobby** to pick your **Class** and align your fate with one of the five factions. You can also view **Milestones**, interact with **Clans**, and check your **Reputation** right from the lobby!
+- **Safe Zone:** The lobby is completely protected. No hunger, no damage, no changing weather, and no block breaking. Take your time to get situated.
+- **The Gateway:** Once you're verified and have chosen your class, step through the **End Gateway** to be instantly teleported to the Survival server to begin your adventure!

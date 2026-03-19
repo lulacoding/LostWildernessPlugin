@@ -1,0 +1,316 @@
+**🌟 NEW MODULE: Zodiac Star Sign System 🌌**
+
+The Zodiac module is now fully implemented in RPG Core V2! This comprehensive astrological system adds deep personalization and strategic gameplay bonuses.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**📊 OVERVIEW**
+
+Every player is assigned zodiac signs based on their **MC calendar join date**:
+• **Month Sign** - Based on the day/month you joined
+• **Year Sign** - Based on the year you joined
+• **13 Total Signs** - Aries ♈ through Ophiuchus ⛎
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**✨ THE 13 ZODIAC SIGNS**
+
+**1. Aries ♈** (Mar 21 - Apr 19)
+• Speed I + Fire Resistance
+• Evil variant: Speed I only (if Fire Resist present)
+
+**2. Taurus ♉** (Apr 20 - May 20)
+• Haste I (mining speed)
+• Crop growth +20% in 5-block radius
+
+**3. Gemini ♊** (May 21 - Jun 20)
+• Jump Boost I
+• 20% chance for double drops (Fortune-like)
+
+**4. Cancer ♋** (Jun 21 - Jul 22)
+• Dolphin's Grace in water
+• Shield durability -50% slower
+
+**5. Leo ♌** (Jul 23 - Aug 22)
+• Strength I
+• Looting-like extra mob drops
+• Anvil cost -1 level
+
+**6. Virgo ♍** (Aug 23 - Sep 22)
+• Mending efficiency +30%
+• XP gain +20%
+• Enchanting: no lapis needed
+
+**7. Libra ♎** (Sep 23 - Oct 22)
+**Good:** Better villager trades (+15% items), longer Hero of Village
+**Evil:** Cheaper prices (-15%), Bad Omen removal
+
+**8. Scorpio ♏** (Oct 23 - Nov 21)
+**Good:** Regeneration I AoE (10 blocks to allies) + XP +25%
+**Evil:** Poison Resistance + Night Vision permanent
+
+**9. Sagittarius ♐** (Nov 22 - Dec 21)
+• Power I on bows/crossbows
+• Protection I on armor
+• During Ophiuchus period: +33% trident damage
+
+**10. Capricorn ♑** (Dec 22 - Jan 19)
+• Slow Falling
+• Step Assist 1.5 blocks
+• Elytra durability -50%
+
+**11. Aquarius ♒** (Jan 20 - Feb 18)
+• Regeneration in rain
+• Lightning immunity
+• Speed in water
+
+**12. Pisces ♓** (Feb 19 - Mar 20)
+• Luck I (fishing)
+• Dolphin's Grace passive
+
+**13. Ophiuchus ⛎** (Nov 29 - Dec 17 OR Epoch Day 0)
+**Good:** Healing Aura - Nearby allies get Regen I every 10s
+**Evil:** Serpent Form - Sneak for Invisibility + Silence + +10% break speed
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**🦊 SPIRIT ANIMALS (14 Total)**
+
+Each player has a **hidden spirit animal** that provides passive bonuses:
+
+• **Wolf** - +5% melee damage near wolves/packs
+• **Fox** - +10% speed at night
+• **Bat** - Regeneration I in darkness (light ≤4)
+• **Dolphin** - Enhanced Dolphin's Grace near water
+• **Bee** - Crops grow faster in 5-block radius
+• **Cat** - Phantoms never target you
+• **Rabbit** - Jump Boost I when health <30%
+• **Parrot** - Hostile mob detection (louder footsteps)
+• **Axolotl** - Regeneration after combat
+• **Panda** - Slowness immunity
+• **Turtle** - Resistance I when stationary 3+ seconds
+• **Ocelot** - Creepers remain neutral to you
+• **Horse** - Speed boost in Plains/Savanna biomes
+• **Iron Golem** - Increased knockback resistance
+
+**Bonus:** All spirit animals grant **+20% drop chance** from their corresponding mob type!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**⛎ OPHIUCHUS SPECIAL RULES**
+
+**The 13th Sign - "The Serpent Bearer"**
+
+Ophiuchus is the rarest and most mysterious sign:
+
+**Ophiuchus Window (Nov 29 - Dec 17):**
+• Players assigned Sagittarius have:
+  - 80% chance: Stay Sagittarius
+  - 20% chance: Become Ophiuchus
+
+**Epoch Day 0 (The Chosen):**
+• Players who joined on Day 0 are ALWAYS Ophiuchus
+• These are the **Epochians** - "The Chosen Ones"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**✦ EPOCHIAN STATUS (THE CHOSEN)**
+
+Players who joined on **Epoch Day 0** have special powers:
+
+**Unique Benefits:**
+• Month sign is permanently OPHIUCHUS ⛎
+• Receive a **hidden 2nd zodiac sign** (random from all 13)
+• Both signs are ALWAYS active (double perks!)
+• 2nd sign can only be revealed by a **Lord-rank player**
+• Special title: **"The Chosen"**
+
+**Future:** Signs will rotate every 13 MC years (156 months)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**🌙 GOOD vs EVIL ALIGNMENT**
+
+Some signs have **different perks** based on your honor:
+
+**How it works:**
+• Alignment = Your **Honor Score** from Reputation system
+• Positive honor (≥0) = Good
+• Negative honor (<0) = Evil
+
+**Signs with variants:**
+• Libra ♎ (trade bonuses vs cheaper prices)
+• Scorpio ♏ (AoE healing vs stealth)
+• Ophiuchus ⛎ (healing aura vs serpent form)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**★ SYNC BONUS (RARE EVENT!) ★**
+
+When your **month sign matches the current month** AND **year sign matches the current year**:
+
+**Sync Bonus Effects:**
+• All zodiac perks are **DOUBLED** (Potency II instead of I)
+• Bonus **Luck I** effect
+• Extremely rare (happens ~once every 12-13 years per player)
+• Celestial alignment achieved!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**👑 CLAN LEADER YEAR BONUS**
+
+**Easter Egg Mechanic:**
+
+When a clan leader's **year sign matches the current year**:
+
+**Clan-Wide Benefits:**
+• ALL clan members receive:
+  - Luck I
+  - +5% XP gain
+• Lasts the entire MC year
+• Happens ~once every 13 years per clan leader
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**💬 COMMANDS**
+
+**`/datejoined`** (extended)
+Shows your join date + zodiac info:
+• Month Sign + symbol
+• Year Sign + symbol
+• Epochian status (if applicable)
+• 2nd Sign (hidden or revealed)
+• Spirit Animal (hidden or revealed)
+
+**`/zodiac info [player]`**
+View detailed zodiac information:
+• Month & year signs
+• Active bonuses (month active, year active, sync!)
+• Epochian status
+• Revealed spirit animal
+• Current celestial alignments
+
+**`/zodiac reveal <player>`** (Lord only)
+Reveal hidden secrets:
+• Epochian 2nd sign
+• Spirit animal
+• Sends mystical messages to both players
+• **Permission:** `lw.rank.lord`
+
+**`/zodiac clanbonus`**
+Check clan-wide year bonus:
+• Shows your clan leader
+• Indicates if year bonus is active
+• Lists benefits (Luck I + 5% XP)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**🎮 HOW IT WORKS**
+
+**On First Join:**
+1. Your join date is recorded in the MC calendar
+2. Month sign calculated from day/month
+3. Year sign calculated from year
+4. Random spirit animal assigned (hidden)
+5. If Day 0: Epochian status + hidden 2nd sign
+
+**Passive Effects:**
+• Zodiac perks apply automatically every second
+• Spirit animal effects are always active (even when hidden!)
+• No need to equip or activate anything
+• Works alongside all other buffs
+
+**Lord Reveals:**
+• Only Lord-rank players can reveal hidden info
+• Use `/zodiac reveal <player>` to unlock:
+  - Epochian 2nd sign
+  - Spirit animal identity
+• Once revealed, stays revealed forever!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**📊 TECHNICAL DETAILS**
+
+**Database:** `player_zodiac` table
+• Stores: month_sign, year_sign, is_epochian, second_sign, spirit_animal, revealed states
+• MySQL + H2 compatible
+• Async operations for performance
+
+**Integration:**
+• Calendar system (MC date/time)
+• Reputation system (Good/Evil alignment)
+• Clan system (leader year bonus)
+• Player profiles (join date tracking)
+
+**Performance:**
+• Profiles cached in memory (instant access)
+• Effects applied every 1 second (not every tick)
+• Potion effects refresh with 5-second duration
+• Zero lag impact!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**🔮 EXAMPLE SCENARIOS**
+
+**Scenario 1: New Player (Taurus)**
+• Joins on April 25, Year 5
+• Month Sign: Taurus ♉
+• Year Sign: Leo ♌
+• Gets Haste I + crop growth
+• Year sign inactive until Year 5 returns
+
+**Scenario 2: Epochian (The Chosen)**
+• Joined on Epoch Day 0
+• Month Sign: Ophiuchus ⛎ (permanent)
+• Year Sign: Sagittarius ♐
+• Hidden 2nd Sign: Virgo ♍ (unknown)
+• Spirit Animal: Fox (hidden)
+• Perks: Ophiuchus + Sagittarius + Virgo + Fox night speed
+• All active simultaneously!
+
+**Scenario 3: Sync Bonus**
+• Player: Cancer ♋ (month), Pisces ♓ (year)
+• Current date: June 25, Year 3
+• June = Cancer month ✓
+• Year 3 = Pisces year ✓
+• **SYNC BONUS ACTIVE!**
+• Dolphin's Grace II (doubled)
+• Shield durability bonus doubled
+• Bonus Luck I added
+
+**Scenario 4: Clan Leader Bonus**
+• Clan leader has year sign: Aries ♈
+• Current year: Year 1
+• Year 1 = Aries year ✓
+• **ENTIRE CLAN** gets Luck I + 5% XP for the whole year!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**🌟 LORE & FLAVOR**
+
+The zodiac system ties into the Lost Wilderness mythology:
+
+**Epochians** - Players who witnessed the first sunrise on Day 0 of the new calendar. They are blessed by the cosmos with dual signs, marking them as chosen vessels of celestial power.
+
+**Ophiuchus** - The 13th constellation, hidden from most calendars, represents the serpent bearer and healer. Only those born in the Ophiuchus window or on the sacred Epoch Day 0 can channel its power.
+
+**Spirit Animals** - Each soul is bound to a guardian spirit from the wilderness. These animals guide their bonded companions, granting them supernatural abilities even when their true form remains hidden.
+
+**Sync Bonus** - When the celestial spheres align and a player's birth signs match the current cosmic configuration, they achieve perfect harmony with the universe, doubling their astrological power.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**📝 PERMISSIONS**
+
+`lw.rank.lord` - Reveal hidden zodiac secrets (default: op)
+`lw.zodiac.use` - Use /zodiac info command (default: true)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**🚀 AVAILABILITY**
+
+**Status:** ✅ Fully implemented in RPG Core V2
+**Module:** `zodiac`
+**Dependencies:** calendar, reputation, clans, player
+**Config:** Add `zodiac` to `enabled-modules` in `config/core.yml`
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**📚 DOCUMENTATION**
+
+Full technical docs: `../03-modules/plugin-zodiac.md`
+
+Includes:
+• Complete perk matrix
+• Spirit animal effects table
+• Implementation details
+• Integration guides
+• Testing checklist
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**May the stars guide your path! 🌟**

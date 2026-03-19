@@ -1,0 +1,30 @@
+{
+  "stats": {
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 26718,
+      "minecraft:walk_one_cm": 18232,
+      "minecraft:leave_game": 12,
+      "minecraft:damage_taken": 240,
+      "minecraft:play_time": 27713,
+      "minecraft:jump": 223,
+      "minecraft:time_since_death": 26694,
+      "minecraft:open_enderchest": 2,
+      "minecraft:sprint_one_cm": 22771,
+      "minecraft:fall_one_cm": 6375,
+      "minecraft:total_world_time": 27722,
+      "minecraft:fly_one_cm": 118566,
+      "minecraft:sneak_time": 63,
+      "minecraft:deaths": 1
+    },
+    "minecraft:used": {
+      "minecraft:polished_andesite": 1
+    },
+    "minecraft:picked_up": {
+      "minecraft:spruce_sapling": 9,
+      "minecraft:tripwire_hook": 2,
+      "minecraft:sunflower": 1,
+      "minecraft:jungle_sapling": 9
+    }
+  },
+  "DataVersion": 4671
+}

@@ -1,0 +1,33 @@
+---
+description: Java and Bukkit/Paper patterns for plugin code
+globs: "**/*.java"
+alwaysApply: false
+---
+
+# Java / Bukkit patterns
+
+## Main thread vs async
+- Bukkit/Paper APIs that touch world, players, or scheduler must run on the **main thread**.
+- DB I/O, heavy computation, or external calls must run **off** the main thread.
+
+```java
+// Async work (e.g. DB)
+Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+    // ... DB or heavy work ...
+    // Then back to main if you need to touch server
+    Bukkit.getScheduler().runTask(plugin, () -> {
+        // ... update world/players ...
+    });
+});
+```
+
+- When async work finishes and you need to touch the server again, use `runTask(plugin, ...)` to hop back to main.
+
+## Logging
+- Use the project logger (e.g. `LWLogger` in `com.lula0802.LWEvents.logging`) where present, not `System.out` or raw `java.util.logging`.
+
+## Config
+- Prefer existing config helpers (e.g. `ConfigHelper`) and typed access; avoid ad-hoc `getConfig()` without going through project patterns.
+
+## Naming
+- Follow existing style in `SurvivalMain` and related classes (command/listener package layout under `com.lula0802.LWEvents`).

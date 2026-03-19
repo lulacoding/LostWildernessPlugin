@@ -1,0 +1,146 @@
+# RPG_Core_V2 – main plugin config
+# Used by events and other modules that read plugin.getConfig().
+
+# World events (Eclipse, daily loop, cooldowns, TPS guard)
+events:
+  # Skip starting daily/seasonal events when TPS is below this (0 = disabled)
+  pause-if-tps-below: 15.0
+  # Boss bar showing active event names to overworld players
+  boss-bar:
+    enabled: true
+  # Per-event day cooldown after it runs (e.g. Eclipse: 30 = can't start again for 30 days)
+  cooldowns:
+    Eclipse: 30
+    Thunder: 5
+    Blizzard: 20
+    Frost: 15
+    Fog: 10
+    Heatwave: 15
+    JungleMonsoon: 15
+    SeasonalStorm: 10
+    BloodMoon: 20
+    Tornado: 25
+    MagicStorm: 8
+    Festival: 10
+    FishingFestival: 14
+    MiningBlessing: 14
+    RestfulSleep: 10
+    NewYear: 0
+    Holiday: 0
+  # Blood Moon: mob buff (PDC restore on end / chunk load when inactive)
+  blood-moon:
+    mob-buff-enabled: true
+    health-multiplier: 1.5
+    damage-multiplier: 1.5
+  # Frost: optional damage when in cold biome and not near heat
+  frost:
+    chance-pct: 30
+    target-tick: 13000
+    damage-when-exposed: false
+    frost-damage-per-tick: 0.5
+    min-armor-pieces-to-avoid-damage: 2
+  # New Year (first day of Spring / March 1)
+  new-year:
+    enabled: true
+    gift-fireworks-min: 3
+    gift-fireworks-max: 8
+    gift-gunpowder-min: 1
+    gift-gunpowder-max: 3
+    firework-phase-duration-ticks: 60
+  # Holiday: Halloween (Oct 31), Christmas (Dec 25)
+  holiday:
+    halloween:
+      enabled: true
+      mob-radius: 24
+      pumpkin-chance: 0.02
+    christmas:
+      enabled: true
+      heal-amount: 2.0
+  # Eclipse: every N days, with offset and chance
+  eclipse:
+    interval-days: 30
+    offset-days: 0
+    chance-pct: 80
+    horde-size: 8
+  thunder:
+    base-chance-pct: 15
+    eclipse-chance-pct: 40
+    horses-per-eclipse: 3
+  fog:
+    chance-pct: 20
+    restore-delay-ticks: 6000
+  blizzard:
+    chance-pct: 25
+  heatwave:
+    chance-pct: 25
+    exposure-damage-enabled: true
+    min-armor-pieces: 2
+    damage-per-tick: 0.5
+    apply-weakness: true
+  jungle-monsoon:
+    chance-pct: 20
+  seasonal-storm:
+    chance-pct: 25
+  paranoia:
+    chance: 1.0
+    min-interval-seconds: 20
+    max-interval-seconds: 60
+  # Seasonal weather: set storm/thunder by season when day advances
+  seasonal-weather:
+    enabled: true
+    rainy-days-per-season: 10
+    thunder-chance: 0.15
+    # Optional per-season overrides:
+    # rainy-days:
+    #   spring: 12
+    #   summer: 8
+    #   autumn: 14
+    #   winter: 6
+  # Wildlife migration (Aeternum-style). Also uses lw-fauna.yml when present.
+  wildlife-migration:
+    enabled: true
+  # Biome painting (Aeternum-style): paint chunk biomes by season around players (overworld).
+  # Keep a full world backup before using. Use /season biomes on|off|restore (Survival) to toggle.
+  biome-painting:
+    enabled: false
+    disk-backup-enabled: true
+    painting-enabled: false
+    radius-chunks: 8
+    budget-chunks-per-tick: 16
+    respect-naturally-snowy-biomes: true
+    excluded-biomes: []
+    seasons:
+      SPRING: FLOWER_FOREST
+      SUMMER: PLAINS
+      AUTUMN: WINDSWEPT_SAVANNA
+      WINTER: SNOWY_PLAINS
+    oceans:
+      enabled: true
+      keep-deep-variants: true
+      seasons:
+        SPRING: LUKEWARM_OCEAN
+        SUMMER: WARM_OCEAN
+        AUTUMN: OCEAN
+        WINTER: FROZEN_OCEAN
+    rivers:
+      enabled: true
+      seasons:
+        SPRING: RIVER
+        SUMMER: RIVER
+        AUTUMN: RIVER
+        WINTER: FROZEN_RIVER
+
+  # Per-world day offset so Survival and Amplified (or other dimensions) can have events at different times.
+  # Effective day for a world = global calendar day + offset. Cooldowns and chances use effective day per world.
+  # Example: world_amplified with offset 40 runs events as if 40 days ahead (different season/event timing).
+  # world-day-offsets:
+  #   world: 0
+  #   world_amplified: 40
+
+  # Optional: worlds where events are disabled
+  # disabled_worlds: []
+
+# Optional resource packs (applied during Eclipse; leave empty to skip)
+# resource-packs:
+#   eclipse: "https://example.com/eclipse.zip"
+#   eclipse-empty: ""

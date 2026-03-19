@@ -1,0 +1,43 @@
+**PluginV2 – Reputation (Honor) System Update** (Discord paste)
+Paste each part in a separate message. Use **bold**, `code`, - lists.
+
+─────── PART 1 ───────
+
+**⚖️ Reputation System – Red Dead Redemption Style Honor**
+We have introduced a massive new lore-driven **Honor System**. Your actions in the world now carry weight, tracking whether you are a protector of the innocent or a force of darkness.
+
+**🌟 Honor Score & Titles**
+- Your overall **Honor Score** scales from **-1000** (Pure Evil) to **+1000** (Pure Good).
+- Depending on your score, you will receive a dynamic **Title**: `Hero`, `Noble`, `Honorable`, `Neutral`, `Dishonorable`, `Villain`, or `Outlaw`.
+- Use the **`/reputation`** command to view a beautiful visual progress bar of your Honor, your current Title, and your exact standing with the five major factions.
+
+**🏰 Factions & Alignments**
+
+Your actions now shift your standing with these major factions:
+
+- **Celestial** – Pure light and divine order. Protectors of the innocent and enemy of all corruption.
+- **The Redeemed** – Mortals who answer the gods’ call and walk the path of redemption. Even villains can fight their way back into this faction’s favor.
+- **Wildlands** – Neutral spirits of nature, beasts and druids. They judge you by how you treat the world itself.
+- **Corrupted** – Void‑touched cults and those who pledge themselves to the Devoider and other dark powers.
+- **Destroyers** – Raiders, griefers and warbands who live for chaos, bloodshed and destruction.
+
+> **Epochians** are *players*, not an NPC faction – those who were here since the very start of the world (Day 0).
+> Their Honor can still swing between Hero and Outlaw; being an Epochian just marks you as an original.
+
+─────── PART 2 ───────
+
+**🗡️ Good Deeds & Heroism**
+- **Boss Kills**: Defeating world bosses like the *Devoider* or *El Diablo* grants massive reputation with the Celestial and Epochian factions.
+- **Saving Souls**: Curing a Zombie Villager provides a huge surge of Honor (+100).
+- **Justice & Prosperity**: Killing hostile monsters grants small bonuses to Wildlands reputation. Trading with villagers slightly boosts your Celestial standing.
+
+**💀 Bad Deeds & Villainy**
+- **Murder**: Killing other players in PvP instantly destroys your Celestial honor and grants you standing with the Destroyers.
+- **Griefing Innocents**: Killing peaceful creatures (Villagers, Horses, Pets, Iron Golems) penalizes your honor significantly.
+
+**🌑 Pledging to the Darkness**
+- Players can actively choose to side with the bosses instead of fighting them.
+- If you approach a Boss (Wither) and right-click them with a **Wither Rose**, you will **pledge your soul to the darkness**. This instantly tanks your Celestial reputation (-150) and grants you massive Corrupted standing (+100).
+
+**Live Feedback**
+- Whenever your standing improves or worsens with a faction, you will receive subtle gray chat notifications letting you know your actions were noticed.

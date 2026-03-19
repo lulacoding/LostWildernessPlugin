@@ -1,0 +1,66 @@
+# Alertmanager configuration — Lost Wilderness
+# Deploy to: /etc/alertmanager/alertmanager.yml
+#
+# Sends all alerts to a Discord webhook via the discord_configs receiver.
+# Requires Alertmanager >= 0.26 which has native discord_configs support.
+# For older versions use webhook_configs + a small shim.
+#
+# IMPORTANT: Do NOT commit your real webhook URL.
+# Set it via environment substitution or store it outside the repo.
+# Example: replace DISCORD_WEBHOOK_URL below with your actual URL before deploying,
+# or use Alertmanager's --web.config.file to inject secrets.
+#
+# Install on Ubuntu/Debian:
+#   sudo apt install prometheus-alertmanager
+#   sudo cp Docs/ops/alertmanager.yml /etc/alertmanager/alertmanager.yml
+#   sudo systemctl restart prometheus-alertmanager
+
+global:
+  resolve_timeout: 5m
+
+route:
+  # Group all alerts from the same server together
+  group_by: ['alertname', 'server']
+  group_wait:      30s
+  group_interval:  5m
+  repeat_interval: 1h
+  receiver: discord-infra-alerts
+
+  routes:
+    # Critical alerts fire immediately, repeat every 30 min
+    - match:
+        severity: critical
+      group_wait:      10s
+      repeat_interval: 30m
+      receiver: discord-infra-alerts
+
+    # Warning alerts can wait a bit and repeat less often
+    - match:
+        severity: warning
+      group_wait:      1m
+      repeat_interval: 2h
+      receiver: discord-infra-alerts
+
+receivers:
+  - name: discord-infra-alerts
+    discord_configs:
+      - webhook_url: 'CHANGE_ME__DISCORD_WEBHOOK_URL'
+        title: >-
+          [{{ .Status | toUpper }}{{ if eq .Status "firing" }} 🔴{{ else }} ✅{{ end }}]
+          {{ .CommonAnnotations.summary }}
+        message: >-
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Severity:** {{ .Labels.severity }}
+          {{ if .Annotations.description }}**Details:** {{ .Annotations.description }}{{ end }}
+          **Fired at:** {{ .StartsAt.Format "2006-01-02 15:04:05 UTC" }}
+          {{ end }}
+
+inhibit_rules:
+  # Suppress warning-level alerts when a critical alert is already firing
+  # for the same server (avoid alert spam when a server is down).
+  - source_match:
+      severity: critical
+    target_match:
+      severity: warning
+    equal: ['server']

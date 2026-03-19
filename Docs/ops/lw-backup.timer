@@ -1,0 +1,17 @@
+# systemd timer: run lw-backup.service nightly at 03:00 server time
+# Deploy to: /etc/systemd/system/lw-backup.timer
+#
+# See lw-backup.service for install instructions.
+
+[Unit]
+Description=Lost Wilderness nightly backup timer
+
+[Timer]
+# Fire at 03:00 every day (adjust to a quiet time on your server)
+OnCalendar=*-*-* 03:00:00
+# If the system was off at 03:00, run as soon as it boots
+Persistent=true
+Unit=lw-backup.service
+
+[Install]
+WantedBy=timers.target
