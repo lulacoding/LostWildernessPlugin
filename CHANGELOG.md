@@ -19,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
     - **RUNEKEEPER Master:** Lapis refunded after enchanting (1-3 lapis depending on XP cost, drops if inventory full)
     - **SAGE Master:** Enchanting table offers +1 level to all 3 options (capped at max enchant level)
     - **ILLUSIONIST Master:** Invisibility potions last 3x longer (extends duration via PlayerItemConsumeEvent)
-    - **ILLUSIONIST Trait:** `/trait decoy` command spawns armor stand decoy (5s duration, 2min cooldown, targetable by mobs)
+    - **ILLUSIONIST Trait:** `/ptrait decoy` command spawns armor stand decoy (5s duration, 2min cooldown, targetable by mobs)
   - **New event handlers in TraitPassiveListener.java:**
     - `onAlchemistBrewStart()` - Accelerates brewing with BukkitRunnable (runs every tick)
     - `onWarriorShieldBlock()` - Reduces damage during shield blocking
@@ -31,6 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
     - `handleDecoy()` - Spawns armor stand decoy copying player appearance
     - `spawnDecoy()` - Creates 5-second decoy with portal/smoke particles
     - Cooldown tracking: `Map<UUID, Long> decoyCooldowns`
+    - **Command renamed:** `/trait` → `/ptrait` to avoid conflict with Citizens NPC plugin
   - **New imports added:**
     - TraitPassiveListener: `EnchantItemEvent`, `PrepareItemEnchantEvent`, `PlayerItemConsumeEvent`, `PlayerItemHeldEvent`, `BrewingStand`, `BukkitRunnable`
     - TraitCommand: `ArmorStand`, `EntityType`, `Particle`, `Location`, `HashMap`, `Map`

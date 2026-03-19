@@ -64,10 +64,10 @@ Implement `ElementalPassiveListener.java`. These only activate after Temple comp
 
 Implement `TraitCommand.java`.
 
-- `/trait info [player]` — Show status GUI or text summary.
-- `/trait revealelement <player>` — (Lord only) Reveal hidden element.
-- `/trait bless <player>` — (Lord only) Bless held ultimate item.
-- `/trait set <player> <trait>` — (Admin only) Force trait change.
+- `/ptraitinfo [player]` — Show status GUI or text summary.
+- `/ptraitrevealelement <player>` — (Lord only) Reveal hidden element.
+- `/ptraitbless <player>` — (Lord only) Bless held ultimate item.
+- `/ptraitset <player> <trait>` — (Admin only) Force trait change.
 
 ---
 

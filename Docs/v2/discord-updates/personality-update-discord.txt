@@ -92,7 +92,7 @@
    - **Ultimate (100%):** Receive **Runeblade** (Sharpness X, all enchants, random crit effects)
 
 13. **ILLUSIONIST** – Deception and misdirection expert
-   - **Apprentice (0%):** `/trait decoy` spawns fake player (5s, 2min cooldown)
+   - **Apprentice (0%):** `/ptrait decoy` spawns fake player (5s, 2min cooldown)
    - **Trait (25%):** Invisibility potions last 3x longer
    - **Master (50%):** Mobs ignore you when invisible
    - **Ultimate (100%):** Receive **Mirror Shard** (Swap positions with target player)
@@ -157,7 +157,7 @@ Ultimate items can be **blessed** by Lords to receive **Holy Enchants** (custom 
 13. **ECHO_STEP** – Leave teleport trail that lasts 5 seconds
 
 **Blessing Mechanic:**
-- Lord uses `/trait bless <player>` while player holds Ultimate item
+- Lord uses `/ptraitbless <player>` while player holds Ultimate item
 - Enchantment levels doubled (up to hard cap)
 - Random Holy Enchant added to item
 - Can only bless each item once
@@ -193,11 +193,11 @@ Ultimate items can be **blessed** by Lords to receive **Holy Enchants** (custom 
 - Aether Temple: 300%
 
 **Commands**
-- `/trait info [player]` – View trait, tier, element status, completion %
-- `/trait revealelement <player>` – Lord only: Reveal element to player
-- `/trait bless <player>` – Lord only: Bless held Ultimate item with Holy Enchant
-- `/trait temple <element>` – Admin: Mark temple complete
-- `/trait set <trait>` – Admin: Force trait assignment
+- `/ptraitinfo [player]` – View trait, tier, element status, completion %
+- `/ptraitrevealelement <player>` – Lord only: Reveal element to player
+- `/ptraitbless <player>` – Lord only: Bless held Ultimate item with Holy Enchant
+- `/ptraittemple <element>` – Admin: Mark temple complete
+- `/ptraitset <trait>` – Admin: Force trait assignment
 - `/datejoined` – Extended to show trait/element info after zodiac
 
 **Permissions**
@@ -213,7 +213,7 @@ Ultimate items can be **blessed** by Lords to receive **Holy Enchants** (custom 
 3. **25%:** Reach 25% completion → auto-advance to **Trait** tier
 4. **50%:** Reach 50% completion → auto-advance to **Master** tier
 5. **100%:** Reach 100% completion → auto-advance to **Ultimate** tier, receive Trait Ultimate Item
-6. **Element Reveal:** Ask a Lord to run `/trait revealelement` to discover your element
+6. **Element Reveal:** Ask a Lord to run `/ptraitrevealelement` to discover your element
 7. **Temple Quests:** Complete 5 Elemental Temple BetonQuest chains
 8. **300%:** Complete all temples + all advancements → **Post-Game God** status
 
@@ -623,18 +623,19 @@ The 7 trait passives previously marked as "Won't Fix - Technical Constraints" ha
 - Chat message: "§d✓ Illusionist Master: Invisibility extended!"
 
 **7. ILLUSIONIST Trait – Decoy Command**
-- `/trait decoy` spawns armor stand decoy at your location
+- `/ptrait decoy` spawns armor stand decoy at your location
 - Decoy copies your armor, weapons, and appearance
 - Lasts 5 seconds with purple portal particles on spawn
 - 2-minute cooldown between uses
 - **Decoys are targetable by mobs** (distracts enemies!)
 
 **Technical Details:**
-- **Files Modified:** `TraitPassiveListener.java` (+200 lines), `TraitCommand.java` (+100 lines)
+- **Files Modified:** `TraitPassiveListener.java` (+200 lines), `TraitCommand.java` (+100 lines), `plugin.yml`
 - **New Event Handlers:** 6 additional event listeners
 - **New Events Used:** `EnchantItemEvent`, `PrepareItemEnchantEvent`, `PlayerItemConsumeEvent`, `PlayerItemHeldEvent`, `BrewEvent`
 - **Compilation:** ✅ Successful (19 deprecation warnings from existing code, no errors)
 - **Total Code Added:** ~300 lines of production code
+- **Command Renamed:** `/trait` → `/ptrait` (avoids conflict with Citizens NPC plugin)
 
 **Updated Trait Descriptions:**
 
@@ -652,7 +653,7 @@ The 7 trait passives previously marked as "Won't Fix - Technical Constraints" ha
 - **Master (50%):** Lapis refunded after enchanting
 
 **ILLUSIONIST:**
-- **Trait (25%):** `/trait decoy` spawns targetable decoy (5s, 2min cooldown)
+- **Trait (25%):** `/ptrait decoy` spawns targetable decoy (5s, 2min cooldown)
 - **Master (50%):** Invisibility potions last 3x longer
 
 **Current Implementation Status:**

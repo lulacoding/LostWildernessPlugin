@@ -79,7 +79,10 @@
       "Bash(./gradlew.bat :survival-plugin:compileJava -x test)",
       "Read(//mnt/c/Users/cthvh/OneDrive/Desktop/**)",
       "Bash(./gradlew :survival-plugin:compileJava -x test)",
-      "Bash(grep -E \"\\\\.java$\")"
+      "Bash(grep -E \"\\\\.java$\")",
+      "Bash(for file:*)",
+      "Bash(do sed:*)",
+      "Bash(./gradlew.bat :amplified-plugin:compileJava -x test)"
     ]
   }
 }

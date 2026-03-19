@@ -29,11 +29,11 @@ This guide covers systematic testing of the Personality System including:
 
 ### Admin Commands for Testing
 ```
-/trait set <player> <trait>          # Force assign trait (bypasses quiz)
-/trait revealelement <player>        # Reveal hidden element (Lord only)
-/trait bless <player>                # Bless held Ultimate item (Lord only)
-/trait info [player]                 # View trait profile
-/trait completion <player> <percent> # Set completion % (admin)
+/ptrait set<player> <trait>          # Force assign trait (bypasses quiz)
+/ptrait revealelement<player>        # Reveal hidden element (Lord only)
+/ptrait bless<player>                # Bless held Ultimate item (Lord only)
+/ptrait info[player]                 # View trait profile
+/ptrait completion<player> <percent> # Set completion % (admin)
 ```
 
 ### Test Data Reset
@@ -370,7 +370,7 @@ DELETE FROM player_holy_enchants WHERE uuid = '<uuid>';
 
 ### 2.2 Element Reveal
 
-**Test:** Lord runs `/trait revealelement <player>`
+**Test:** Lord runs `/ptrait revealelement<player>`
 **Expected:** Player receives message revealing their element
 **Verification:** Check player chat output
 
@@ -603,7 +603,7 @@ Each element requires completing a temple quest (BetonQuest-driven).
 
 ### 5.2 Progression Test Steps
 
-1. **Setup:** Assign trait via `/trait set <player> <trait>`
+1. **Setup:** Assign trait via `/ptrait set<player> <trait>`
 2. **0% → 25%:** Set completion to 25%, check for tier advancement message + Trait ability activation
 3. **25% → 50%:** Set completion to 50%, verify Master ability activation
 4. **50% → 100%:** Set completion to 100%, verify Ultimate ability + item granted + Holy Enchant applied
@@ -749,10 +749,10 @@ Completion: §a300% §7— ⭐ Post-Game God
 Quick verification that core features work:
 
 **Basic Commands:**
-- [ ] Assign trait via `/trait set <player> <trait>`
-- [ ] Check trait info via `/trait info [player]`
-- [ ] Reveal element via `/trait revealelement <player>`
-- [ ] Bless Ultimate item via `/trait bless <player>`
+- [ ] Assign trait via `/ptrait set<player> <trait>`
+- [ ] Check trait info via `/ptrait info[player]`
+- [ ] Reveal element via `/ptrait revealelement<player>`
+- [ ] Bless Ultimate item via `/ptrait bless<player>`
 - [ ] Check `/datejoined` output
 
 **Trait Passives:**
@@ -858,10 +858,10 @@ The following 7 trait passives were previously marked as "Won't Fix" but have no
   5. **Verify:** Chat message "§d✓ Illusionist Master: Invisibility extended!"
 
 #### 7. ILLUSIONIST Trait - Decoy Command
-- **Feature:** `/trait decoy` spawns armor stand decoy
+- **Feature:** `/ptrait decoy` spawns armor stand decoy
 - **Test Procedure:**
   1. Assign ILLUSIONIST trait at TRAIT tier (25% completion)
-  2. Run `/trait decoy` command
+  2. Run `/ptrait decoy` command
   3. **Expected:** Armor stand spawns looking like player
   4. **Expected:** Purple portal particles at spawn location
   5. Wait 5 seconds

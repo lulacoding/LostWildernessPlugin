@@ -1,4 +1,4 @@
-package com.lostwilderness.survivalv2.personality;
+package com.lostwilderness.amplifiedv2.personality;
 
 import com.lostwilderness.rpgcore.personality.*;
 import org.bukkit.Bukkit;

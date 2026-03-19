@@ -20,4 +20,15 @@ commands:
   event:
     description: List or show info about seasonal events (read-only)
     usage: /<command> <list|info>
+  ptrait:
+    description: Manage personality traits, elements, and Ultimate items
+    usage: /<command> <info|revealelement|bless|temple|set|quiz|decoy> [args]
+
+permissions:
+  lw.trait.info.others:
+    description: Allows viewing other players' trait info
+    default: op
+  lw.rank.lord:
+    description: Lord rank permissions (revealelement, bless)
+    default: op
 
