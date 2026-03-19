@@ -2,20 +2,28 @@ package com.lostwilderness.survivalv2.personality;
 
 import com.lostwilderness.rpgcore.personality.HolyEnchant;
 import com.lostwilderness.rpgcore.personality.HolyEnchantService;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Applies Holy Enchant effects from items with holy enchants in PDC.
@@ -38,6 +46,13 @@ import java.util.Set;
 public class HolyEnchantEffectListener implements Listener {
 
     private final HolyEnchantService holyEnchantService;
+
+    // Cooldown tracking for PHOENIX_FLAME (daily cooldown)
+    private final Map<UUID, LocalDate> phoenixFlameLastUse = new HashMap<>();
+
+    // Cooldown tracking for ECHO_STEP (per-move cooldown)
+    private final Map<UUID, Long> echoStepLastSpawn = new HashMap<>();
+    private static final long ECHO_STEP_COOLDOWN_MS = 2000; // 2 seconds between spawns
 
     public HolyEnchantEffectListener(HolyEnchantService holyEnchantService) {
         this.holyEnchantService = holyEnchantService;
@@ -215,8 +230,8 @@ public class HolyEnchantEffectListener implements Listener {
 
     /**
      * LUNAR_BLESSING: Regenerates health during nighttime
-     * Note: Requires scheduled task in main plugin to check time and apply regeneration
-     * TODO: Implement scheduled task (check world.getTime() > 13000 && < 23000)
+     * Note: Implemented via scheduled task in SurvivalV2Plugin
+     * Task checks all players with LUNAR_BLESSING helmet during night (time > 13000 && < 23000)
      */
 
     // ========== STARFALL ==========
@@ -225,7 +240,7 @@ public class HolyEnchantEffectListener implements Listener {
      * STARFALL: Arrows rain additional projectiles on impact
      */
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onStarfall(ProjectileLaunchEvent event) {
+    public void onStarfall(ProjectileHitEvent event) {
         if (!(event.getEntity() instanceof Arrow)) return;
 
         Arrow arrow = (Arrow) event.getEntity();
@@ -235,8 +250,28 @@ public class HolyEnchantEffectListener implements Listener {
         ItemStack bow = player.getInventory().getItemInMainHand();
 
         if (hasHolyEnchant(bow, HolyEnchant.STARFALL)) {
-            // Spawn 2 additional arrows slightly offset
-            // TODO: Implement via ProjectileHitEvent (spawn extra arrows on impact)
+            Location hitLoc = arrow.getLocation();
+
+            // Spawn 3 additional arrows raining down from above
+            for (int i = 0; i < 3; i++) {
+                Location spawnLoc = hitLoc.clone().add(
+                    (Math.random() - 0.5) * 4,  // Random X offset ±2 blocks
+                    8,                           // 8 blocks above
+                    (Math.random() - 0.5) * 4   // Random Z offset ±2 blocks
+                );
+
+                Arrow starArrow = hitLoc.getWorld().spawnArrow(
+                    spawnLoc,
+                    new Vector(0, -1, 0),  // Straight down
+                    1.5f,                   // Velocity
+                    0                       // Spread
+                );
+                starArrow.setShooter(player);
+                starArrow.setPickupStatus(Arrow.PickupStatus.CREATIVE_ONLY);
+                starArrow.setDamage(arrow.getDamage() * 0.5); // 50% of original arrow damage
+            }
+
+            player.sendMessage("§e⭐ Starfall!");
         }
     }
 
@@ -262,9 +297,66 @@ public class HolyEnchantEffectListener implements Listener {
 
     /**
      * PHOENIX_FLAME: Revive once per day with fire immunity
-     * Note: Requires death event listener + cooldown tracking
-     * TODO: Implement via PlayerDeathEvent + respawn + cooldown system
      */
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPhoenixFlameDeath(PlayerDeathEvent event) {
+        Player player = event.getPlayer();
+        UUID uuid = player.getUniqueId();
+
+        // Check if player has PHOENIX_FLAME enchant on any armor piece
+        boolean hasPhoenixFlame = false;
+        ItemStack[] armor = player.getInventory().getArmorContents();
+        for (ItemStack piece : armor) {
+            if (hasHolyEnchant(piece, HolyEnchant.PHOENIX_FLAME)) {
+                hasPhoenixFlame = true;
+                break;
+            }
+        }
+
+        if (!hasPhoenixFlame) return;
+
+        // Check daily cooldown
+        LocalDate today = LocalDate.now();
+        if (phoenixFlameLastUse.containsKey(uuid)) {
+            LocalDate lastUse = phoenixFlameLastUse.get(uuid);
+            long daysSince = ChronoUnit.DAYS.between(lastUse, today);
+            if (daysSince < 1) {
+                player.sendMessage("§cPhoenix Flame is on cooldown! (Resets tomorrow)");
+                return;
+            }
+        }
+
+        // Cancel death and revive
+        event.setCancelled(true);
+        event.getDrops().clear();
+        event.setKeepInventory(true);
+        event.setKeepLevel(true);
+
+        // Set cooldown
+        phoenixFlameLastUse.put(uuid, today);
+
+        // Schedule respawn effects
+        org.bukkit.Bukkit.getScheduler().runTaskLater(
+            org.bukkit.plugin.java.JavaPlugin.getProvidingPlugin(getClass()),
+            () -> {
+                player.setHealth(6.0); // 3 hearts
+                player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 600, 0, false, true, true)); // 30s fire immunity
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1, false, true, true)); // 5s Regen II
+                player.sendMessage("§6§l⚡ PHOENIX FLAME: §eYou have been revived from death!");
+                player.getWorld().strikeLightningEffect(player.getLocation());
+
+                // Flame particles
+                player.getWorld().spawnParticle(
+                    org.bukkit.Particle.FLAME,
+                    player.getLocation().add(0, 1, 0),
+                    100,
+                    0.5, 1.0, 0.5,
+                    0.1
+                );
+            },
+            1L
+        );
+    }
 
     // ========== TITANIC_FORCE ==========
 
@@ -290,9 +382,71 @@ public class HolyEnchantEffectListener implements Listener {
 
     /**
      * ECHO_STEP: Leaves afterimages that confuse enemies
-     * Note: Requires custom entity spawning (armor stands) and AI manipulation
-     * TODO: Implement via PlayerMoveEvent (spawn fake entities behind player)
      */
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onEchoStepMove(PlayerMoveEvent event) {
+        if (event.getTo() == null) return;
+        if (event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
+
+        Player player = event.getPlayer();
+        UUID uuid = player.getUniqueId();
+
+        // Check if player has ECHO_STEP on boots
+        ItemStack boots = player.getInventory().getBoots();
+        if (!hasHolyEnchant(boots, HolyEnchant.ECHO_STEP)) return;
+
+        // Check cooldown (don't spam armor stands)
+        long now = System.currentTimeMillis();
+        if (echoStepLastSpawn.containsKey(uuid)) {
+            long lastSpawn = echoStepLastSpawn.get(uuid);
+            if (now - lastSpawn < ECHO_STEP_COOLDOWN_MS) {
+                return;
+            }
+        }
+
+        // Only spawn when sprinting
+        if (!player.isSprinting()) return;
+
+        echoStepLastSpawn.put(uuid, now);
+
+        // Spawn armor stand "echo" at player's old location
+        Location echoLoc = event.getFrom().clone();
+        ArmorStand echo = (ArmorStand) echoLoc.getWorld().spawnEntity(echoLoc, org.bukkit.entity.EntityType.ARMOR_STAND);
+
+        // Copy player's appearance
+        echo.setHelmet(player.getInventory().getHelmet());
+        echo.setChestplate(player.getInventory().getChestplate());
+        echo.setLeggings(player.getInventory().getLeggings());
+        echo.setBoots(player.getInventory().getBoots());
+        echo.setItemInHand(player.getInventory().getItemInMainHand());
+
+        // Set properties
+        echo.setGravity(false);
+        echo.setVisible(true);
+        echo.setBasePlate(false);
+        echo.setArms(true);
+        echo.setMarker(false); // Can be targeted by mobs
+
+        // Make it slightly transparent
+        echo.setCustomNameVisible(false);
+        echo.setInvulnerable(false); // Mobs can hit it
+
+        // Spawn particles
+        echoLoc.getWorld().spawnParticle(
+            org.bukkit.Particle.PORTAL,
+            echoLoc.add(0, 1, 0),
+            20,
+            0.3, 0.5, 0.3,
+            0.05
+        );
+
+        // Remove after 5 seconds
+        org.bukkit.Bukkit.getScheduler().runTaskLater(
+            org.bukkit.plugin.java.JavaPlugin.getProvidingPlugin(getClass()),
+            echo::remove,
+            100L // 5 seconds
+        );
+    }
 
     // ========== UTILITY ==========
 

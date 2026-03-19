@@ -66,7 +66,20 @@
       "Bash(for dir:*)",
       "Bash(do echo:*)",
       "Read(//c/Users/cthvh/OneDrive/Desktop/Lost Wilderness/PluginV2/src/main/java/com/lostwilderness/rpgcore/**)",
-      "Bash(grep \"\\\\.java$\")"
+      "Bash(grep \"\\\\.java$\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\cthvh\\\\.openclaw\\\\gateway.cmd' | Select-String 'AWS_BEARER'\")",
+      "WebFetch(domain:docs.google.com)",
+      "Bash(ls C:/Users/cthvh/Downloads/*.txt)",
+      "Bash(openclaw --help)",
+      "Bash(openclaw system:*)",
+      "Bash(openclaw models:*)",
+      "WebFetch(domain:ai.google.dev)",
+      "Bash(ls:*)",
+      "Bash(./gradlew.bat survival-plugin:compileJava)",
+      "Bash(./gradlew.bat :survival-plugin:compileJava -x test)",
+      "Read(//mnt/c/Users/cthvh/OneDrive/Desktop/**)",
+      "Bash(./gradlew :survival-plugin:compileJava -x test)",
+      "Bash(grep -E \"\\\\.java$\")"
     ]
   }
 }

@@ -2,13 +2,19 @@ package com.lostwilderness.survivalv2.personality;
 
 import com.lostwilderness.rpgcore.personality.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,6 +33,7 @@ public class TraitCommand implements CommandExecutor {
     private final TraitService traitService;
     private final CompletionService completionService;
     private final HolyEnchantService holyEnchantService;
+    private final Map<UUID, Long> decoyCooldowns = new HashMap<>();
 
     public TraitCommand(Plugin plugin, TraitService traitService, CompletionService completionService, HolyEnchantService holyEnchantService) {
         this.plugin = plugin;
@@ -57,6 +64,8 @@ public class TraitCommand implements CommandExecutor {
                 return handleSet(sender, args);
             case "quiz":
                 return handleQuiz(sender, args);
+            case "decoy":
+                return handleDecoy(sender, args);
             default:
                 sender.sendMessage("§cUnknown subcommand: " + subcommand);
                 sendHelp(sender);
@@ -326,9 +335,103 @@ public class TraitCommand implements CommandExecutor {
     /**
      * Send help message
      */
+    /**
+     * /trait decoy - Spawn harmless decoy (Illusionist Trait only)
+     */
+    private boolean handleDecoy(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("§cOnly players can use decoys.");
+            return true;
+        }
+
+        Player player = (Player) sender;
+
+        // Check trait
+        try {
+            Optional<PlayerTraitProfile> profile = traitService.getProfile(player.getUniqueId()).join();
+            if (profile.isEmpty() || profile.get().primaryTrait() != PersonalityTrait.ILLUSIONIST) {
+                player.sendMessage("§cYou must be an ILLUSIONIST to use decoys.");
+                return true;
+            }
+
+            if (profile.get().primaryTier().ordinal() < TraitTier.TRAIT.ordinal()) {
+                player.sendMessage("§cYou must reach ILLUSIONIST Trait tier to use decoys.");
+                return true;
+            }
+        } catch (Exception e) {
+            player.sendMessage("§cError checking trait status.");
+            return true;
+        }
+
+        UUID uuid = player.getUniqueId();
+        long now = System.currentTimeMillis();
+
+        // Check cooldown (2 minutes = 120,000ms)
+        if (decoyCooldowns.containsKey(uuid)) {
+            long lastUse = decoyCooldowns.get(uuid);
+            long remaining = 120000 - (now - lastUse);
+            if (remaining > 0) {
+                player.sendMessage("§cDecoy on cooldown! " + (remaining / 1000) + " seconds remaining.");
+                return true;
+            }
+        }
+
+        // Spawn decoy
+        spawnDecoy(player);
+        decoyCooldowns.put(uuid, now);
+        player.sendMessage("§d✓ Decoy spawned!");
+
+        return true;
+    }
+
+    private void spawnDecoy(Player player) {
+        Location loc = player.getLocation().clone();
+        ArmorStand decoy = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
+
+        // Copy player appearance
+        decoy.setHelmet(player.getInventory().getHelmet());
+        decoy.setChestplate(player.getInventory().getChestplate());
+        decoy.setLeggings(player.getInventory().getLeggings());
+        decoy.setBoots(player.getInventory().getBoots());
+        decoy.setItemInHand(player.getInventory().getItemInMainHand());
+
+        // Set properties
+        decoy.setGravity(false);
+        decoy.setVisible(true);
+        decoy.setBasePlate(false);
+        decoy.setArms(true);
+        decoy.setMarker(false); // Can be targeted by mobs
+        decoy.setCustomName(player.getName() + "'s Decoy");
+        decoy.setCustomNameVisible(false);
+
+        // Spawn particles
+        player.getWorld().spawnParticle(
+            Particle.PORTAL,
+            loc,
+            30,
+            0.5, 1.0, 0.5,
+            0.1
+        );
+
+        // Remove after 5 seconds
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            if (!decoy.isDead()) {
+                player.getWorld().spawnParticle(
+                    Particle.SMOKE,
+                    decoy.getLocation(),
+                    20,
+                    0.3, 0.5, 0.3,
+                    0.05
+                );
+                decoy.remove();
+            }
+        }, 100L);
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§8§m--------------------§r §6Trait Commands §8§m--------------------");
         sender.sendMessage("§e/trait info [player] §7- Display trait info");
+        sender.sendMessage("§e/trait decoy §7- Spawn harmless decoy (Illusionist Trait)");
         if (sender.hasPermission("lw.rank.lord")) {
             sender.sendMessage("§e/trait revealelement <player> §7- Reveal element (Lord)");
             sender.sendMessage("§e/trait bless <player> §7- Bless Ultimate item (Lord)");

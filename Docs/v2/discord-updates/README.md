@@ -24,6 +24,94 @@ This directory contains Discord-formatted versions of documentation for posting 
 
 Copy/paste each PART marker section into separate Discord messages. These use Discord markdown (`**bold**`, `code`, bullet lists).
 
+---
+
+## 📝 Update Format Guide
+
+### When Adding New Features
+
+Each feature announcement file follows this structure:
+
+**Initial Announcement (with PART separators for 2000-char Discord limit):**
+
+```
+**PluginV2 – Feature Name**
+
+─────── PART 1 ───────
+
+**Overview**
+- Brief description
+- Key features
+
+**Feature Details**
+1. **Feature One**
+   - Details
+
+─────── PART 2 ───────
+
+**Status:** ✅ COMPLETE / 🚧 IN PROGRESS
+
+**Not Yet Implemented:**
+- Missing items
+```
+
+### When Updating Existing Features
+
+**Append to the END of the file** (newest updates last):
+
+```
+═══════════════════════════════════════════════
+
+**📅 UPDATE – YYYY-MM-DD (Time)**
+
+**✅ What Was Added/Fixed**
+
+**Feature Name** 🔨
+- ✅ **Specific update:** Description
+  - Technical details
+  - In-game message examples: §a✓ Success message
+
+**Technical Details:**
+- Implementation notes
+- Files changed
+- Build status
+
+**Module Status Update:**
+- Old status → **New status** 🎉
+
+**Remaining Work:**
+- Outstanding tasks
+```
+
+### Format Guidelines
+
+1. **Date Format:** `YYYY-MM-DD (Time of day)` e.g. `2026-03-19 (Evening)`
+2. **Separator:** Use `═══════════════════════════════════════════════` (80 equals signs)
+3. **Status Icons:**
+   - ✅ Complete
+   - 🚧 In progress
+   - ❌ Not started
+   - ⚠️ Limitation/warning
+4. **Emojis:** Use relevant emojis (🔨🧪👁🐺🎉📅)
+5. **Messages:** Show in-game messages with color codes: `§a✓ Message text`
+6. **Chronological:** Newest updates at bottom
+
+### Character Limits
+
+- Discord: **2000 characters per message**
+- Use `─────── PART X ───────` for initial announcements
+- Update sections can be longer (paste as multiple messages)
+
+### Example Workflow
+
+When implementing a feature:
+
+1. ✅ Write code + compile
+2. ✅ Update `CHANGELOG.md` (technical details)
+3. ✅ Update `implementation-status.md` (module status)
+4. ✅ **Append to discord-updates/*.txt** (user announcement)
+5. ✅ Test copy-paste to Discord
+
 ## Source Documentation
 
 For complete documentation, see the main docs directory:

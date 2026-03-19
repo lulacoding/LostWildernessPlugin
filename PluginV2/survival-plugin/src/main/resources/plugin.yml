@@ -26,9 +26,9 @@ commands:
   event:
     description: List, info, start or stop seasonal events
     usage: /<command> <list|info|start|stop> [id] [days]
-  trait:
+  ptrait:
     description: Manage personality traits, elements, and Ultimate items
-    usage: /<command> <info|revealelement|bless|temple|set|quiz> [args]
+    usage: /<command> <info|revealelement|bless|temple|set|quiz|decoy> [args]
 
 permissions:
   lw.admin.calendar:

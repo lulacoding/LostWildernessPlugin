@@ -3,7 +3,6 @@
 
 # Set your AWS Bedrock bearer token
 $env:AWS_BEARER_TOKEN_BEDROCK = "ABSKQmVkcm9ja0FQSUtleS1nbXBuLWF0LTQxNjY4OTQxOTgzODpYbjZoYTJkcDJDaDJrc3RkZTUrSjEyOE85STgwYnhlUGl5SXVtRnNkRENqcnh4VWlZOWVXU3g0UDNaVT0="
-$env:AWS_REGION = "ap-southeast-2"
 $env:AWS_REGION = "ap-southeast-2"  # Change if using different region
 
 Write-Host "AWS Bedrock environment variables set:" -ForegroundColor Green
