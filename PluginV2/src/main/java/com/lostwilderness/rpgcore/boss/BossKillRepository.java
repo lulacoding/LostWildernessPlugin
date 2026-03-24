@@ -100,6 +100,11 @@ public class BossKillRepository {
         return executor.update("player", sql, clanId.toString()).thenApply(v -> null);
     }
 
+    public CompletableFuture<Integer> getClanWitherKills(UUID clanId) {
+        return executor.query("player", "SELECT wither_kills FROM clan_boss_kills WHERE clan_id = ?",
+                rs -> rs.next() ? rs.getInt("wither_kills") : 0, clanId.toString());
+    }
+
     public CompletableFuture<Boolean> anyPlayerOrClanHasWitherKills(int threshold) {
         return executor.query("player", "SELECT 1 FROM boss_kills WHERE wither_kills >= ? LIMIT 1",
                 rs -> rs.next(), threshold).thenCompose(found -> {

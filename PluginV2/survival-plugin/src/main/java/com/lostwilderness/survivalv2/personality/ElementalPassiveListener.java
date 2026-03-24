@@ -11,12 +11,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Applies elemental passive abilities (god-tier effects).
@@ -32,9 +35,20 @@ import java.util.UUID;
 public class ElementalPassiveListener implements Listener {
 
     private final TraitService traitService;
+    // Cache: UUID -> profile. Null value = not yet loaded. Empty optional = no profile.
+    private final Map<UUID, Optional<PlayerTraitProfile>> profileCache = new ConcurrentHashMap<>();
+    // Tracks which UUIDs currently have an async refresh in flight, to avoid duplicate fetches.
+    private final Map<UUID, Boolean> refreshing = new ConcurrentHashMap<>();
 
     public ElementalPassiveListener(TraitService traitService) {
         this.traitService = traitService;
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onQuit(PlayerQuitEvent event) {
+        UUID uuid = event.getPlayer().getUniqueId();
+        profileCache.remove(uuid);
+        refreshing.remove(uuid);
     }
 
     // ========== FIRE ==========
@@ -158,23 +172,29 @@ public class ElementalPassiveListener implements Listener {
 
     /**
      * Check if player's element is activated (temple complete).
+     * Reads from cache only — never blocks the server thread.
      */
     private boolean hasElementActivated(UUID uuid, Element element) {
-        Optional<PlayerTraitProfile> profile = getProfile(uuid);
-        if (profile.isEmpty()) return false;
-
-        PlayerTraitProfile p = profile.get();
+        Optional<PlayerTraitProfile> cached = profileCache.get(uuid);
+        if (cached == null) {
+            // Not cached yet — trigger async load and return false for now
+            refreshProfileAsync(uuid);
+            return false;
+        }
+        if (cached.isEmpty()) return false;
+        PlayerTraitProfile p = cached.get();
         return p.element() == element && p.elementActivated();
     }
 
     /**
-     * Get player's trait profile (cached).
+     * Asynchronously fetches the profile and stores it in cache.
+     * Only one fetch per UUID at a time.
      */
-    private Optional<PlayerTraitProfile> getProfile(UUID uuid) {
-        try {
-            return traitService.getProfile(uuid).join();
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+    private void refreshProfileAsync(UUID uuid) {
+        if (refreshing.putIfAbsent(uuid, Boolean.TRUE) != null) return; // already in flight
+        traitService.getProfile(uuid).whenComplete((profile, ex) -> {
+            profileCache.put(uuid, ex == null ? profile : Optional.empty());
+            refreshing.remove(uuid);
+        });
     }
 }

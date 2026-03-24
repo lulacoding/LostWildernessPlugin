@@ -64,9 +64,16 @@ public final class AchievementKey {
     // Story Progression
     public static final String MILESTONE_NETHER_PORTAL = "milestone:nether_portal";
     public static final String MILESTONE_ENDER_DRAGON = "milestone:ender_dragon";
+    public static final String MILESTONE_FATHER_OF_ENDER = "milestone:father_of_ender";
+    public static final String MILESTONE_WITHER_6 = "milestone:wither_6";
     public static final String MILESTONE_WITHER_36 = "milestone:wither_36";
     public static final String MILESTONE_HEAVENLY_TOWER = "milestone:heavenly_tower";
     public static final String MILESTONE_LORDS_PLATEAU = "milestone:lords_plateau";
+
+    // Story Flags (server-state markers)
+    public static final String FLAG_INTRO_SEEN = "flag:intro_seen";
+    public static final String FLAG_REDEEMER_PENDING = "flag:redeemer_pending";
+    public static final String FLAG_HEAVENS_GATE_PENDING = "flag:heavens_gate_pending";
 
     // Elemental Temples
     public static final String MILESTONE_TEMPLE_FIRE = "milestone:temple_fire";

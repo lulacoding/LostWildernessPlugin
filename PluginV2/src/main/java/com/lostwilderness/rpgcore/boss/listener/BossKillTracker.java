@@ -113,8 +113,12 @@ public class BossKillTracker implements Listener {
                         if (clanId != null) clanIds.add(clanId);
                     }
                     for (UUID clanId : clanIds) {
-                        if (witherKill) repository.incrementClanWitherKills(clanId);
-                        else repository.incrementClanDevoiderKills(clanId);
+                        if (witherKill) {
+                            repository.incrementClanWitherKills(clanId).thenRun(() ->
+                                checkWitherMilestone(clanId, presentUuids));
+                        } else {
+                            repository.incrementClanDevoiderKills(clanId);
+                        }
                     }
                 }
 
@@ -147,6 +151,32 @@ public class BossKillTracker implements Listener {
                 plugin.getLogger().log(Level.SEVERE, "Error recording boss kill", ex);
                 return null;
             });
+    }
+
+    private void checkWitherMilestone(UUID clanId, Set<UUID> presentUuids) {
+        repository.getClanWitherKills(clanId).thenAccept(count -> {
+            if (count != 6) return; // Only fire exactly at 6
+
+            ProgressionService ps = context.getServiceRegistry().get(ProgressionService.class);
+            if (ps == null) return;
+
+            // Unlock for all present players
+            for (UUID uuid : presentUuids) {
+                ps.unlock(uuid, com.lostwilderness.rpgcore.progression.AchievementKey.MILESTONE_WITHER_6);
+            }
+
+            // Server-wide broadcast on main thread
+            plugin.getServer().getScheduler().runTask(plugin, () -> {
+                ClanService cs = context.getServiceRegistry().get(ClanService.class);
+                com.lostwilderness.rpgcore.clans.model.Clan clan = cs != null ? cs.getClanById(clanId) : null;
+                String clanName = clan != null ? clan.getName() : "A clan";
+                org.bukkit.Bukkit.broadcastMessage(
+                    org.bukkit.ChatColor.DARK_PURPLE + "" + org.bukkit.ChatColor.BOLD +
+                    "⚔ " + clanName + org.bukkit.ChatColor.LIGHT_PURPLE +
+                    " has broken the Withering Council's threshold!" +
+                    org.bukkit.ChatColor.GRAY + " The Devoid stirs...");
+            });
+        });
     }
 
     private Set<UUID> getPresentPlayerUuids(Location center) {

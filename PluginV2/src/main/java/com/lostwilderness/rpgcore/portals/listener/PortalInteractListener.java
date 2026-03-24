@@ -26,6 +26,22 @@ public final class PortalInteractListener implements Listener {
         if (b == null) return;
 
         Player player = e.getPlayer();
+
+        // Gate: player must have killed the Ender Dragon to activate a Corrupt Portal
+        com.lostwilderness.rpgcore.core.RPGCorePlugin core =
+            com.lostwilderness.rpgcore.core.RPGCorePlugin.getInstance();
+        if (core != null) {
+            com.lostwilderness.rpgcore.progression.ProgressionService ps =
+                core.getService(com.lostwilderness.rpgcore.progression.ProgressionService.class);
+            if (ps != null && !ps.hasUnlocked(player.getUniqueId(),
+                    com.lostwilderness.rpgcore.progression.AchievementKey.MILESTONE_ENDER_DRAGON)) {
+                player.sendMessage("§7The portal hums but will not open.");
+                player.sendMessage("§7Something is missing...");
+                e.setCancelled(true);
+                return;
+            }
+        }
+
         portalService.tryToLightPortal(b.getLocation(), player, result -> {
             if (!result) {
                 player.sendMessage("§cNo valid crying obsidian frame found. (Min size 4x5, max 7x7)");

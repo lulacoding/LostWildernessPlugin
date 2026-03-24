@@ -20,6 +20,8 @@ dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT'
     // Only need AuraSkills API at compile-time; AuraSkills plugin provides it at runtime.
     compileOnly 'dev.aurelium:auraskills-api-bukkit:2.3.3'
+    // BetonQuest API at compile-time; plugin provides it at runtime.
+    compileOnly files('../Server/backends/survival-1/plugins/BetonQuest.jar')
     implementation 'com.zaxxer:HikariCP:5.1.0'
     implementation 'com.h2database:h2:2.2.224'
 }

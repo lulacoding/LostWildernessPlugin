@@ -9,6 +9,8 @@ import com.lostwilderness.rpgcore.zodiac.ZodiacModule;
 import com.lostwilderness.rpgcore.zodiac.ZodiacService;
 import com.lostwilderness.rpgcore.zodiac.command.ZodiacCommand;
 import com.lostwilderness.rpgcore.party.PartyModule;
+import com.lostwilderness.rpgcore.pets.PetModule;
+import com.lostwilderness.rpgcore.story.StoryModule;
 import com.lostwilderness.rpgcore.clans.AllianceService;
 import com.lostwilderness.rpgcore.clans.ClanService;
 import com.lostwilderness.rpgcore.clans.ClansModule;
@@ -129,6 +131,12 @@ public final class RPGCorePlugin extends JavaPlugin {
         }
         if (enabled.contains("party")) {
             moduleManager.register(new PartyModule());
+        }
+        if (enabled.contains("pets")) {
+            moduleManager.register(new PetModule());
+        }
+        if (enabled.contains("story")) {
+            moduleManager.register(new StoryModule());
         }
 
         moduleManager.loadAll();
@@ -285,6 +293,16 @@ public final class RPGCorePlugin extends JavaPlugin {
             getLogger().info("Registered /zodiac command.");
         } else {
             getLogger().warning("Failed to register /zodiac command - one or more dependencies is null (see debug above)");
+        }
+
+        // Quests GUI
+        com.lostwilderness.rpgcore.quests.QuestsMenu questsMenu =
+                new com.lostwilderness.rpgcore.quests.QuestsMenu(betonBridge);
+        getServer().getPluginManager().registerEvents(questsMenu, this);
+        org.bukkit.command.PluginCommand questsCmd = getCommand("quests");
+        if (questsCmd != null) {
+            questsCmd.setExecutor(new com.lostwilderness.rpgcore.quests.QuestsCommand(questsMenu));
+            getLogger().info("Registered /quests (NPC quest progress GUI).");
         }
 
         getLogger().info("RPG_Core_V2 enabled.");

@@ -1,8 +1,13 @@
 package com.lostwilderness.rpgcore.progression;
 
+import org.betonquest.betonquest.BetonQuest;
+import org.betonquest.betonquest.database.PlayerData;
+import org.betonquest.betonquest.utils.PlayerConverter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
+import java.util.UUID;
 
 /**
  * Lightweight bridge from PluginV2 to BetonQuest using commands only.
@@ -46,6 +51,26 @@ public final class BetonQuestBridge {
                 fireEventForPlayer(player.getName(), "default.milestone_join_ten_times_unlocked");
             default -> {
             }
+        }
+    }
+
+    /**
+     * Check whether a player has a BetonQuest tag.
+     *
+     * @param uuid    player UUID (must be online)
+     * @param fullTag e.g. "lw_elder.elder_intro_done"
+     * @return true if the player has the tag, false if BQ is absent or player is offline
+     */
+    public boolean hasTag(UUID uuid, String fullTag) {
+        if (!isBetonQuestPresent()) return false;
+        Player player = Bukkit.getPlayer(uuid);
+        if (player == null) return false;
+        try {
+            PlayerData data = BetonQuest.getInstance().getPlayerData(
+                    PlayerConverter.getID(player));
+            return data != null && data.hasTag(fullTag);
+        } catch (Exception e) {
+            return false;
         }
     }
 

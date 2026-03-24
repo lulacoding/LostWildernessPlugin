@@ -152,6 +152,9 @@ public final class ClassSelectionMenu implements Listener {
                 player.sendMessage(
                         ChatColor.GOLD + "You are now a " + ChatColor.RESET + chosen.name() + ChatColor.GOLD + "!");
                 player.closeInventory();
+                // Unlock spawn exit — add as WorldGuard region member so they can leave spawn
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+                        "rg addmember spawn_village " + player.getName());
             })).exceptionally(ex -> {
                 plugin.getLogger()
                         .warning("[classes] Failed to save class for " + player.getName() + ": " + ex.getMessage());

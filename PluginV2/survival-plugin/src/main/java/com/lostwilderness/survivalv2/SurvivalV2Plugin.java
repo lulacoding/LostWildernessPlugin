@@ -80,8 +80,8 @@ public final class SurvivalV2Plugin extends JavaPlugin {
         // Register /trait command
         TraitCommand traitCommand = new TraitCommand(this, traitService, completionService, holyEnchantService);
         TraitTabCompleter traitTabCompleter = new TraitTabCompleter();
-        getCommand("trait").setExecutor(traitCommand);
-        getCommand("trait").setTabCompleter(traitTabCompleter);
+        getCommand("ptrait").setExecutor(traitCommand);
+        getCommand("ptrait").setTabCompleter(traitTabCompleter);
         getLogger().info("[personality] /trait command registered.");
     }
 

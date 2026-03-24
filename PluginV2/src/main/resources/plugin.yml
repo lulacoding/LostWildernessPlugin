@@ -52,6 +52,12 @@ commands:
   party:
     description: Party commands - create, invite, accept, leave, disband, info, kick
     usage: /<command> <create|invite|accept|leave|disband|info|kick> [args]
+  pets:
+    description: Pet commands - list, graveyard, info, rename, find
+    usage: /<command> <list|graveyard|info|rename|find> [args]
+  quests:
+    description: View your NPC quest progress
+    usage: /quests
 
 permissions:
   lw.clan.use:
@@ -71,4 +77,7 @@ permissions:
     default: true
   lw.party.use:
     description: Use /party commands (create, invite, accept, leave, etc.)
+    default: true
+  lw.pets.use:
+    description: Use /pets commands (list, graveyard, info, rename, find)
     default: true
