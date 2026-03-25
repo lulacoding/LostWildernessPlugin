@@ -1,0 +1,213 @@
+═══════════════════════════════════════════════════════════════════════════════
+**📅 UPDATE – 2026-03-24 (Evening)**
+
+**🌋 World Generation Overhaul — Iris Volcanic Spawn Region**
+
+The survival world generator has been upgraded. The spawn area will now generate as a volcanic landscape when the world is next regenerated.
+
+**What changed:**
+- Created a new `spawn-volcanic` region in the Iris overworld pack
+- Set it as the `focusRegion` — meaning it generates near 0,0 at spawn
+- The rest of the world is unchanged: forests, frozen, hot, tropical, swamp, tundra, mushroom, terralost, temperate all still generate beyond the spawn zone
+
+**Biomes now in the spawn zone (~800 blocks from 0,0):**
+🌋 `tropical/volcanoes` — tall volcanic mountains with basalt/blackstone surface and campfire smoke
+🔥 `tropical/volcanoes-lava` — lava-filled crater variant (child of volcanoes)
+🏜 `tropical/volcanic-plains` — flat volcanic plains between craters
+🕳 `terralost/volcanic-crater` — collapsed crater terrain
+⛰ `terralost/volcanic-peaks` — dramatic volcanic peak formations
+🌑 `terralost/caldera` — wide bowl-shaped collapsed volcano
+🌫 `terralost/ashen-savanna` — grey ashen flatlands
+🖤 `terralost/basalt-cliffs` — sheer basalt cliff faces
+🌿 `tropical/plains` — flat open area for Spawn Village (0,0)
+
+**Story significance:**
+- Professor Craft's lab location is now thematically correct (volcanic biome near spawn)
+- 5 Elemental Temples (Phase 2) will be placed in the volcanic zone
+- Volcanic terrain creates natural landmarks for quests
+
+**Requires world regen to take effect** — current world is unchanged until server regenerates.
+
+─────── PART 2 ───────
+
+**⚙️ Technical — Biome Painting Compatibility**
+
+The seasonal biome painting system has been updated to protect volcanic terrain.
+
+**Problem identified:**
+The biome painting system transforms chunks seasonally (e.g. Spring → Flower Forest, Winter → Snowy Plains). Without protection, volcanic biomes would be overwritten — a caldera would turn into a flower forest in spring.
+
+**Root cause:**
+Iris volcanic biomes use two vanilla derivatives:
+- `THE_VOID` — used by tropical/volcanoes, volcanoes-lava, volcanic-plains
+- `DESERT` — used by all terralost volcanic biomes (crater, caldera, peaks, ashen-savanna, basalt-cliffs)
+
+BiomePainter reads vanilla derivatives and would overwrite both.
+
+**Fix applied:**
+Added `DESERT` and `THE_VOID` to the `excluded-biomes` list in `RPG_Core_V2/config/core.yml`. These biomes will never be repainted regardless of season.
+
+**Event biome interaction (known behaviour):**
+- `SummerHeatwaveEvent` fires in DESERT biomes → volcanic-crater/caldera/basalt-cliffs will trigger it in summer ✅ intentional — volcanic areas ARE hot
+- `FrostEvent` fires in SNOWY biomes → will NOT fire in volcanic areas ✅ correct
+- THE_VOID biomes are not in any event group → pure volcanoes trigger no events ✅ correct
+
+**Status:** Biome painting exclusions live in config. Painting is currently disabled (painting-enabled: false) and will be enabled in a future session when seasonal testing begins.
+
+**Remaining work:**
+- ⬜ Regenerate world to see volcanic spawn terrain
+- ⬜ Build Professor Craft's lab in the volcano crater
+- ⬜ Update lab coordinates in `lw_professor/package.yml`
+- ⬜ Place 5 Elemental Temples in volcanic zone (Phase 2)
+
+═══════════════════════════════════════════════════════════════════════════════
+**📅 UPDATE – 2026-03-25**
+
+**🗺️ World Biome Guide — Complete Biome List**
+
+Here's every biome you can explore across the Lost Wilderness survival world. The world is divided into **10 regions**, each with its own terrain style, climate, and feel.
+
+---
+
+**🌋 Spawn Zone — Volcanic Region** *(~800 blocks from 0,0)*
+This is where you start. A dramatic volcanic landscape surrounding the Spawn Village.
+
+🌿 Volcanic Plains — flat open grassland at 0,0, home to the Spawn Village
+🌋 Volcanoes — towering black mountains with basalt peaks and drifting smoke
+🔥 Lava Craters — volcanoes filled with lava lakes in their cores
+🏜️ Ash Plains — wide flat stretches of grey ash between the craters
+🕳️ Volcanic Crater — collapsed calderas with sheer inner walls
+⛰️ Volcanic Peaks — jagged spires of volcanic rock
+🌑 Caldera — enormous bowl-shaped collapsed volcanoes
+🖤 Basalt Cliffs — sheer walls of black basalt rising from the plains
+
+---
+
+**🌲 Forests Region**
+Dense multi-biome forest zone with varied tree types and terrain.
+
+🌲 Autumn Forest — orange/red leaf canopy, tundra feel
+🌿 Redwood Forest — towering mega-trees with thick canopy
+⛰️ Mountain Plains — open highland plains between forested peaks
+🌸 Violet Reaching Forest — tall trees with purple-tinted undergrowth
+🌻 Flower Forest — carpet of flowers across rolling hills
+🌳 Birch Highlands — tall birch trees on elevated terrain
+🍁 Osaka Red Forest — red-leaved Japanese maple aesthetic
+🏔️ Mountain Peaks — high rocky summits above the treeline
+🌳 Mixed Forest — combined oak/birch/spruce woodland
+
+---
+
+**❄️ Frozen Region**
+Ice, snow, and frozen landscapes. Harsh but beautiful.
+
+🌨️ Frozen Plains — flat snowfields
+❄️ Ice Spikes — towering columns of packed ice
+🌲 Frozen Pine Forest — spruce forest under heavy snow
+🌲 Pine Hills — rolling snowy hills covered in pines
+🏔️ Frozen Mountains — massive snow-capped peaks
+🏔️ Ice Spike Mountains — extreme mountain terrain with ice formations
+🌬️ Snowy Spruce Hills — gentler spruce hills with snowfall
+🌊 Frozen Ocean — ice-covered ocean with icebergs
+🏖️ Ice Beach — snowy shoreline
+
+---
+
+**🌵 Hot / Desert Region**
+Arid badlands, desert dunes, and scorched terrain.
+
+🏜️ Desert Dunes — rolling sand dunes with sparse vegetation
+🔴 Red Dunes — deep red sand desert
+🌵 Desert Oasis — rare water source amid the dunes
+⛰️ Desert Mountains — towering cliff formations rising from sand
+🌊 Desert Ocean — warm turquoise waters off the desert coast
+🏖️ Desert Beach — sandy shore between desert and sea
+
+---
+
+**🍄 Mushroom Region**
+Rare, eerie fungal biomes. Hostile mobs don't spawn here.
+
+🍄 Mushroom Forest — giant red and brown mushrooms covering the land
+🌿 Mushroom Plains — open flat area with mushroom clusters
+🟣 Warped Forest — blue-green nether-inspired fungal woodland
+🔴 Crimson Forest — red fungal forest with warm lighting
+🌊 Mushroom Lake — calm inland water surrounded by fungi
+
+---
+
+**🌿 Temperate Region**
+The most varied zone — classic woodland and plains with many sub-biomes.
+
+🌳 Oak Forest — standard oak woodland
+🌿 Lush Plains — vibrant green open fields
+🌸 Cherry Blossom Forest — pink canopy sakura trees
+🌺 Sakura Forest — denser sakura with flower undergrowth
+🌸 Osaka Violet Forest — violet-themed Japanese maple forest
+🌼 Flower Fields — open plains blanketed in wildflowers
+🌳 Birch Forest — white-barked birch woodland
+🌿 Highlands — elevated open plateau terrain
+🏔️ Temperate Plateau — flat-topped highland with cliff edges
+🌊 Temperate Ocean — standard deep blue open water
+
+---
+
+**🌴 Tropical Region**
+Lush rainforests, coral reefs, and jungle mountains.
+
+🌿 Rainforest — dense jungle canopy with heavy undergrowth
+🏔️ Jungle Mountains — steep rainforest peaks
+🎋 Bamboo Forest — dense bamboo groves
+🌊 Coral Ocean — shallow reef waters with vibrant coral
+🏖️ Tropical Beach — white sand with palm-adjacent flora
+🏝️ Rainforest Island — jungle island rising from tropical sea
+🌿 Tropical Wilds — open jungle savanna with scattered trees
+
+---
+
+**🌾 Tundra Region**
+Boreal forests, magic groves, and highland terrain.
+
+🌲 Tundra Taiga — classic boreal forest with spruce and fir
+🍂 Autumn Tundra — orange-leaved boreal woodland
+🌲 Redwood Forest — towering ancient sequoias
+✨ Magic Forest — glowing teal/blue forest with unusual flora
+🌿 Bonsai Forest — small twisted bonsai-like trees on rocky terrain
+🏔️ Frosted Peaks — sharp icy summits above the boreal zone
+🌊 Tundra River — wide cold river cutting through boreal terrain
+
+---
+
+**🌊 Swamp Region**
+Dark wetlands, roofed forests, and murky waterways.
+
+🌿 Swamp Forest — waterlogged woodland with lily pads
+🐊 Mangrove Swamp — tangled mangrove roots in shallow water
+🌳 Roofed Forest — dense dark oak canopy blocking sunlight
+🌿 Willow Forest — drooping willow trees over marsh water
+🌿 Marsh — shallow boggy wetland with tall grass
+🌱 Cambian Drift — ancient mossy forest with unique terrain
+
+---
+
+**🔮 Terralost Region** *(rare — rarity 2, less common than other regions)*
+Unique handcrafted biomes found nowhere else. The rarest terrain in the world.
+
+💎 Amethyst Canyon — purple crystal formations in deep canyon walls
+💜 Amethyst Rainforest — jungle overgrown with amethyst crystal growths
+🏜️ Ancient Sands — ancient crumbling desert with buried ruins
+🌿 Alpine Grove — high-altitude grove with unique alpine flora
+🏔️ Alpine Highlands — exposed rocky alpine plateau
+
+---
+
+**🌊 Oceans (found between all regions)**
+🌊 Deep Ocean — dark abyssal waters
+🌊 Rich Ocean — coral and kelp-filled shallower waters
+☀️ Warm Ocean — tropical shallow warm waters
+🌊 Dark Depth Ocean — the deepest, darkest ocean layer
+
+---
+
+**🗿 Notable: Spawn Village is located in the Volcanic Plains biome at 0,0.**
+All other regions generate beyond the volcanic zone — the further you explore, the more diverse the terrain becomes.
