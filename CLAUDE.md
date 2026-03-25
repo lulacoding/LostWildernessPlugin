@@ -88,3 +88,29 @@
 
 \- \*\*Minimal Impact\*\*: Changes should only touch what's necessary. Avoid introducing bugs.
 
+## Project: Lost Wilderness — Plugin Development
+
+### Build Commands
+- Main plugin (fat JAR): `cd PluginV2 && ./gradlew.bat shadowJar -x test`
+- Survival wrapper only: `./gradlew.bat :survival-plugin:jar -x test` (no shadow plugin)
+- Build + deploy all to all 3 servers: `PluginV2/build-and-copy-to-server.bat`
+- Deployed JAR: `PluginV2/build/libs/RPG_Core_V2-2.0.0-SNAPSHOT-all.jar` → `Server/backends/*/plugins/RPG_Core_V2.jar`
+
+### Key Technical Gotchas
+- **Never `.join()` on main thread** — all DB calls return CompletableFuture; use cache + `whenComplete` pattern (see ElementalPassiveListener)
+- **GUI title check** — use `event.getView().getTitle()` (String), NOT Adventure `.title()` — all existing menus use the deprecated String form
+- **BetonQuest API** — compileOnly dep: `files('../Server/backends/survival-1/plugins/BetonQuest.jar')`. Tag check: `PlayerConverter.getID(player)` → `BetonQuest.getInstance().getPlayerData(profile)` → `playerData.hasTag(fullTag)`
+- **Deprecation warnings are expected** — ChatColor, setDisplayName, setLore, getTitle all deprecated in Paper 1.21 but used project-wide; warnings are normal, errors are not
+
+### Project Structure
+- `PluginV2/src/` — RPG_Core_V2 shared core (20 domains: boss, calendar, clans, classes, events, party, pets, personality, portals, progression, quests, reputation, skills, story, zodiac…)
+- `PluginV2/survival-plugin/` — LW_Survival_V2 thin wrapper (personality listeners, elemental passives)
+- `PluginV2/lobby-plugin/` — LW_Lobby_V2 (personality quiz)
+- `PluginV2/amplified-plugin/` — LW_Amplified_V2
+- New RPG modules: implement `RpgModule`, register in `RPGCorePlugin.java`, add to `plugin.yml` + `core.yml` `enabled-modules`
+
+### Server Stack (survival-1)
+- BetonQuest, AuraSkills, Citizens, Iris (volcanic spawn region), WorldGuard, WorldEdit, spark
+- BetonQuest packages: `lw_elder`, `lw_blacksmith`, `lw_herbalist`, `lw_shrine`, `lw_professor`
+- Serena dashboard (Claude Code): http://127.0.0.1:24283/dashboard/index.html
+
