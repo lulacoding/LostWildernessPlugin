@@ -1,7 +1,7 @@
 # =============================================================================
 # Lost Wilderness – repo-root .gitignore
 # Private deployment-bundle repo.
-# Covers: DiscordBot, Plugin (Gradle), ServerUPDATE, editor/OS noise.
+# Covers: DiscordBot, Plugin (Gradle), Server, editor/OS noise.
 # =============================================================================
 
 # ─── DiscordBot ──────────────────────────────────────────────────────────────
@@ -30,59 +30,96 @@ PluginV2/**/*.iml
 PluginV2/**/*.iws
 PluginV2/**/*.ipr
 
-# ─── Server / ServerUPDATE – plugin and library JARs (never commit) ─────────
+# ─── Plugin JARs (never commit — all backends) ───────────────────────────────
 Server/**/*.jar
-ServerUPDATE/**/*.jar
-
-# ─── PluginV2 – built JARs (never commit) ────────────────────────────────────
 PluginV2/**/build/libs/*.jar
 PluginV2/plugins/*.jar
 
-# ─── ServerUPDATE – runtime caches & generated artifacts ────────────────────
-# Paper server downloaded libraries (regenerated on first start)
-ServerUPDATE/backends/*/libraries/
-ServerUPDATE/proxy/libraries/
+# ─── Server – runtime caches & generated artifacts ───────────────────────────
+# Paper downloaded libraries
+Server/backends/*/libraries/
+Server/proxy/libraries/
 # Paper version cache
-ServerUPDATE/backends/*/versions/
-ServerUPDATE/proxy/versions/
+Server/backends/*/versions/
+Server/proxy/versions/
 # Paper remapped plugin cache
-ServerUPDATE/backends/*/plugins/.paper-remapped/
-ServerUPDATE/proxy/plugins/.paper-remapped/
+Server/backends/*/plugins/.paper-remapped/
+Server/proxy/plugins/.paper-remapped/
 # Mojang jar cache
-ServerUPDATE/backends/*/cache/
-ServerUPDATE/proxy/cache/
+Server/backends/*/cache/
+Server/proxy/cache/
 # Server logs
-ServerUPDATE/backends/*/logs/
-ServerUPDATE/proxy/logs/
+Server/backends/*/logs/
+Server/proxy/logs/
 # Crash reports
-ServerUPDATE/backends/*/crash-reports/
-# Velocity/BungeeCord proxy runtime logs and locks
-ServerUPDATE/proxy/proxy.log*
-ServerUPDATE/proxy/*.log
-ServerUPDATE/proxy/*.log.*
-# World / region data (runtime, large binary)
-ServerUPDATE/backends/*/world/
-ServerUPDATE/backends/*/world_nether/
-ServerUPDATE/backends/*/world_the_end/
-ServerUPDATE/backends/*/world_*/
-# Runtime session/lock
-ServerUPDATE/backends/*/.session.lock
-ServerUPDATE/backends/*/session.lock
+Server/backends/*/crash-reports/
+# Console history
+Server/backends/*/.console_history
+# Proxy runtime logs
+Server/proxy/proxy.log*
+Server/proxy/*.log
+Server/proxy/*.log.*
+# Session locks
+Server/backends/*/.session.lock
+Server/backends/*/session.lock
 
-# ─── ServerUPDATE – sensitive / runtime state ────────────────────────────────
+# ─── Server – world data (binary, runtime) ───────────────────────────────────
+# Region, entity, poi chunk data
+Server/backends/*/world/region/
+Server/backends/*/world/entities/
+Server/backends/*/world/poi/
+Server/backends/*/world/mantle/
+Server/backends/*/world/iris/
+# Dimension sub-folders (nether/end portal data)
+Server/backends/*/world/DIM-1/
+Server/backends/*/world/DIM1/
+# Player runtime data
+Server/backends/*/world/playerdata/
+Server/backends/*/world/advancements/
+Server/backends/*/world/stats/
+# World metadata (binary)
+Server/backends/*/world/*.dat
+Server/backends/*/world/*.dat_old
+Server/backends/*/world/*.dat_tmp
+Server/backends/*/world/uid.dat
+# Nether and End worlds (full — no datapacks to keep there)
+Server/backends/*/world_nether/
+Server/backends/*/world_the_end/
+Server/backends/*/world_*/
+
+# ─── Server – sensitive / runtime state ──────────────────────────────────────
 # Private keys
-ServerUPDATE/**/floodgate/key.pem
-ServerUPDATE/**/*.pem
+Server/**/floodgate/key.pem
+Server/**/*.pem
 # Runtime SQLite databases
-ServerUPDATE/**/calendar.db
-ServerUPDATE/**/*.db
+Server/**/*.db
 # Player/ban/op/whitelist runtime data
-ServerUPDATE/backends/*/ops.json
-ServerUPDATE/backends/*/usercache.json
-ServerUPDATE/backends/*/whitelist.json
-ServerUPDATE/backends/*/banned-players.json
-ServerUPDATE/backends/*/banned-ips.json
-ServerUPDATE/proxy/stats/
+Server/backends/*/ops.json
+Server/backends/*/usercache.json
+Server/backends/*/whitelist.json
+Server/backends/*/banned-players.json
+Server/backends/*/banned-ips.json
+Server/proxy/stats/
+
+# ─── Server – third-party plugin folders (download separately) ───────────────
+# Keep only our custom plugin configs; these are all downloadable
+Server/backends/*/plugins/Iris/
+Server/backends/*/plugins/FastAsyncWorldEdit/
+Server/backends/*/plugins/WorldEdit/
+Server/backends/*/plugins/WorldGuard/
+
+# ─── Server – AuraSkills runtime data (keep configs, ignore player/region data)
+Server/backends/*/plugins/AuraSkills/userdata/
+Server/backends/*/plugins/AuraSkills/backups/
+Server/backends/*/plugins/AuraSkills/regiondata/
+
+# ─── Server – wepif (WorldEdit permissions, auto-generated) ──────────────────
+Server/backends/*/wepif.yml
+
+# ─── AI tool local state (never commit) ──────────────────────────────────────
+.serena/
+.playwright-mcp/
+.claude/settings.local.json
 
 # ─── Editor / OS noise ───────────────────────────────────────────────────────
 .vscode/
@@ -92,7 +129,6 @@ Thumbs.db
 desktop.ini
 
 # ─── Cursor IDE local files ───────────────────────────────────────────────────
-# Keep .cursor/rules/ (shared team rules) but ignore local-only plan files
 .cursor/plans/
 
 # ─── Secrets (never commit live values) ──────────────────────────────────────
