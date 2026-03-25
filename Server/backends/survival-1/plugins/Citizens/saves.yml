@@ -1,75 +1,216 @@
 # Citizens NPC Storage
-last-created-npc-id: 1
+last-created-npc-id: 6
 npc:
-- traits:
-    owner:
-      uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
-    scoreboardtrait:
-      tags:
-      - CITIZENS_NPC
-    skintrait: {
-      }
-    location:
-      worldid: b8b90308-4bcf-4489-839d-da0cb30e17ba
-      x: 318.6634
-      y: 71.0
-      z: -40.0847
-      bodyYaw: 266.3993
-      pitch: 0.0
-      yaw: -93.6007
-    type: PLAYER
-  traitnames: owner,spawned,scoreboardtrait,skintrait,location,inventory,type,targetable,chunktickettrait
-  name: Joepsh Mama
-  navigator:
-    usedefaultstuckaction: false
-    speedmodifier: 1.0
-    avoidwater: false
-  uuid: 45bf2c4d-4e64-40da-a2e0-4936792b6335
-- traits:
-    scoreboardtrait:
-      tags:
-      - CITIZENS_NPC
-    owner:
-      uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
-    commandtrait:
-      commands:
-      - npc: false
-        experienceCost: -1
-        op: false
-        delay: 0
-        cost: -1.0
-        globalcooldown: 0
-        gn: -1
-        cooldown: 0
-        command: class
-        n: -1
-        hand: RIGHT
-        player: true
-      - npc: false
-        experienceCost: -1
-        op: false
-        delay: 0
-        cost: -1.0
-        globalcooldown: 0
-        gn: -1
-        cooldown: 0
-        command: class
-        n: -1
-        hand: RIGHT
-        player: true
-    location:
-      worldid: b8b90308-4bcf-4489-839d-da0cb30e17ba
-      x: 327.0337
-      y: 71.0
-      z: -50.5961
-      bodyYaw: -22.649935
-      pitch: 0.0
-      yaw: -3.0017
-    type: PLAYER
-  traitnames: scoreboardtrait,owner,spawned,commandtrait,skintrait,location,inventory,type,targetable,chunktickettrait
-  name: ClassGuide
-  navigator:
-    usedefaultstuckaction: false
-    speedmodifier: 1.0
-    avoidwater: false
-  uuid: 2cd9e35f-a960-4c87-8b61-ee83b0c928cb
+  '0':
+    traits:
+      owner:
+        uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
+      scoreboardtrait:
+        tags:
+        - CITIZENS_NPC
+      skintrait: {
+        }
+      location:
+        worldid: 1b5ed2dc-9a01-422f-9432-5c5cbd4a2072
+        x: -21.5
+        y: 123.0
+        z: -28.5
+        bodyYaw: 266.3993
+        pitch: 0.0
+        yaw: 0.0
+      type: PLAYER
+    traitnames: owner,spawned,scoreboardtrait,skintrait,location,inventory,type,targetable,chunktickettrait
+    name: Joepsh Mama
+    navigator:
+      usedefaultstuckaction: false
+      speedmodifier: 1.0
+      avoidwater: false
+    uuid: 45bf2c4d-4e64-40da-a2e0-4936792b6335
+  '1':
+    traits:
+      scoreboardtrait:
+        tags:
+        - CITIZENS_NPC
+      owner:
+        uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
+      commandtrait:
+        commands:
+        - npc: false
+          experienceCost: -1
+          op: false
+          delay: 0
+          cost: -1.0
+          globalcooldown: 0
+          gn: -1
+          cooldown: 0
+          command: class
+          n: -1
+          hand: RIGHT
+          player: true
+        - npc: false
+          experienceCost: -1
+          op: false
+          delay: 0
+          cost: -1.0
+          globalcooldown: 0
+          gn: -1
+          cooldown: 0
+          command: class
+          n: -1
+          hand: RIGHT
+          player: true
+      location:
+        worldid: b8b90308-4bcf-4489-839d-da0cb30e17ba
+        x: 327.0337
+        y: 71.0
+        z: -50.5961
+        bodyYaw: -22.649935
+        pitch: 0.0
+        yaw: -3.0017
+      type: PLAYER
+    traitnames: scoreboardtrait,owner,spawned,commandtrait,skintrait,location,inventory,type,targetable,chunktickettrait
+    name: ClassGuide
+    navigator:
+      usedefaultstuckaction: false
+      speedmodifier: 1.0
+      avoidwater: false
+    uuid: 2cd9e35f-a960-4c87-8b61-ee83b0c928cb
+  '2':
+    metadata:
+      cached-skin-uuid: bdfb36ac-a5d4-4e27-bef3-ea3c4a3efc52
+      cached-skin-uuid-name: village_elder
+    traits:
+      scoreboardtrait:
+        tags:
+        - CITIZENS_NPC
+      owner:
+        uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
+      skintrait:
+        signature: XVLYEIn+qwYG1CfSasYQxmh0ilfjTy6ClFZTgiGdkPoluCkKyyROYRReH33L390Fnqo8pwF1mZf3bUzSeSe/09okPIi1ePvWklcS8+24qM6J6KnfZmVbW8ZVHUhku0dINJBo7MUjrzbRWASaXLENVrBVF5m7/qKpnEc573M4/NB+2BCu9j60p7zT7mhRhrfuI4mkCS/7qemeE8d3RV+KyTUEB0SOSa7amfwwQI8I7BbQp39J7MekFUof5BR2/AfQnUZa4cboaoUUzHjLq1yVQ3pPGDfVUlUy/H+dJ2GyW0PrcxKZj36wuHxlvnu5k/eaJocT3sDvlNYdhdriHtmojr8JWojdmN4MBKQKpmqNcTEpBaNTHoodSr3ZOxfpWzlhq516cXd0eggXv9QWvm5ODwzcuYQ00j4oi7jyX+aiSKdR3fI69PCu6DIjdO8ClklKv2i1slIvjsLi2Z35LkREVIa8dj21xL5R6Onbh07QPXST36f9Z8SAUUHpMce7TypcWv2URCIhZkfgDZXl9FnGCW4WRBrToj8TjV4Zj2VVpwBoWk9OJ49tJ9L04QBIUbaCh5+87BhPmZqEBGc/k8HGD9ZwHgpyOMm4e5u08jL0fM/zNGyb8iwWtBk86cjoivwnxwv066Cwzyarrtvge3HfHw4JfOz2BX+p/Exavy5EUdQ=
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc3NDMzNTM1MDgwMCwKICAicHJvZmlsZUlkIiA6ICJiZGZiMzZhY2E1ZDQ0ZTI3YmVmM2VhM2M0YTNlZmM1MiIsCiAgInByb2ZpbGVOYW1lIiA6ICJWaWxsYWdlX0VsZGVyIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzViMDI4NGVjY2JhM2U1OTUxNTNlOTAxYmNlYWI3OGE3OTAwZjg5MzEyYjkwNzU4NDJhNTZiYmUxODY5OGRlNDEiCiAgICB9CiAgfQp9
+      location:
+        worldid: 1b5ed2dc-9a01-422f-9432-5c5cbd4a2072
+        x: -25.5799
+        y: 123.0
+        z: -26.8007
+        bodyYaw: -173.52393
+        pitch: 17.2501
+        yaw: -173.5239
+      type: PLAYER
+    traitnames: scoreboardtrait,owner,spawned,skintrait,location,inventory,type,chunktickettrait
+    name: village_elder
+    navigator:
+      usedefaultstuckaction: false
+      speedmodifier: 1.0
+      avoidwater: false
+    uuid: 1c0330d8-b8dd-41e8-ba76-343fbc7c682e
+  '6':
+    metadata:
+      cached-skin-uuid: 709199de-5fea-419b-a8ef-031794a3a417
+      cached-skin-uuid-name: herbalist
+    traits:
+      scoreboardtrait:
+        tags:
+        - CITIZENS_NPC
+      owner:
+        uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
+      skintrait:
+        signature: fng8mNwFb1RHu8KSC4Pl6n3bMUndYoZK1wjQxoqEjOyDPCbgvBpA1HEZ2auqdvvc9lsgadSC7yIrEu6/c4R0xdT2WqyAiE5R/u7xSxoWZqMtTVNTLrapnK3iFNQIN+aacipNAqDHVh5GqvI0tnIgfCnnx41OJtSmrIfdQtLnP3kssQcNAROB54uMFKVBvaBVxEA0gkLLuA3jZR80J+bim5ZGjMuz1oRETdTuUB/wdVG+1TPOfiBm4KhIZ6MIODfKLdbz2iRFjhG/0yzBjZmpLYlZ+Jw3U2hJu0yPMpePO0H3gbdXSl4Pe52mCt9UBRNyuO0JYa9N3MQza1mdlhH289eCqZlzi7dd/S/1PgSPT+kyC3ZkC1c8mEOS+oF81OBBmwHOsMmRbK1uYbHAGg5tN4Kx7r1J6SyXNWnkyGum6ZmCVEcGkBWGtdjsEK1AmnlkBo/7h4HX19ebRHeBG+avItSF0yjyYP3zjuth8JVWTtpUFxBLDsI3hEeDISj2qOPg+4rSP/MWi1nvY+dAcMmlHwUC0Az6U3Cy+qlYaDlQ/d7DYMc/ynUHAty1/oEEuTlTsLHP97uKgcs3HsiOpXspMjwRsC89rvLC6JlWG8CO8+P1CimdACmjCTY6eBTWA8+jf6gsuj1gaY9IcEwEsoFMRO93IT/CUs1m2XMRf1U7uu0=
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc3NDMzNTcyMDc0MiwKICAicHJvZmlsZUlkIiA6ICI3MDkxOTlkZTVmZWE0MTliYThlZjAzMTc5NGEzYTQxNyIsCiAgInByb2ZpbGVOYW1lIiA6ICJIZXJiYWxpc3QiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTc5ZWJmNzg0MmM0NDBlZjg5OWIxYjNhZmY2MDQ1ZGVjNTY1OGExYmY0ODI3NDM1NDM1ZjFmNzVhZWMyNDcxZCIKICAgIH0KICB9Cn0=
+      location:
+        worldid: 1b5ed2dc-9a01-422f-9432-5c5cbd4a2072
+        x: -20.0545
+        y: 123.0
+        z: -8.0725
+        bodyYaw: -86.89661
+        pitch: 18.6002
+        yaw: -86.8966
+      type: PLAYER
+    traitnames: scoreboardtrait,owner,spawned,skintrait,location,inventory,type,chunktickettrait
+    name: Herbalist
+    navigator:
+      usedefaultstuckaction: false
+      speedmodifier: 1.0
+      avoidwater: false
+    uuid: 3395bf6b-ed44-4a75-aa88-e4c898bddc3a
+  '4':
+    traits:
+      scoreboardtrait:
+        tags:
+        - CITIZENS_NPC
+      owner:
+        uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
+      location:
+        worldid: 1b5ed2dc-9a01-422f-9432-5c5cbd4a2072
+        x: -31.3
+        y: 124.0
+        z: -8.9953
+        bodyYaw: 91.28613
+        pitch: 6.5999
+        yaw: 91.2861
+      type: PLAYER
+    traitnames: scoreboardtrait,owner,spawned,skintrait,location,inventory,type,chunktickettrait
+    name: Shrine Keeper
+    navigator:
+      usedefaultstuckaction: false
+      speedmodifier: 1.0
+      avoidwater: false
+    uuid: 2183ccc6-65d9-45b6-b17f-4af254292743
+  '3':
+    metadata:
+      cached-skin-uuid: ea699b33-2fc6-415d-8b9e-64527ea2a8f6
+      cached-skin-uuid-name: merchent
+    traits:
+      scoreboardtrait:
+        tags:
+        - CITIZENS_NPC
+      owner:
+        uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
+      skintrait:
+        signature: W+HzmkS81yIgkQxJoCNb9TJAJfVVdjNJUW2Ezyygv+Nyw0JV+eoHghTzceDln1zZhJxaCPhR5D5Xm2zTOfQIGqNlAFWMZeTHWNjz0Syf9WsCGgX7QC1OB92772Z8lLd/gF1S8aha5ga6ASP3/lEBUeAIbM718rjMPuyw3eU1k07tLEbp2uLDlKcLzTm7RbpW/nSHYlKczbAe73dYRCLZt3SFK3qTj5n7ZmgYnTM8f3GgjK8coW6p5lSnmDRodliBlH9lhXRIaVqJ4QZAnF5GjpKkorcXD0P/QowYA+mR8+uFqnEz2BeqTPxOX9j3Cfdz13EWvc1bvqCLruW9dFjwxAxFho0yTirkLTxRuJU9gS/2A3DEfFzP85/4YOR9TVTwstk69CJ0UeEbaCkshrzCscKOLifRKvYQlgwZiiF/QNpA9KVuErjrbGiDlFpC2QD0cEy75YFVOoGX90VnIiyVM0D6jKApJghqETFPtenVpkm+c5XoT1Yz9SyxKCoe7OXcuTJp8FVD+VTFXi80cNBUrHrirEOCpk/lkBhlk6jfsCNeQIC15nLFbCYi2/qEZmWFisR96lAPEyKJa5E9PXg/AyfO/vv+LtjxC2D3t2OVuztj0/q51COPjvDSZQEfmMApe6Mup+xLPepUjWcSjEAu1H4k5fiZQjltkGS5qdoEqYg=
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc3NDMzNTM3Nzc1OCwKICAicHJvZmlsZUlkIiA6ICJlYTY5OWIzMzJmYzY0MTVkOGI5ZTY0NTI3ZWEyYThmNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJNRVJDSGVudCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9hZjc2M2UwOTQwNzFlYTRlM2VmY2Q1M2I3MmMzOWExOTE4YzkyNWZhNmQ4NDViYzRlZDYxNDQxMTQ0ZmVjOTNkIgogICAgfQogIH0KfQ==
+      location:
+        worldid: 1b5ed2dc-9a01-422f-9432-5c5cbd4a2072
+        x: -13.5157
+        y: 124.0
+        z: -24.3182
+        bodyYaw: -177.51611
+        pitch: 23.7
+        yaw: -177.5161
+      type: PLAYER
+    traitnames: scoreboardtrait,owner,spawned,skintrait,location,inventory,type,chunktickettrait
+    name: Merchent
+    navigator:
+      usedefaultstuckaction: false
+      speedmodifier: 1.0
+      avoidwater: false
+    uuid: 0b887545-02bb-452b-9be4-56efa206ed79
+  '5':
+    metadata:
+      cached-skin-uuid: 453cce52-89b2-436b-a19e-0567d4ae96ff
+      cached-skin-uuid-name: blacksmith
+    traits:
+      scoreboardtrait:
+        tags:
+        - CITIZENS_NPC
+      owner:
+        uuid: 342a74eb-2896-4e2c-9d95-4160f81208ff
+      skintrait:
+        signature: xXfVDRaYAO6P/ou1LXLMX3X5/zS0UUpKFyjrLj25XkxtHIbZIHD50YxcM0FvuH3iUWyWQ2xMfqzVhoSRtvJEcxHaI+wCNyymmAN4fZMitsIISco/smZX4xYQ5KXTGiRgtm28FxUvyHgLv2UcIQvazJ9xcUIiW2PvRYljVthpig/O5Vhg2l/MBODdMn7Ea/DfJ36kqWHJIS/3gWj6K33YYK631Dz3ZFQ15VRgQ0oS/X+7ZUHD2VXDKTKXLB8tk0Kxr1WmJH6+qIpsKYWy5gaVzxFskFfBw62yA/oeqk05Oel+tP1Y7qRGK/xXd2wvma+Olh5C1lk2Txqg4wuFIRr50Q8jsBDEdLDdf5AsxR6+SYK8otacXE2BGWgwd970Nne2+Br2FVKOCyD+pwyJ1OjvC3sQzKiLWrkjEJ6qfIZv/lXGEfCRlbSGZ/+UWCSH41zFlXu6Pc1ln5NgOkNJCWoYinyWOz5DP7LNMyhtolvniowKAQR52q0wjq7C1ret/fCGfmR4jzJvoGAtCMzs0XL9dVJCrO4gsmyouiq+MyriDcDeDTwBfu+tYf2Hr4lZkOZXulHmqb+Hj4U9Wd6/TONYUAh+b8DqFSpf0RloZdeZ8eptVeqvzOQlhmQslY9Aral2M18l0j7vX4tkAfeUm3u0GYq9K6KvzhJgQa6mSoYPNak=
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc3NDMzNTQzMzYyMywKICAicHJvZmlsZUlkIiA6ICI0NTNjY2U1Mjg5YjI0MzZiYTE5ZTA1NjdkNGFlOTZmZiIsCiAgInByb2ZpbGVOYW1lIiA6ICJCbGFja3NtaXRoIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2UxNDliOTgwMzAwYmI3MDBmNjIwYWRiYzRjNDVlY2JiNTU5NWMwMjg4MjViNWI3OGQzNzg3MDVlY2ZhZTVhMzciCiAgICB9CiAgfQp9
+      location:
+        worldid: f46ac374-3953-4fc5-a554-944edc33f0a0
+        x: 283.3
+        y: 103.0
+        z: 146.3232
+        bodyYaw: -76.76172
+        pitch: 31.3505
+        yaw: -98.1891
+      type: PLAYER
+    traitnames: scoreboardtrait,owner,spawned,skintrait,location,inventory,type,chunktickettrait
+    name: Blacksmith
+    navigator:
+      usedefaultstuckaction: false
+      speedmodifier: 1.0
+      avoidwater: false
+    uuid: 62e8eb34-21d2-49b6-be1c-c74975657fed

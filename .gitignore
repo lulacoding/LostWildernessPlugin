@@ -82,6 +82,11 @@ Server/backends/*/world/*.dat
 Server/backends/*/world/*.dat_old
 Server/backends/*/world/*.dat_tmp
 Server/backends/*/world/uid.dat
+# World misc runtime files
+Server/backends/*/world/data/
+Server/backends/*/world/session.lock
+Server/backends/*/world/paper-world.yml
+Server/backends/*/world/datapacks/bukkit/
 # Nether and End worlds (full — no datapacks to keep there)
 Server/backends/*/world_nether/
 Server/backends/*/world_the_end/
