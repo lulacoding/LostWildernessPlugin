@@ -1,0 +1,161 @@
+# =============================================================================
+# Village Elder — Tutorial Chain
+# NPC Citizens ID: TODO — update after village build
+# =============================================================================
+
+npcs:
+  '2': elder   # TODO: replace '1' with actual Citizens NPC ID after placement
+
+conversations:
+  elder:
+    quester: "&6Village Elder"
+    first: "intro_new,q1_waiting,q2_done_talk,q3_active,q3_done_talk,q4_active,all_done"
+    stop: false
+    NPC_options:
+
+      intro_new:
+        condition: "!intro_done"
+        text: "&7Ah... a new face. I am the Elder of this village.&r\n&7El Diablo's corruption spreads outward from the depths. We do what we can to survive.&r\n&7You'll need supplies. Take these — they're yours."
+        events: "give_starter_kit,tag_intro_done,start_q2_objective"
+        pointers: "ask_lore,ask_classhall,bye"
+
+      ask_about_diablo:
+        text: "&7El Diablo descended from the Nether long ago. He corrupted the portal networks, split the dragon's bloodline, and his influence has been seeping into the bedrock ever since."
+        pointers: "ask_classhall,bye"
+
+      ask_about_classhall:
+        text: "&7The Class Hall sits just east of the square. Speak with your Class Master — they'll guide your first abilities."
+        pointers: "ask_lore,bye"
+
+      goodbye:
+        text: "&7Come back when you've settled in."
+
+      q1_waiting:
+        condition: "intro_done,!q2_done"
+        text: "&7You'll need tools before anything else. Craft a wooden pickaxe and return to me."
+        pointers: "ask_classhall,bye"
+
+      q2_done_talk:
+        condition: "q2_done,!q3_done"
+        text: "&7Good. Now prove you can handle yourself. Kill ten of the creatures that stalk our fields."
+        events: "start_q3_objective"
+        pointers: "ask_which_mobs,bye"
+
+      ask_which_mobs_answer:
+        text: "&7Zombies, skeletons, creepers — anything hostile. They come out at night and lurk in caves."
+        pointers: "bye"
+
+      q3_active:
+        condition: "q3_started,!q3_done"
+        text: "&7Keep at it. Ten kills."
+        pointers: "bye"
+
+      q3_done_talk:
+        condition: "q3_done,!q4_done"
+        text: "&7Ten kills. Not bad.&r\n&7One final test — step through the Nether Portal east of the village. Come back alive."
+        events: "start_q4_objective"
+        pointers: "ask_nether_danger,bye"
+
+      ask_nether_danger_answer:
+        text: "&7The Nether is hostile. But if you're going to face what's coming, you need to know what it feels like.&r\n&7Go. Come back alive."
+        pointers: "bye"
+
+      q4_active:
+        condition: "q4_started,!q4_done"
+        text: "&7You haven't stepped through yet. The Nether Portal is east of the village."
+        pointers: "bye"
+
+      all_done:
+        condition: "q4_done"
+        text: "&7You've earned your place here. Go to the Class Hall — your Class Master is waiting.&r\n&7The path ahead is yours."
+        pointers: "ask_next_steps,bye_done"
+
+      next_steps_answer:
+        text: "&7Kill the Ender Dragon. Beyond it lies the Corrupt Portal — the gateway El Diablo used to fracture this world.&r\n&7But first, grow stronger. The Lord didn't call you here to fail."
+        pointers: "bye_done"
+
+      goodbye_done:
+        text: "&7Safe travels."
+
+    player_options:
+      ask_lore:
+        text: "Who is El Diablo?"
+        pointer: ask_about_diablo
+      ask_classhall:
+        text: "What is the Class Hall?"
+        pointer: ask_about_classhall
+      bye:
+        text: "Thank you, Elder."
+        pointer: goodbye
+      ask_which_mobs:
+        text: "Which creatures?"
+        pointer: ask_which_mobs_answer
+      ask_nether_danger:
+        text: "Is the Nether dangerous?"
+        pointer: ask_nether_danger_answer
+      ask_next_steps:
+        text: "What should I do now?"
+        pointer: next_steps_answer
+      bye_done:
+        text: "Thank you, Elder."
+        pointer: goodbye_done
+
+objectives:
+  q2_craft_pickaxe:  "craft wooden_pickaxe 1 events:q2_complete"
+  q3_kill_hostiles:  "mobkill ZOMBIE,SKELETON,CREEPER,SPIDER,ENDERMAN,WITCH,DROWNED,HUSK,STRAY,PILLAGER,PHANTOM,CAVE_SPIDER 10 events:q3_complete"
+  q4_enter_nether:   "location 0;64;0;world_nether 999999 events:q4_complete"
+
+events:
+  give_starter_kit:   "folder give_sword,give_helmet,give_chestplate,give_leggings,give_boots,give_food,notify_kit"
+  give_sword:         "give starter_sword 1"
+  give_helmet:        "give starter_helmet 1"
+  give_chestplate:    "give starter_chestplate 1"
+  give_leggings:      "give starter_leggings 1"
+  give_boots:         "give starter_boots 1"
+  give_food:          "give starter_bread 16"
+  notify_kit:         "notify &aYou received a starter kit from the Village Elder."
+  tag_intro_done:     "tag add elder_intro_done"
+  start_q2_objective: "objective add lw_elder.q2_craft_pickaxe"
+
+  q2_complete:        "folder tag_q2_done,q2_exp,q2_notify"
+  tag_q2_done:        "tag add elder_q2_done"
+  q2_exp:             "experience 200"
+  q2_notify:          "notify &6Quest Complete: &eFirst Steps"
+
+  start_q3_objective: "folder tag_q3_started,objective_add_q3"
+  tag_q3_started:     "tag add elder_q3_started"
+  objective_add_q3:   "objective add lw_elder.q3_kill_hostiles"
+
+  q3_complete:        "folder tag_q3_done,q3_exp,q3_notify"
+  tag_q3_done:        "tag add elder_q3_done"
+  q3_exp:             "experience 400"
+  q3_notify:          "notify &6Quest Complete: &eProving Your Worth"
+
+  start_q4_objective: "folder tag_q4_started,objective_add_q4"
+  tag_q4_started:     "tag add elder_q4_started"
+  objective_add_q4:   "objective add lw_elder.q4_enter_nether"
+
+  q4_complete:        "folder tag_q4_done,q4_exp,give_blessing,q4_notify,q4_title"
+  tag_q4_done:        "tag add elder_q4_done"
+  q4_exp:             "experience 800"
+  give_blessing:      "give elders_blessing 1"
+  q4_notify:          "notify &6Quest Complete: &eThe First Rift"
+  q4_title:           "notify &6Tutorial Complete! &eSpeak with your Class Master. io:title"
+
+conditions:
+  intro_done:  "tag elder_intro_done"
+  q2_done:     "tag elder_q2_done"
+  q3_done:     "tag elder_q3_done"
+  q3_started:  "tag elder_q3_started"
+  q4_done:     "tag elder_q4_done"
+  q4_started:  "tag elder_q4_started"
+
+items:
+  starter_sword:      "IRON_SWORD"
+  starter_helmet:     "IRON_HELMET"
+  starter_chestplate: "IRON_CHESTPLATE"
+  starter_leggings:   "IRON_LEGGINGS"
+  starter_boots:      "IRON_BOOTS"
+  starter_bread:      "BREAD"
+  wooden_pickaxe:     "WOODEN_PICKAXE"
+  elders_blessing:    "GOLDEN_APPLE name:&6Elder's_Blessing lore:A_gift_from_the_Elder."

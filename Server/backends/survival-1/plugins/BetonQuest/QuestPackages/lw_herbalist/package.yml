@@ -1,0 +1,115 @@
+# =============================================================================
+# Herbalist — Alchemy Chain
+# NPC Citizens ID: TODO — update after village build
+# =============================================================================
+
+npcs:
+  '6': herbalist   # TODO: replace '4' with actual Citizens NPC ID after placement
+
+conversations:
+  herbalist:
+    quester: "&aHerbalist"
+    first: "intro_new,q1_active,q1_done_talk,q2_active,all_done"
+    stop: false
+    NPC_options:
+
+      intro_new:
+        condition: "!intro_done"
+        text: "&7Plants hold more power than most people realise. Healing, strength — all of it grows wild if you know where to look.&r\n&7Start simple. Craft me a bowl of mushroom stew — brown mushroom, red mushroom, a wooden bowl."
+        events: "tag_herb_intro,start_q1_objective"
+        pointers: "ask_where_mushrooms,bye"
+
+      where_mushrooms_answer:
+        text: "&7Mushrooms grow in dark places — caves, dense forests, shaded ground.&r\n&7Brown and red. One of each, plus a wooden bowl. Craft at a crafting table."
+        pointers: "bye"
+
+      q1_active:
+        condition: "intro_done,!q1_done"
+        text: "&7One brown mushroom, one red mushroom, a bowl. Craft the stew and come back."
+        pointers: "ask_where_mushrooms,bye"
+
+      q1_done_talk:
+        condition: "q1_done,!q2_done"
+        text: "&7Good. Fresh and fragrant.&r\n&7Now the real lesson. Every healer needs a Potion of Healing.&r\n&7You'll need a Brewing Stand, Nether Wart, and a Glistering Melon Slice. Here's a kit to start."
+        events: "give_brewing_kit,start_q2_objective"
+        pointers: "ask_how_brew,bye"
+
+      how_brew_answer:
+        text: "&7Brewing Stand — Blaze Rod in the middle, Cobblestone on the bottom row.&r\n&7Step 1: Nether Wart + Water Bottle → Awkward Potion.&r\n&7Step 2: Glistering Melon Slice + Awkward Potion → Potion of Healing.&r\n&7Glistering Melon: melon slice surrounded by eight gold nuggets."
+        pointers: "bye"
+
+      q2_active:
+        condition: "q2_started,!q2_done"
+        text: "&7Have you found a Brewing Stand? Nether Wart grows in the Nether on soul sand."
+        pointers: "ask_how_brew,bye"
+
+      all_done:
+        condition: "q2_done"
+        text: "&7You're a natural. There's more to learn — poisons, strength potions, fire resistance.&r\n&7Come back any time. The garden is always growing."
+        pointers: "ask_more_potions,bye_done"
+
+      ask_more_potions_answer:
+        text: "&7Fire Resistance keeps you safe in the Nether. Strength helps in battle.&r\n&7Each one starts with the Awkward Potion base. You've learned the hard part already."
+        pointers: "bye_done"
+
+      goodbye:
+        text: "&7The plants will always be here when you need them."
+
+    player_options:
+      ask_where_mushrooms:
+        text: "Where do I find mushrooms?"
+        pointer: where_mushrooms_answer
+      ask_how_brew:
+        text: "How do I brew a potion?"
+        pointer: how_brew_answer
+      ask_more_potions:
+        text: "What other potions should I know?"
+        pointer: ask_more_potions_answer
+      bye:
+        text: "On my way."
+        pointer: goodbye
+      bye_done:
+        text: "Thank you."
+        pointer: goodbye
+
+objectives:
+  q1_craft_stew:    "craft mushroom_stew 1 events:q1_complete"
+  q2_craft_healing: "craft potion_healing 1 events:q2_complete"
+
+events:
+  tag_herb_intro:     "tag add herb_intro_done"
+  start_q1_objective: "objective add lw_herbalist.q1_craft_stew"
+
+  q1_complete:        "folder tag_q1_done,q1_exp,q1_notify"
+  tag_q1_done:        "tag add herb_q1_done"
+  q1_exp:             "experience 250"
+  q1_notify:          "notify &6Quest Complete: &eNature's Harvest"
+
+  give_brewing_kit:   "folder give_blaze_rod,give_nether_wart,give_water_bottles"
+  give_blaze_rod:     "give blaze_rod 1"
+  give_nether_wart:   "give nether_wart 4"
+  give_water_bottles: "give water_bottle 3"
+
+  start_q2_objective: "folder tag_q2_started,objective_add_q2"
+  tag_q2_started:     "tag add herb_q2_started"
+  objective_add_q2:   "objective add lw_herbalist.q2_craft_healing"
+
+  q2_complete:        "folder tag_q2_done,q2_exp,give_recipe_book,q2_notify"
+  tag_q2_done:        "tag add herb_q2_done"
+  q2_exp:             "experience 500"
+  give_recipe_book:   "give herbalist_recipe_book 1"
+  q2_notify:          "notify &6Quest Complete: &eThe First Brew"
+
+conditions:
+  intro_done:  "tag herb_intro_done"
+  q1_done:     "tag herb_q1_done"
+  q2_done:     "tag herb_q2_done"
+  q2_started:  "tag herb_q2_started"
+
+items:
+  mushroom_stew:         "MUSHROOM_STEW"
+  potion_healing:        "POTION name:Potion_of_Healing"
+  blaze_rod:             "BLAZE_ROD"
+  nether_wart:           "NETHER_WART"
+  water_bottle:          "POTION name:Water_Bottle"
+  herbalist_recipe_book: "BOOK name:&aHerbalist's_Notes lore:Unique_recipes_from_the_Herbalist."

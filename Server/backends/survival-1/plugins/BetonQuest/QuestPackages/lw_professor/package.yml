@@ -1,0 +1,92 @@
+# =============================================================================
+# Professor Craft — First Contact
+# NPC Citizens ID: TODO — update after volcano lab is built
+# TODO: Replace lab coords in find_lab objective after building
+# =============================================================================
+
+npcs:
+  '7': professor   # TODO: replace '5' with actual Citizens NPC ID
+
+conversations:
+  professor:
+    quester: "&eProfessor Craft"
+    first: "lab_first_visit,post_contact,lab_return"
+    stop: false
+    NPC_options:
+
+      lab_first_visit:
+        condition: "!met"
+        text: "&eYou found me! Ha! Most people give up before the third ridge.&r\n&7...Ahem. Professor Craft. Geomancer, naturalist, reluctant expert on everything nobody wants to study.&r\n&7I've been tracking unusual energy patterns in the rock strata. Volcanic activity that doesn't match the calendar. Corruption, I think. Deep-origin."
+        events: "tag_prof_met,grant_achievement"
+        pointers: "ask_what_studying,ask_about_mushrooms,bye"
+
+      ask_studying_answer:
+        text: "&7The volcanoes here shouldn't be this active. The lava composition is wrong. El Diablo's corruption spreads through heat and stone, not just through the air.&r\n&7Here, take these notes. Come back when you want to help with the sampling — I'll need lava from three different craters."
+        events: "give_research_notes"
+        pointers: "ask_about_mushrooms,ask_help,bye"
+
+      ask_mushrooms_answer:
+        text: "&7*goes very quiet*&r\n&7*looks over shoulder carefully*&r\n&7The mushroom islands?&r\n&7...That's not something I'm going to talk about right now.&r\n&7The mushrooms are... wrong. That's all I'll say."
+        pointers: "ask_what_studying,bye"
+
+      offer_help_answer:
+        text: "&7Yes. Lava samples from three distinct volcano craters. Take a bucket. One from each — the bowl at the top with the active lava pool.&r\n&7Don't fall in. I'd have to find another assistant."
+        pointers: "bye"
+
+      bye_lab:
+        text: "&7Come back! I mean — yes. Come back."
+
+      post_contact:
+        condition: "met,!samples_done"
+        text: "&7Ah, you're back. I still need those three lava samples. Three different craters.&r\n&7And stay away from the mushroom islands. I'm serious."
+        pointers: "ask_samples,ask_about_mushrooms,bye"
+
+      ask_samples_answer:
+        text: "&7Three craters — one visible from here, one north past the ridge, and a third you'll have to find.&r\n&7Bucket of lava. Three times. Simple."
+        pointers: "bye"
+
+      lab_return:
+        condition: "met,samples_done"
+        text: "&7The analysis is ongoing. The preliminary results are... unsettling.&r\n&7Come back soon. I may need you to investigate the anomaly in the north."
+        pointers: "ask_anomaly,bye"
+
+      ask_anomaly_answer:
+        text: "&7The corruption isn't uniform. There's a focal point — El Diablo used the mushroom islands as a repeater. Like a signal tower.&r\n&7*goes very quiet again*&r\n&7I need more data."
+        pointers: "bye"
+
+    player_options:
+      ask_what_studying:
+        text: "What are you studying out here?"
+        pointer: ask_studying_answer
+      ask_about_mushrooms:
+        text: "What about the mushroom islands?"
+        pointer: ask_mushrooms_answer
+      ask_help:
+        text: "Can I help with your research?"
+        pointer: offer_help_answer
+      ask_samples:
+        text: "Tell me about the lava samples."
+        pointer: ask_samples_answer
+      ask_anomaly:
+        text: "What anomaly?"
+        pointer: ask_anomaly_answer
+      bye:
+        text: "I'll come back."
+        pointer: bye_lab
+
+objectives:
+  # TODO: Replace 0;64;0;world with actual lab coordinates after building
+  find_lab: "location 0;64;0;world 32 events:first_contact_complete"
+
+events:
+  tag_prof_met:           "tag add prof_met"
+  grant_achievement:      "notify &e[The Scientific Method] &7Achievement unlocked!"
+  give_research_notes:    "give research_notes 1"
+  first_contact_complete: "folder tag_prof_met,grant_achievement"
+
+conditions:
+  met:          "tag prof_met"
+  samples_done: "tag prof_samples_done"
+
+items:
+  research_notes: "PAPER name:&eProfessor_Craft's_Notes lore:Volcanic_corruption_research."

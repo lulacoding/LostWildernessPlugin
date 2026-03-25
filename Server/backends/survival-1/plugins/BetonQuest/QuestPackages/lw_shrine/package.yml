@@ -1,0 +1,65 @@
+# =============================================================================
+# Shrine Keeper — Zodiac Introduction
+# NPC Citizens ID: TODO — update after village build
+# =============================================================================
+
+npcs:
+  '4': shrine_keeper   # TODO: replace '2' with actual Citizens NPC ID after placement
+
+conversations:
+  shrine_keeper:
+    quester: "&dShrine Keeper"
+    first: "intro_new,return_visitor"
+    stop: false
+    NPC_options:
+
+      intro_new:
+        condition: "!visited"
+        text: "&7Welcome, child. Every soul that enters this world carries a sign — a zodiac — determined by the alignment of the stars on the day they first arrived.&r\n&7Your sign shapes your bond with nature, with creatures, and with the unseen forces around you."
+        events: "tag_shrine_visited"
+        pointers: "ask_my_sign,ask_what_it_does,bye"
+
+      explain_sign:
+        text: "&7Use &e/zodiac info&7 to see your sign and its properties at any time.&r\n&7When your pet shares your sign, a &dZodiac Sync&7 activates — both you and your companion grow stronger together."
+        events: "give_zodiac_charm"
+        pointers: "ask_what_it_does,ask_sync,bye"
+
+      explain_effect:
+        text: "&7Each sign carries passive gifts — resistances, perception, affinity with certain forces.&r\n&7Some signs are stronger under certain moons, or near water, fire, or stone."
+        pointers: "ask_sync,ask_my_sign,bye"
+
+      explain_sync:
+        text: "&7A Zodiac Sync occurs when you and your closest pet share the same sign.&r\n&7The bonus applies passively — simply keep your sign-matched pet nearby.&r\n&7Seek animals tamed under your own sign to find your truest companion."
+        pointers: "ask_what_it_does,bye"
+
+      return_visitor:
+        condition: "visited"
+        text: "&7The stars are unchanged, traveller. &e/zodiac info&7 will show you what you need.&r\n&7Is your sign-matched pet by your side?"
+        pointers: "ask_sync,ask_what_it_does,bye"
+
+      goodbye:
+        text: "&7May your sign guide you true."
+
+    player_options:
+      ask_my_sign:
+        text: "How do I find my zodiac sign?"
+        pointer: explain_sign
+      ask_what_it_does:
+        text: "What does my zodiac sign do?"
+        pointer: explain_effect
+      ask_sync:
+        text: "What is a Zodiac Sync?"
+        pointer: explain_sync
+      bye:
+        text: "Thank you."
+        pointer: goodbye
+
+conditions:
+  visited: "tag shrine_visited"
+
+events:
+  tag_shrine_visited: "tag add shrine_visited"
+  give_zodiac_charm:  "give zodiac_charm 1"
+
+items:
+  zodiac_charm: "NETHER_STAR name:&dZodiac_Charm lore:A_token_from_the_Shrine_Keeper."

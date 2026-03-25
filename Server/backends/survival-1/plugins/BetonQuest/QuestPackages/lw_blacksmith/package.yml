@@ -1,0 +1,144 @@
+# =============================================================================
+# Blacksmith — Gear Chain
+# NPC Citizens ID: TODO — update after village build
+# =============================================================================
+
+npcs:
+  '5': blacksmith   # TODO: replace '3' with actual Citizens NPC ID after placement
+
+conversations:
+  blacksmith:
+    quester: "&7Blacksmith"
+    first: "intro_new,q1_waiting,q1_ready,q1_done_talk,q2_active,q2_done_talk,q3_active,all_done"
+    stop: false
+    NPC_options:
+
+      intro_new:
+        condition: "!intro_done"
+        text: "&7You look like you're running on courage alone. That won't last long out there.&r\n&7Bring me thirty-two iron ingots. I'll turn them into something useful."
+        events: "tag_smith_intro"
+        pointers: "ask_where_iron,bye"
+
+      where_iron_answer:
+        text: "&7Caves. Ravines. Anywhere underground. Iron is common — you just have to go far enough down.&r\n&7Thirty-two. Don't come back with less."
+        pointers: "bye"
+
+      q1_waiting:
+        condition: "intro_done,!q1_done,!has_iron"
+        text: "&7Thirty-two iron ingots. You're not back yet.&r\n&7The mines are east of here."
+        pointers: "ask_where_iron,bye"
+
+      q1_ready:
+        condition: "intro_done,!q1_done,has_iron"
+        text: "&7Now we're talking. Hand them over."
+        events: "q1_complete"
+        pointers: "bye"
+
+      q1_done_talk:
+        condition: "q1_done,!q2_done"
+        text: "&7Good haul. Here's your armour.&r\n&7Now craft yourself an iron sword. Use a crafting table — I'm not making it for you."
+        events: "give_iron_armour,start_q2_objective"
+        pointers: "ask_how_craft_sword,bye"
+
+      how_craft_sword_answer:
+        text: "&7Two iron ingots stacked in the middle column. Stick below them. That's it."
+        pointers: "bye"
+
+      q2_active:
+        condition: "q2_started,!q2_done"
+        text: "&7I said craft a sword. Off you go."
+        pointers: "bye"
+
+      q2_done_talk:
+        condition: "q2_done,!q3_done"
+        text: "&7Solid. It'll hold.&r\n&7Last thing — go use it. Five kills. Prove it isn't decorative."
+        events: "start_q3_objective"
+        pointers: "bye"
+
+      q3_active:
+        condition: "q3_started,!q3_done"
+        text: "&7Five kills. Go on."
+        pointers: "bye"
+
+      all_done:
+        condition: "q3_done"
+        text: "&7You've earned your place here. Come back if your gear breaks."
+        pointers: "ask_upgrades,bye_done"
+
+      ask_upgrades_answer:
+        text: "&7Diamonds are out there — further down, further out. Enchant what you have first."
+        pointers: "bye_done"
+
+      goodbye:
+        text: "&7Don't get yourself killed with my work."
+
+    player_options:
+      ask_where_iron:
+        text: "Where do I find iron?"
+        pointer: where_iron_answer
+      ask_how_craft_sword:
+        text: "How do I craft an iron sword?"
+        pointer: how_craft_sword_answer
+      ask_upgrades:
+        text: "What about better gear?"
+        pointer: ask_upgrades_answer
+      bye:
+        text: "I'll get on it."
+        pointer: goodbye
+      bye_done:
+        text: "Thank you."
+        pointer: goodbye
+
+objectives:
+  q2_craft_sword: "craft iron_sword_item 1 events:q2_complete"
+  q3_kill_5:      "mobkill ZOMBIE,SKELETON,CREEPER,SPIDER,ENDERMAN,WITCH,DROWNED,HUSK,STRAY,PILLAGER,PHANTOM 5 events:q3_complete"
+
+events:
+  tag_smith_intro:    "tag add smith_intro_done"
+
+  q1_complete:        "folder take_iron,tag_q1_done,q1_exp,q1_notify"
+  take_iron:          "take iron_ingot 32"
+  tag_q1_done:        "tag add smith_q1_done"
+  q1_exp:             "experience 300"
+  q1_notify:          "notify &6Quest Complete: &eIron and Sweat"
+
+  give_iron_armour:   "folder give_iron_chest,give_iron_legs,give_iron_boots2,give_iron_helm2"
+  give_iron_chest:    "give iron_chestplate2 1"
+  give_iron_legs:     "give iron_leggings2 1"
+  give_iron_boots2:   "give iron_boots2 1"
+  give_iron_helm2:    "give iron_helmet2 1"
+
+  start_q2_objective: "folder tag_q2_started,objective_add_q2"
+  tag_q2_started:     "tag add smith_q2_started"
+  objective_add_q2:   "objective add lw_blacksmith.q2_craft_sword"
+
+  q2_complete:        "folder tag_q2_done,q2_exp,q2_notify"
+  tag_q2_done:        "tag add smith_q2_done"
+  q2_exp:             "experience 400"
+  q2_notify:          "notify &6Quest Complete: &eCraft Your Edge"
+
+  start_q3_objective: "folder tag_q3_started,objective_add_q3"
+  tag_q3_started:     "tag add smith_q3_started"
+  objective_add_q3:   "objective add lw_blacksmith.q3_kill_5"
+
+  q3_complete:        "folder tag_q3_done,q3_exp,q3_notify"
+  tag_q3_done:        "tag add smith_q3_done"
+  q3_exp:             "experience 600"
+  q3_notify:          "notify &6Quest Complete: &eBaptism of Fire"
+
+conditions:
+  intro_done:  "tag smith_intro_done"
+  q1_done:     "tag smith_q1_done"
+  has_iron:    "item iron_ingot 32"
+  q2_done:     "tag smith_q2_done"
+  q2_started:  "tag smith_q2_started"
+  q3_done:     "tag smith_q3_done"
+  q3_started:  "tag smith_q3_started"
+
+items:
+  iron_ingot:       "IRON_INGOT"
+  iron_sword_item:  "IRON_SWORD"
+  iron_chestplate2: "IRON_CHESTPLATE name:&7Blacksmith's_Chestplate"
+  iron_leggings2:   "IRON_LEGGINGS name:&7Blacksmith's_Leggings"
+  iron_boots2:      "IRON_BOOTS name:&7Blacksmith's_Boots"
+  iron_helmet2:     "IRON_HELMET name:&7Blacksmith's_Helmet"
