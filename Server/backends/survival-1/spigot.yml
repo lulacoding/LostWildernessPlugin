@@ -29,7 +29,7 @@ settings:
   sample-count: 12
   moved-too-quickly-multiplier: 10.0
   moved-wrongly-threshold: 0.0625
-  timeout-time: 60
+  timeout-time: 300
   restart-on-crash: true
   restart-script: ./start.sh
   log-villager-deaths: true
@@ -162,6 +162,8 @@ world-settings:
     end-portal-sound-radius: 0
     wither-spawn-sound-radius: 0
     hanging-tick-frequency: 100
+    verbose: false
+  worldeditregentempworld:
     verbose: false
 config-version: 12
 commands:

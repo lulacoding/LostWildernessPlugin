@@ -12,5 +12,15 @@ enabled-modules:
   - boss
   - reputation
   - portals
-  - zodiac 
+  - zodiac
   - party
+  - pets
+  - personality
+  - story
+
+events:
+  biome-painting:
+    painting-enabled: false
+    excluded-biomes:
+      - DESERT
+      - THE_VOID
