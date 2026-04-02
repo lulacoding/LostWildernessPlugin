@@ -112,6 +112,9 @@ Server/backends/*/plugins/Iris/
 Server/backends/*/plugins/FastAsyncWorldEdit/
 Server/backends/*/plugins/WorldEdit/
 Server/backends/*/plugins/WorldGuard/
+# BlueMap web render + plugin folder (downloaded/regenerated)
+Server/backends/survival-1/bluemap/
+Server/backends/*/plugins/BlueMap/
 
 # ─── Server – AuraSkills runtime data (keep configs, ignore player/region data)
 Server/backends/*/plugins/AuraSkills/userdata/
@@ -125,6 +128,16 @@ Server/backends/*/wepif.yml
 .serena/
 .playwright-mcp/
 .claude/settings.local.json
+
+# ─── AI scratch (not historical) ─────────────────────────────────────────────
+claude-self-optimiser.md
+continuous-improvement.md
+deep-research-report.md
+failure-log.md
+final transcript.txt
+.claude/settings.local.json.bak
+tasks/_serena-*.md
+tasks/serena-*.md
 
 # ─── Editor / OS noise ───────────────────────────────────────────────────────
 .vscode/
