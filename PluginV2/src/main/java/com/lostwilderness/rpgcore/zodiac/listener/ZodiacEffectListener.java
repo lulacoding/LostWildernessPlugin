@@ -3,11 +3,11 @@ package com.lostwilderness.rpgcore.zodiac.listener;
 import com.lostwilderness.rpgcore.calendar.CalendarServiceV2;
 import com.lostwilderness.rpgcore.infra.scheduler.SchedulerService;
 import com.lostwilderness.rpgcore.reputation.ReputationService;
+import com.lostwilderness.rpgcore.events.util.BiomeGroups;
 import com.lostwilderness.rpgcore.zodiac.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Biome;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -296,9 +296,7 @@ public final class ZodiacEffectListener implements Listener {
                 break;
 
             case HORSE:
-                Biome biome = loc.getBlock().getBiome();
-                if (biome == Biome.PLAINS || biome == Biome.SUNFLOWER_PLAINS ||
-                        biome == Biome.SAVANNA || biome == Biome.SAVANNA_PLATEAU) {
+                if (BiomeGroups.isHorseOpenTerrain(loc.getBlock().getBiome())) {
                     applyEffect(player, PotionEffectType.SPEED, 0);
                 }
                 break;

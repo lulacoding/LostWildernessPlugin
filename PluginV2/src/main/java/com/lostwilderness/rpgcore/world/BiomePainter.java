@@ -415,9 +415,7 @@ public final class BiomePainter implements Listener, Runnable {
 
     private static boolean isColdBiome(Biome b) {
         if (b == Biome.CHERRY_GROVE) return false;
-        String n = b.name();
-        return n.contains("SNOW") || n.contains("FROZEN") || n.contains("ICE")
-            || "GROVE".equals(n) || n.contains("SNOWY_TAIGA") || n.contains("PEAK") || n.contains("MOUNTAIN");
+        return com.lostwilderness.rpgcore.events.util.BiomeGroups.isCold(b);
     }
 
     private boolean shouldSkipSpoof(Chunk ch) {

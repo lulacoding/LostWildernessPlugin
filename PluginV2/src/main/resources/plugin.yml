@@ -58,6 +58,12 @@ commands:
   quests:
     description: View your NPC quest progress
     usage: /quests
+  season:
+    description: View current season info or receive the Season Guide book
+    usage: /<command> [guide|info]
+  v2thornwellcompass:
+    description: Give Thornwell lodestone compass (console / Amos BetonQuest)
+    usage: /<command> give <player>
 
 permissions:
   lw.clan.use:
@@ -81,3 +87,6 @@ permissions:
   lw.pets.use:
     description: Use /pets commands (list, graveyard, info, rename, find)
     default: true
+  rpgcore.thornwellcompass:
+    description: Run /v2thornwellcompass (used by BetonQuest console)
+    default: op

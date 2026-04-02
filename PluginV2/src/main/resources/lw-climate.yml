@@ -1,5 +1,14 @@
 # Lost Wilderness – climate (Aeternum-style). Seasonal weather + migration.
 
+# Z-band around 0 (spawn highway): mild buffer, optional clear client weather, no harsh cold from frost/blizzard.
+equator:
+  enabled: true
+  half_width_blocks: 500
+  reduce_weather: true
+  gate_cold_events: true
+  # Empty list = all overworld (NORMAL) worlds. Otherwise only these names, e.g. ["world"]
+  worlds: []
+
 seasonal_weather:
   enabled: true
   worlds: ["world"]

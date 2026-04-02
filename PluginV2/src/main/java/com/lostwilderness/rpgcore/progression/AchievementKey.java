@@ -85,6 +85,7 @@ public final class AchievementKey {
     public static final String COUNTER_JOIN_COUNT = "join_count";
     public static final String COUNTER_PLAYTIME_SECONDS = "playtime_seconds";
     public static final String COUNTER_DEATH_COUNT = "death_count";
+    public static final String COUNTER_WITHER_KILLS_SOLO = "wither_kills_solo";
 
     private AchievementKey() {}
 }

@@ -1,5 +1,6 @@
 package com.lostwilderness.rpgcore.portals;
 
+import com.lostwilderness.rpgcore.clans.ClanService;
 import com.lostwilderness.rpgcore.portals.command.DeletePortalsCommand;
 import com.lostwilderness.rpgcore.portals.command.PortalsCommand;
 import com.lostwilderness.rpgcore.portals.listener.PortalBreakListener;
@@ -74,7 +75,9 @@ public final class PortalsModule implements RpgModule {
 
         plugin.getServer().getMessenger().registerOutgoingPluginChannel(plugin, "BungeeCord");
 
-        plugin.getServer().getPluginManager().registerEvents(new PortalInteractListener(portalService), plugin);
+        ClanService clanService = ctx.getServiceRegistry().get(ClanService.class);
+        plugin.getServer().getPluginManager()
+                .registerEvents(new PortalInteractListener(portalService, clanService), plugin);
         plugin.getServer().getPluginManager().registerEvents(new PortalEnterListener(plugin, portalService, repo),
                 plugin);
         plugin.getServer().getPluginManager().registerEvents(new PortalJoinListener(plugin, portalService, repo),

@@ -26,7 +26,15 @@ public final class BetonQuestBridge {
         return Bukkit.getPluginManager().getPlugin("BetonQuest") != null;
     }
 
-    private void fireEventForPlayer(String playerName, String eventId) {
+    /**
+     * Fires a BetonQuest event for an online player (full id e.g. {@code lw_amos.thornwell_arrived}).
+     */
+    public void fireEventForPlayer(Player player, String packageDotEventId) {
+        if (player == null) return;
+        fireEventForPlayerByName(player.getName(), packageDotEventId);
+    }
+
+    private void fireEventForPlayerByName(String playerName, String eventId) {
         if (!isBetonQuestPresent()) {
             return;
         }
@@ -44,11 +52,11 @@ public final class BetonQuestBridge {
         // Map known milestones to BetonQuest events in default package
         switch (milestoneKey) {
             case AchievementKey.MILESTONE_FIRST_JOIN ->
-                fireEventForPlayer(player.getName(), "default.milestone_first_join_unlocked");
+                fireEventForPlayerByName(player.getName(), "default.milestone_first_join_unlocked");
             case AchievementKey.MILESTONE_JOIN_3_TIMES ->
-                fireEventForPlayer(player.getName(), "default.milestone_join_3_times_unlocked");
+                fireEventForPlayerByName(player.getName(), "default.milestone_join_3_times_unlocked");
             case AchievementKey.MILESTONE_JOIN_10_TIMES ->
-                fireEventForPlayer(player.getName(), "default.milestone_join_ten_times_unlocked");
+                fireEventForPlayerByName(player.getName(), "default.milestone_join_ten_times_unlocked");
             default -> {
             }
         }
@@ -78,11 +86,11 @@ public final class BetonQuestBridge {
         if (player == null || milestoneKey == null) return;
         switch (milestoneKey) {
             case AchievementKey.MILESTONE_FIRST_JOIN ->
-                fireEventForPlayer(player.getName(), "default.milestone_first_join_claimed");
+                fireEventForPlayerByName(player.getName(), "default.milestone_first_join_claimed");
             case AchievementKey.MILESTONE_JOIN_3_TIMES ->
-                fireEventForPlayer(player.getName(), "default.milestone_join_3_times_claimed");
+                fireEventForPlayerByName(player.getName(), "default.milestone_join_3_times_claimed");
             case AchievementKey.MILESTONE_JOIN_10_TIMES ->
-                fireEventForPlayer(player.getName(), "default.milestone_join_ten_times_claimed");
+                fireEventForPlayerByName(player.getName(), "default.milestone_join_ten_times_claimed");
             default -> {
             }
         }

@@ -1,5 +1,6 @@
 package com.lostwilderness.rpgcore.classes;
 
+import com.lostwilderness.rpgcore.events.util.BiomeGroups;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -108,13 +109,8 @@ public final class ClassPassiveListener implements Listener {
     }
 
     private void handleRangerSpeed(Player player) {
-        switch (player.getLocation().getBlock().getBiome()) {
-            case FOREST, BIRCH_FOREST, DARK_FOREST, TAIGA, OLD_GROWTH_PINE_TAIGA,
-                    JUNGLE, SPARSE_JUNGLE ->
-                applyOrRefreshEffect(player, PotionEffectType.SPEED, 1);
-            default -> {
-                // Do not forcibly clear, just let it expire naturally
-            }
+        if (BiomeGroups.isRangerForestSpeedBiome(player.getLocation().getBlock().getBiome())) {
+            applyOrRefreshEffect(player, PotionEffectType.SPEED, 1);
         }
     }
 

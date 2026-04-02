@@ -1,6 +1,8 @@
 package com.lostwilderness.survivalv2;
 
 import com.lostwilderness.rpgcore.calendar.CalendarServiceV2;
+import com.lostwilderness.rpgcore.calendar.EquatorSettings;
+import com.lostwilderness.rpgcore.calendar.EquatorZone;
 import com.lostwilderness.rpgcore.calendar.SeasonGuideBook;
 import com.lostwilderness.rpgcore.core.RPGCorePlugin;
 import com.lostwilderness.rpgcore.personality.CompletionService;
@@ -140,6 +142,19 @@ final class SurvivalCalendarCommands {
                     + ", restore: " + (store.isRestoreMode() ? "active" : "idle"));
                 sender.sendMessage(ChatColor.GRAY + "Usage: /season biomes on|off|restore|backup on|off");
                 return true;
+            }
+            if (sender instanceof Player pl) {
+                RPGCorePlugin core = RPGCorePlugin.getInstance();
+                EquatorSettings eq = core != null ? core.getService(EquatorSettings.class) : null;
+                if (eq == null && core != null) {
+                    eq = EquatorSettings.loadOrDisabled(core);
+                }
+                if (eq != null && EquatorZone.isInBand(pl, eq)) {
+                    sender.sendMessage(ChatColor.GOLD + "Zone: " + ChatColor.YELLOW + "Equator belt (buffer near Z=0)");
+                    sender.sendMessage(ChatColor.GRAY + "No hemispheric season here. World calendar: "
+                            + ChatColor.WHITE + calendar.getCurrentSnapshot().season());
+                    return true;
+                }
             }
             CalendarServiceV2.Season season = calendar.getCurrentSnapshot().season();
             sender.sendMessage(ChatColor.GOLD + "Season: " + ChatColor.YELLOW + season.name());

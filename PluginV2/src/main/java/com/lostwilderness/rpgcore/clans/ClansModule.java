@@ -55,6 +55,7 @@ public final class ClansModule implements RpgModule {
         }
         clanService = new ClanServiceImpl(repo, ctx.getPlugin());
         ctx.getServiceRegistry().register(ClanService.class, clanService);
+        ctx.getServiceRegistry().register(com.lostwilderness.rpgcore.clans.repo.ClanRepository.class, repo);
         ctx.getServiceRegistry().register(WarService.class, new WarServiceImpl(repo));
         ctx.getServiceRegistry().register(AllianceService.class, new AllianceServiceImpl(repo));
         displayListener = new ClanDisplayListener(clanService);

@@ -1,5 +1,7 @@
 package com.lostwilderness.rpgcore.events.impl;
 
+import com.lostwilderness.rpgcore.calendar.EquatorSettings;
+import com.lostwilderness.rpgcore.calendar.EquatorZone;
 import com.lostwilderness.rpgcore.events.BlockRestoreManager;
 import com.lostwilderness.rpgcore.events.DailyWorldEvent;
 import org.bukkit.Bukkit;
@@ -21,12 +23,14 @@ public final class BlizzardEvent implements DailyWorldEvent {
 
     private final Plugin plugin;
     private final BlockRestoreManager blockRestore;
+    private final EquatorSettings equator;
     private volatile boolean active = false;
     private BukkitRunnable endTask;
 
-    public BlizzardEvent(Plugin plugin, BlockRestoreManager blockRestore) {
+    public BlizzardEvent(Plugin plugin, BlockRestoreManager blockRestore, EquatorSettings equator) {
         this.plugin = plugin;
         this.blockRestore = blockRestore != null ? blockRestore : new BlockRestoreManager(plugin);
+        this.equator = equator != null ? equator : EquatorSettings.disabled();
     }
 
     @Override
@@ -47,11 +51,16 @@ public final class BlizzardEvent implements DailyWorldEvent {
             int z = (chunk.getZ() << 4) + ThreadLocalRandom.current().nextInt(16);
             int y = w.getHighestBlockYAt(x, z);
             try {
-                w.spawn(new Location(w, x + 0.5, y, z + 0.5), Stray.class);
+                if (!equator.gateColdEvents() || !EquatorZone.isInBand(w, z, equator)) {
+                    w.spawn(new Location(w, x + 0.5, y, z + 0.5), Stray.class);
+                }
             } catch (Exception ignored) {}
             int bx = chunk.getX() << 4, bz = chunk.getZ() << 4;
             for (int xx = bx; xx < bx + 16; xx++) {
                 for (int zz = bz; zz < bz + 16; zz++) {
+                    if (equator.gateColdEvents() && EquatorZone.isInBand(w, zz, equator)) {
+                        continue;
+                    }
                     int yy = w.getHighestBlockYAt(xx, zz);
                     Block b = w.getBlockAt(xx, yy, zz);
                     if (b.getType() == Material.WATER) {

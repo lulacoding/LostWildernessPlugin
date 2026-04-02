@@ -76,6 +76,12 @@ public final class ClanRepository {
             )
             """;
         sql.update(DATASOURCE, ddlClans).join();
+        // Add wither_kills column if it doesn't exist (safe for both H2 and MySQL 8+)
+        try {
+            sql.update(DATASOURCE, "ALTER TABLE clans ADD COLUMN IF NOT EXISTS wither_kills INT DEFAULT 0").join();
+        } catch (Exception ignored) {
+            // Column already exists on older MySQL versions — ignore
+        }
         sql.update(DATASOURCE, ddlMembers).join();
         sql.update(DATASOURCE, ddlInvites).join();
         sql.update(DATASOURCE, ddlRelations).join();
@@ -314,6 +320,22 @@ public final class ClanRepository {
                 }
                 return list;
             },
+            clanId.toString());
+    }
+
+    /** Atomically increments the clan's wither kill counter and returns the new value. */
+    public CompletableFuture<Integer> incrementWitherKills(UUID clanId) {
+        String update = mysql
+            ? "UPDATE clans SET wither_kills = wither_kills + 1 WHERE id = ?"
+            : "UPDATE clans SET wither_kills = wither_kills + 1 WHERE id = ?";
+        return sql.update(DATASOURCE, update, clanId.toString())
+            .thenCompose(v -> getWitherKills(clanId));
+    }
+
+    public CompletableFuture<Integer> getWitherKills(UUID clanId) {
+        return sql.query(DATASOURCE,
+            "SELECT wither_kills FROM clans WHERE id = ?",
+            rs -> rs.next() ? rs.getInt("wither_kills") : 0,
             clanId.toString());
     }
 

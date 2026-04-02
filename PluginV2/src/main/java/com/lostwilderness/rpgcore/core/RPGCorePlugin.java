@@ -305,6 +305,28 @@ public final class RPGCorePlugin extends JavaPlugin {
             getLogger().info("Registered /quests (NPC quest progress GUI).");
         }
 
+        // Season Guide
+        com.lostwilderness.rpgcore.calendar.CalendarServiceV2 calendarService =
+                enabled.contains("calendar") ? serviceRegistry.get(com.lostwilderness.rpgcore.calendar.CalendarServiceV2.class) : null;
+        if (calendarService != null) {
+            com.lostwilderness.rpgcore.calendar.EquatorSettings equatorSettings =
+                    serviceRegistry.get(com.lostwilderness.rpgcore.calendar.EquatorSettings.class);
+            if (equatorSettings == null) {
+                equatorSettings = com.lostwilderness.rpgcore.calendar.EquatorSettings.loadOrDisabled(this);
+            }
+            com.lostwilderness.rpgcore.calendar.SeasonGuideMenu seasonMenu =
+                    new com.lostwilderness.rpgcore.calendar.SeasonGuideMenu(calendarService, this, equatorSettings);
+            getServer().getPluginManager().registerEvents(seasonMenu, this);
+            org.bukkit.command.PluginCommand seasonCmd = getCommand("season");
+            if (seasonCmd != null) {
+                seasonCmd.setExecutor(new com.lostwilderness.rpgcore.calendar.SeasonCommand(calendarService, seasonMenu, this,
+                        equatorSettings));
+                getLogger().info("Registered /season (season guide GUI + book).");
+            }
+        } else {
+            getLogger().warning("Skipping /season — calendar module not enabled or not loaded.");
+        }
+
         getLogger().info("RPG_Core_V2 enabled.");
     }
 

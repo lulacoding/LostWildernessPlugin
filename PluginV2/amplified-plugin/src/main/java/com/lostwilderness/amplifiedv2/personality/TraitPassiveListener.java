@@ -208,9 +208,8 @@ public class TraitPassiveListener implements Listener {
         Player player = event.getPlayer();
         if (!hasActiveTrait(player.getUniqueId(), PersonalityTrait.RANGER, TraitTier.TRAIT)) return;
 
-        // Check if in forest/jungle biome
-        String biome = player.getLocation().getBlock().getBiome().name().toLowerCase();
-        if (biome.contains("forest") || biome.contains("jungle")) {
+        if (com.lostwilderness.rpgcore.events.util.BiomeGroups.isForestOrJungleTerrain(
+                player.getLocation().getBlock().getBiome())) {
             // Apply Speed I effect (20% speed boost)
             if (!player.hasPotionEffect(PotionEffectType.SPEED)) {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 40, 0, true, false, false));

@@ -68,7 +68,7 @@ public final class StoryIntroListener implements Listener {
             if (!player.isOnline()) return;
             player.sendTitle(
                 ChatColor.YELLOW + "" + ChatColor.BOLD + "The First Steps",
-                ChatColor.GRAY + "Find the Village Elder at spawn.",
+                ChatColor.GRAY + "Find the traveller by the campfire.",
                 10, 60, 20
             );
             player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 0.8f, 1.0f);

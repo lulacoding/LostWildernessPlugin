@@ -129,7 +129,7 @@ public final class PortalService {
     public record PortalFrame(int width, int height) {
     }
 
-    /** Fills interior of frame with END_GATEWAY. */
+    /** Fills interior of frame with configured portal material. */
     public void fillPortal(Block origin, boolean alongX, int width, int height) {
         for (int y = 1; y < height - 1; y++) {
             for (int i = 1; i < width - 1; i++) {
@@ -213,7 +213,7 @@ public final class PortalService {
     }
 
     /**
-     * Build return portal frame and fill with END_GATEWAY at the given origin. Does
+     * Build return portal frame and fill with portal material at the given origin. Does
      * not teleport or update DB.
      */
     public void buildReturnPortalFrame(Location frameOrigin, boolean alongX, int width, int height) {

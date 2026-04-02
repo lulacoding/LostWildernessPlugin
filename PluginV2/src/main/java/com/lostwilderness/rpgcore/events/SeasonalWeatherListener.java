@@ -10,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
+import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -60,6 +62,9 @@ public final class SeasonalWeatherListener implements Listener {
             if (world.getEnvironment() != World.Environment.NORMAL) {
                 continue;
             }
+            if (!appliesSeasonalWeatherToWorld(world, climate)) {
+                continue;
+            }
             if (storm) {
                 world.setStorm(true);
                 world.setWeatherDuration(stormTicks);
@@ -104,6 +109,24 @@ public final class SeasonalWeatherListener implements Listener {
 
     private int getClearMax(FileConfiguration climate) {
         return climate != null ? climate.getInt("seasonal_weather.clear_duration_ticks.max", 24000) : 24000;
+    }
+
+    /** When {@code seasonal_weather.worlds} is non-empty, only those overworld names get day-advance weather. */
+    private static boolean appliesSeasonalWeatherToWorld(World world, FileConfiguration climate) {
+        if (climate == null) {
+            return true;
+        }
+        List<String> list = climate.getStringList("seasonal_weather.worlds");
+        if (list == null || list.isEmpty()) {
+            return true;
+        }
+        String name = world.getName().toLowerCase(Locale.ROOT);
+        for (String w : list) {
+            if (w != null && w.toLowerCase(Locale.ROOT).equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static int clampRand(int min, int max) {

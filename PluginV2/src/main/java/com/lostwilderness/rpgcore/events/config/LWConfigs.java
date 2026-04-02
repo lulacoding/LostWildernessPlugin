@@ -1,5 +1,6 @@
 package com.lostwilderness.rpgcore.events.config;
 
+import com.lostwilderness.rpgcore.calendar.EquatorSettings;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -54,6 +55,11 @@ public final class LWConfigs {
     }
 
     public FileConfiguration getClimate() { return climate; }
+
+    /** Equator belt options from lw-climate.yml ({@code equator}). */
+    public EquatorSettings getEquatorSettings() {
+        return EquatorSettings.from(climate);
+    }
     public FileConfiguration getCrops() { return crops; }
     public FileConfiguration getFauna() { return fauna; }
     public FileConfiguration getEventsExtra() { return eventsExtra; }

@@ -1,0 +1,31 @@
+# Arrival zones — horizontal cylinder per POI. See Docs/ops/waypoints-implementation-guide.md §9–10.
+#
+# zones.<id>:
+#   world, x, y, z, radius — horizontal distance from (x+0.5, z+0.5); y unused for entry check
+#   waypoint_permission — LuckPerms + Waypoints setPermission node
+#   betonquest_event — full id e.g. lw_amos.thornwell_arrived (folder: revoke perm, deselect, tags)
+#   skip_if_player_has_tag — optional full BQ tag to ignore zone after completion
+#   remove_amos_compass — true only for Amos Thornwell RPG compass item
+
+zones:
+  thornwell:
+    world: world
+    x: -53
+    y: 76
+    z: 311
+    radius: 28
+    waypoint_permission: lw.waypoint.thornwell
+    betonquest_event: lw_amos.thornwell_arrived
+    skip_if_player_has_tag: lw_amos.thornwell_reached
+    remove_amos_compass: true
+
+  # professor_lab:
+  #   world: world
+  #   x: 0
+  #   y: 64
+  #   z: 0
+  #   radius: 32
+  #   waypoint_permission: lw.waypoint.professor_lab
+  #   betonquest_event: lw_professor.lab_arrived
+  #   skip_if_player_has_tag: lw_professor.lab_reached
+  #   remove_amos_compass: false

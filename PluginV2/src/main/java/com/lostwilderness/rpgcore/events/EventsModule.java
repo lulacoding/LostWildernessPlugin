@@ -1,6 +1,7 @@
 package com.lostwilderness.rpgcore.events;
 
 import com.lostwilderness.rpgcore.calendar.CalendarServiceV2;
+import com.lostwilderness.rpgcore.calendar.EquatorSettings;
 import com.lostwilderness.rpgcore.core.ModuleContext;
 import com.lostwilderness.rpgcore.core.RpgModule;
 import com.lostwilderness.rpgcore.events.config.LWConfigs;
@@ -19,6 +20,7 @@ public final class EventsModule implements RpgModule {
     private EventServiceImpl service;
     private ParanoiaEvent paranoiaEvent;
     private SeasonalWeatherListener seasonalWeatherListener;
+    private EquatorWeatherListener equatorWeatherListener;
     private WildlifeMigrationListener wildlifeMigrationListener;
     private SeasonalCropsListener seasonalCropsListener;
     private LWConfigs lwConfigs;
@@ -68,12 +70,15 @@ public final class EventsModule implements RpgModule {
         lwConfigs = new LWConfigs(ctx.getPlugin());
         lwConfigs.loadAll();
 
+        EquatorSettings equatorSettings = lwConfigs.getEquatorSettings();
+        ctx.getServiceRegistry().register(EquatorSettings.class, equatorSettings);
+
         BlockRestoreManager blockRestore = new BlockRestoreManager(ctx.getPlugin());
         EclipseEvent eclipseEvent = new EclipseEvent(ctx.getPlugin());
         ThunderEvent thunderEvent = new ThunderEvent(ctx.getPlugin());
         FogEvent fogEvent = new FogEvent(ctx.getPlugin());
-        BlizzardEvent blizzardEvent = new BlizzardEvent(ctx.getPlugin(), blockRestore);
-        FrostEvent frostEvent = new FrostEvent(ctx.getPlugin(), calendar, blockRestore);
+        BlizzardEvent blizzardEvent = new BlizzardEvent(ctx.getPlugin(), blockRestore, equatorSettings);
+        FrostEvent frostEvent = new FrostEvent(ctx.getPlugin(), calendar, blockRestore, equatorSettings);
         SummerHeatwaveEvent heatwaveEvent = new SummerHeatwaveEvent(ctx.getPlugin(), calendar, lwConfigs);
         JungleMonsoonEvent monsoonEvent = new JungleMonsoonEvent(ctx.getPlugin(), calendar);
         SeasonalStormEvent stormEvent = new SeasonalStormEvent(ctx.getPlugin(), calendar);
@@ -161,6 +166,11 @@ public final class EventsModule implements RpgModule {
             if (seasonalWeatherListener != null) {
                 ctx.getPlugin().getServer().getPluginManager().registerEvents(seasonalWeatherListener, ctx.getPlugin());
             }
+            EquatorSettings eq = lwConfigs.getEquatorSettings();
+            if (eq.enabled()) {
+                equatorWeatherListener = new EquatorWeatherListener(ctx.getPlugin(), eq);
+                ctx.getPlugin().getServer().getPluginManager().registerEvents(equatorWeatherListener, ctx.getPlugin());
+            }
             if (wildlifeMigrationListener != null) {
                 ctx.getPlugin().getServer().getPluginManager().registerEvents(wildlifeMigrationListener,
                         ctx.getPlugin());
@@ -192,6 +202,11 @@ public final class EventsModule implements RpgModule {
         if (seasonalWeatherListener != null) {
             org.bukkit.event.HandlerList.unregisterAll(seasonalWeatherListener);
             seasonalWeatherListener = null;
+        }
+        if (equatorWeatherListener != null) {
+            equatorWeatherListener.cancel();
+            org.bukkit.event.HandlerList.unregisterAll(equatorWeatherListener);
+            equatorWeatherListener = null;
         }
         if (wildlifeMigrationListener != null) {
             org.bukkit.event.HandlerList.unregisterAll(wildlifeMigrationListener);

@@ -1,5 +1,6 @@
 package com.lostwilderness.rpgcore.world;
 
+import com.lostwilderness.rpgcore.events.util.BiomeRegistryUtil;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -185,11 +186,7 @@ public final class BiomeBackupStore implements Listener {
         int relX = blockX & 15, relZ = blockZ & 15;
         String key = data.getBiomeKeyAt(relX, blockY, relZ);
         if (key == null) return null;
-        try {
-            return org.bukkit.block.Biome.valueOf(key.replace("minecraft:", "").toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
+        return BiomeRegistryUtil.biomeFromKeyString(key);
     }
 
     private File fileFor(String worldName, int chunkX, int chunkZ) {

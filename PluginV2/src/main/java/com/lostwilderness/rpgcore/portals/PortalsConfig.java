@@ -44,8 +44,8 @@ public final class PortalsConfig {
         this.minFrameHeight = cfg.getInt("frame.min-height", 5);
         this.maxFrameWidth = cfg.getInt("frame.max-width", 7);
         this.maxFrameHeight = cfg.getInt("frame.max-height", 7);
-        String portalBlockName = cfg.getString("portal-block", "END_GATEWAY");
-        Material parsedPortalBlock = Material.matchMaterial(portalBlockName == null ? "END_GATEWAY" : portalBlockName);
+        String portalBlockName = cfg.getString("portal-block", "NETHER_PORTAL");
+        Material parsedPortalBlock = Material.matchMaterial(portalBlockName == null ? "NETHER_PORTAL" : portalBlockName);
         this.portalBlock = parsedPortalBlock != null ? parsedPortalBlock : Material.END_GATEWAY;
 
         boolean clearanceEnabled = cfg.getBoolean("exit-clearance.enabled", true);

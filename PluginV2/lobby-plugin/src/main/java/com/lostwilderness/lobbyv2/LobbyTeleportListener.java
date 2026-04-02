@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerPortalEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.io.ByteArrayOutputStream;
@@ -116,6 +118,19 @@ public class LobbyTeleportListener implements Listener {
                 });
             }
         });
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onPortal(PlayerPortalEvent e) {
+        if (e.getCause() != PlayerTeleportEvent.TeleportCause.NETHER_PORTAL) {
+            return;
+        }
+        Player player = e.getPlayer();
+        if (player.getLocation().getBlock().getType() != teleporterBlock) {
+            return;
+        }
+        // Prevent vanilla Nether teleport for the lobby gateway block.
+        e.setCancelled(true);
     }
 
     private void bounceBack(Player p, org.bukkit.Location from) {

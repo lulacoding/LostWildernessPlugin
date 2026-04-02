@@ -1,6 +1,8 @@
 package com.lostwilderness.rpgcore.events.impl;
 
 import com.lostwilderness.rpgcore.calendar.CalendarServiceV2;
+import com.lostwilderness.rpgcore.calendar.EquatorSettings;
+import com.lostwilderness.rpgcore.calendar.EquatorZone;
 import com.lostwilderness.rpgcore.events.BlockRestoreManager;
 import com.lostwilderness.rpgcore.events.DailyWorldEvent;
 import com.lostwilderness.rpgcore.events.util.BiomeGroups;
@@ -27,6 +29,7 @@ public final class FrostEvent implements DailyWorldEvent {
     private final Plugin plugin;
     private final CalendarServiceV2 calendar;
     private final BlockRestoreManager blockRestore;
+    private final EquatorSettings equator;
     private volatile boolean active = false;
 
     private boolean isDamageWhenExposed() {
@@ -53,10 +56,11 @@ public final class FrostEvent implements DailyWorldEvent {
     private BukkitRunnable endTask;
     private final Map<Player, BukkitRunnable> overlayTasks = new ConcurrentHashMap<>();
 
-    public FrostEvent(Plugin plugin, CalendarServiceV2 calendar, BlockRestoreManager blockRestore) {
+    public FrostEvent(Plugin plugin, CalendarServiceV2 calendar, BlockRestoreManager blockRestore, EquatorSettings equator) {
         this.plugin = plugin;
         this.calendar = calendar;
         this.blockRestore = blockRestore != null ? blockRestore : new BlockRestoreManager(plugin);
+        this.equator = equator != null ? equator : EquatorSettings.disabled();
     }
 
     @Override
@@ -95,6 +99,7 @@ public final class FrostEvent implements DailyWorldEvent {
 
     private void applyFrost(World world) {
         for (Player p : world.getPlayers()) {
+            if (skipColdFor(p)) continue;
             if (!BiomeGroups.isCold(p.getLocation().getBlock().getBiome())) continue;
             giveEffects(p);
         }
@@ -102,6 +107,9 @@ public final class FrostEvent implements DailyWorldEvent {
             int bx = chunk.getX() << 4, bz = chunk.getZ() << 4;
             for (int xx = bx; xx < bx + 16; xx++) {
                 for (int zz = bz; zz < bz + 16; zz++) {
+                    if (equator.gateColdEvents() && EquatorZone.isInBand(world, zz, equator)) {
+                        continue;
+                    }
                     int y = world.getHighestBlockYAt(xx, zz);
                     Block b = world.getBlockAt(xx, y, zz);
                     if (b.getType() == Material.WATER) {
@@ -124,6 +132,10 @@ public final class FrostEvent implements DailyWorldEvent {
                     return;
                 }
                 for (Player p : world.getPlayers()) {
+                    if (skipColdFor(p)) {
+                        removeEffects(p);
+                        continue;
+                    }
                     boolean inCold = BiomeGroups.isCold(p.getLocation().getBlock().getBiome());
                     boolean nearHeat = isNearHeatSource(p, 3);
                     boolean hasFrost = p.hasPotionEffect(PotionEffectType.SLOWNESS);
@@ -162,6 +174,10 @@ public final class FrostEvent implements DailyWorldEvent {
         p.removePotionEffect(PotionEffectType.MINING_FATIGUE);
         BukkitRunnable ov = overlayTasks.remove(p);
         if (ov != null) ov.cancel();
+    }
+
+    private boolean skipColdFor(Player p) {
+        return equator.gateColdEvents() && EquatorZone.isInBand(p, equator);
     }
 
     private static boolean isNearHeatSource(Player p, int radius) {

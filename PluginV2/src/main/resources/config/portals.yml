@@ -6,9 +6,9 @@ target-server: amplified-1
 # Max portal pairs per player (to/from counts as one pair).
 max-pairs: 5
 
-# Frame: Crying Obsidian rectangle, interior filled with End Gateway. Dimensions are outer (including border).
 # Block used for portal interior and transfer trigger. Walking into this block transfers players.
-portal-block: END_GATEWAY
+# NOTE: `END_GATEWAY` can appear solid/unusable for Bedrock players via Geyser, so we default to `NETHER_PORTAL`.
+portal-block: NETHER_PORTAL
 
 # Frame: Crying Obsidian rectangle, interior filled with portal-block. Dimensions are outer (including border).
 frame:

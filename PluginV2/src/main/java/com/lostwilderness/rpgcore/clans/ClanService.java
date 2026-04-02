@@ -54,4 +54,10 @@ public interface ClanService {
      * Refresh display for all members of a clan (e.g. after color change).
      */
     void refreshClanDisplay(UUID clanId);
+
+    /** Returns the clan's current Wither kill count toward the Withering Council. */
+    int getWitherKills(UUID clanId);
+
+    /** Increments and returns the clan's Wither kill count. */
+    int incrementWitherKills(UUID clanId);
 }

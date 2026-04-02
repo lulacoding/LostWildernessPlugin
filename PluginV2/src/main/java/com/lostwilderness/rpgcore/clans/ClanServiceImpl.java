@@ -171,6 +171,17 @@ public final class ClanServiceImpl implements ClanService {
         }
     }
 
+    @Override
+    public int getWitherKills(UUID clanId) {
+        Integer n = join(repo.getWitherKills(clanId));
+        return n != null ? n : 0;
+    }
+
+    @Override
+    public int incrementWitherKills(UUID clanId) {
+        return join(repo.incrementWitherKills(clanId));
+    }
+
     private static TextColor parseColor(String colorHex) {
         if (colorHex == null || !colorHex.matches("#[0-9A-Fa-f]{6}"))
             return null;

@@ -1,5 +1,6 @@
 package com.lostwilderness.rpgcore.world;
 
+import com.lostwilderness.rpgcore.events.util.BiomeRegistryUtil;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
@@ -165,10 +166,10 @@ public final class BiomeBackupData {
                     int x = baseX + ox * stepXZ;
                     int palIdx = indices[idx++];
                     if (palIdx >= 0 && palIdx < palette.length) {
-                        try {
-                            Biome b = Biome.valueOf(palette[palIdx].replace("minecraft:", "").toUpperCase());
+                        Biome b = BiomeRegistryUtil.biomeFromKeyString(palette[palIdx]);
+                        if (b != null) {
                             w.setBiome(x, y, z, b);
-                        } catch (IllegalArgumentException ignored) { }
+                        }
                     }
                 }
             }
