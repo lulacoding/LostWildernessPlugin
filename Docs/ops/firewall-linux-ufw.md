@@ -1,3 +1,15 @@
+﻿---
+title: Linux UFW Firewall Setup
+description: UFW firewall rules for Linux backend servers.
+tags:
+  - operations
+  - firewall
+  - linux
+status: reference
+phase: ongoing
+owner: ops
+action: none
+---
 ## Ops: Linux UFW firewall (proxy + backends)
 
 This is a **starting point** for a typical setup:
@@ -8,25 +20,6 @@ This is a **starting point** for a typical setup:
 
 Adjust ports, interfaces, and IPs to match your actual deployment.
 
----
-
-### Example: proxy host
-
-```bash
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-
-# Allow public entry to proxy
-sudo ufw allow 25565/tcp
-
-# (Optional) SSH admin access
-sudo ufw allow 22/tcp
-
-sudo ufw enable
-sudo ufw status numbered
-```
-
----
 
 ### Example: backend host (separate machine)
 

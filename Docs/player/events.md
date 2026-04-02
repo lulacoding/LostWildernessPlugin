@@ -1,14 +1,18 @@
+﻿---
+title: Events Guide
+description: Player guide to daily and seasonal events.
+tags:
+  - player
+  - events
+status: reference
+phase: ongoing
+owner: player-facing
+action: none
+---
 # World Events
 
 Calendar-driven weather, atmosphere, and danger (eclipse, storms, fog, blizzard, heatwave, etc.). Some events block sleeping.
 
----
-
-## Overview
-
-World events add **weather, atmosphere, and danger** to the server. They are triggered by the **calendar day** (and sometimes by season or location). When an event is active, you might see storms, fog, eclipses, blizzards, heatwaves, and more. Some events block sleeping.
-
----
 
 ## Events You May Experience
 
@@ -68,19 +72,6 @@ World events add **weather, atmosphere, and danger** to the server. They are tri
 - **What happens:** Seasonal flavour events (e.g. spring bloom, autumn leaves). Details depend on server setup.
 - **When:** Tied to calendar and season (and sometimes month).
 
----
-
-## Sleep blocking
-
-You **cannot sleep** when any of these are active:
-
-- Eclipse  
-- Thunderstorm  
-- Fog  
-
-You'll see a message such as: "You cannot sleep during an eclipse!" (or thunderstorm / fog).
-
----
 
 ## Tips
 

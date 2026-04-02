@@ -1,16 +1,18 @@
+﻿---
+title: Wiki Publishing
+description: How to publish and maintain the player-facing wiki.
+tags:
+  - development
+  - wiki
+status: reference
+phase: ongoing
+owner: dev
+action: none
+---
 # Wiki Publishing
 
 Part of the [development documentation](README.md). Use this page if you want to publish the docs as a GitHub wiki or export them into another docs surface.
 
----
-
-## Purpose
-
-The main docs live in `Docs/` inside the repo. If you want a public wiki-style view, you can mirror these markdown files into a GitHub wiki repository.
-
-This is a publishing helper, not part of the player handbook.
-
----
 
 ## GitHub Wiki Flow
 

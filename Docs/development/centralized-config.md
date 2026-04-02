@@ -1,3 +1,14 @@
+﻿---
+title: Centralized Config
+description: Config architecture and centralized configuration patterns.
+tags:
+  - development
+  - config
+status: reference
+phase: ongoing
+owner: dev
+action: none
+---
 # Centralized Configuration System
 
 ## Overview

@@ -1,28 +1,20 @@
+﻿---
+title: Amplified Guide
+description: Player guide for the Amplified server.
+tags:
+  - player
+  - amplified
+status: reference
+phase: ongoing
+owner: player-facing
+action: none
+---
 # Amplified Server
 
 ## Overview
 
 The **Amplified** server is the second world in the Lost Wilderness network. It shares the same **calendar**, **events**, **clans**, and **portals** as Survival. You use the **proxy** to connect and can travel between Survival and Amplified via **portals**. Commands here are similar to Survival except there is no **/resetcalendar** (calendar is controlled from the Survival/Calendar side).
 
----
-
-## Commands (On Amplified)
-
-| Command | Description |
-| --- | --- |
-| **/date** | Current in-game date and days on server. |
-| **/time** | Current in-game time. |
-| **/datejoined** | When you joined and how many days you've been on the server. |
-| **/season** | Current season at your location (and hemisphere). |
-| **/lwhelp** | Help menu and status of Calendar, Events, Clans, Portals. |
-| **/lwdebug** | Debug info (e.g. events). |
-| **/lwplugins** | Plugin management (admin/op). |
-| **/portals** | List your linked portals. |
-| **/deleteportals** | Admin only. Delete all portals for a username. |
-| **/clan** | Clan system – same as on Survival. See [Clans](clans.md). |
-| **/alliance** | Alliance commands (some may not be implemented). |
-
----
 
 ## What You'll Experience
 

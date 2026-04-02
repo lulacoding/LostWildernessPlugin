@@ -1,3 +1,14 @@
+﻿---
+title: Discord Updates
+description: Archived Discord update history and feature announcements.
+tags:
+  - archive
+  - discord
+status: archive
+phase: archive
+owner: admin
+action: none
+---
 # Discord Updates Archive
 
 This directory contains Discord-formatted versions of documentation for posting to server channels. These files are **not duplicates** of the main documentation; they are specifically formatted for Discord's message character limits and markdown support.
@@ -115,5 +126,5 @@ When implementing a feature:
 ## Source Documentation
 
 For complete documentation, see the main docs directory:
-- Full feature list: [../04-features/feature-inventory.md](../04-features/feature-inventory.md)
-- Implementation status: [../06-operations/implementation-status.md](../06-operations/implementation-status.md)
+- Full feature list: [../../roadmap/feature-inventory.md](../../roadmap/feature-inventory.md)
+- Implementation status: [../../roadmap/implementation-status.md](../../roadmap/implementation-status.md)
