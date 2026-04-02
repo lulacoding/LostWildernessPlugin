@@ -1,0 +1,12 @@
+# Thornwell compass (Amos) — survival overworld target & arrival radius.
+# Place a LODESTONE block at exactly these block coordinates so tracked compasses work.
+#
+# Update x/y/z when Thornwell is finalized on your seed.
+
+thornwell:
+  world: world
+  x: -53
+  y: 76
+  z: 311
+  # Horizontal distance from block center (XZ). Compass removed + BQ thornwell_reached when entered.
+  arrival-radius: 28

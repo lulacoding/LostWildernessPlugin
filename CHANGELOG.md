@@ -8,7 +8,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- **Documentation:** Moved **Industry Arsenal** chapter files from `planning/industry-arsenal/` to **`ideas/industry-arsenal/`** (speculative / not yet implemented); added YAML frontmatter with Quartz `aliases` so old `planning/industry-arsenal/*` slugs redirect; updated hubs, `link-mapping.md`, and `CHANGELOG` cross-references.
+- **Documentation:** Added YAML frontmatter (`title`, `description`, `tags`) to section hub pages that were missing it for cleaner Quartz/Obsidian previews; added `Docs/ideas/brainstorming-hub.md` as the brainstorm path; updated `graph.md` (Quartz graph notes) and `Docs/README.md` accordingly.
+- **Documentation:** Renamed section entry files from duplicated `index.md` to unique hubs (`documentation-hub.md`, `*-hub.md`, `player-handbook.md`, `design-worlds-hub.md`, `industry-arsenal-hub.md`) so Obsidian graph and quick open show distinct titles; updated cross-links across `Docs/`, root `README.md`, `AIBot/skills`, and `link-mapping.md`.
+- **Documentation:** Wired all `Docs/**/*.md` into the link graph from hub pages (planning/industry-arsenal chapters, `Docs/ops/` sources, discord pasteables index, `link-mapping.md`); removed empty Obsidian stub `Docs/2026-04-02.md`.
+- **Documentation:** Removed 10 empty `Docs/development/dev-wiki-*.md` placeholders; removed obsolete `Docs/design/README.md` and `Docs/archive/README.md` (superseded by section hub pages; fixed links in archive notes).
+- **Documentation:** Reorganized `Docs/` into audience-based top-level folders (`overview/`, `architecture/`, `development/`, `systems/`, `plugins/`, `operations/`, `testing/`, `player/`, `design/`, `roadmap/`, `planning/`, `reference/`, `archive/`). Main entry: `Docs/documentation-hub.md`. Active implementation status: `Docs/roadmap/implementation-status.md`. Architecture plan moved to `Docs/architecture/v2-architecture.md` (removed root `V2_ARCHITECTURE_PLAN.md`). Legacy V1 status/roadmap archived under `Docs/archive/`. Operational scripts remain in `Docs/ops/`. Added root `README.md`. See `Docs/link-mapping.md` for path equivalences.
+- **Amos + Thornwell + Waypoints:** `lw_amos/events.yml` grants `lw.waypoint.thornwell` when Amos gives navigation; `thornwell_arrived` revokes it and runs `sudo waypointsscript deselectWaypoint`. **`WaypointArrivalListener`** reads **`waypoint-zones.yml`** for one or more horizontal arrival zones; Thornwell still fires for the Waypoints permission **or** the Amos RPG compass (skips if `lw_amos.thornwell_reached`). **`AmosCompassTagListener`** handles compass drop/death/respawn tags. Docs: `Docs/operations/waypoints.md` §9–9.5.
+- **Waypoints (survival-1):** `plugins/Waypoints/config.yml` tuned for Lost Wilderness — action bar on, trail/hologram off, BlueMap-only map integration, tighter private waypoint/folder limits, hide cross-world waypoints, boss bar title prefix, update checker off.
+
 ### Added
+- **Docs:** `Docs/operations/waypoints.md` — install, config, LuckPerms permission waypoints, BetonQuest hooks, BlueMap, and overlap notes with RPG_Core Thornwell compass.
+- **Thornwell Amos compass (RPG_Core_V2):** `story-compass.yml` (world + block XYZ + horizontal arrival radius) drives a real lodestone-tracked compass from `/v2thornwellcompass give <player>` (used by BetonQuest `lw_amos`). A repeating check removes the compass inside the radius, sets `thornwell_reached`, and clears `amos_compass_active`; drop/death/respawn sync clears the tag if the item is gone. **Requires a lodestone block at the configured coordinates** for the vanilla compass needle to target Thornwell.
+
+### Changed
+- **CLAUDE.md (2026-04-01):** Optimised operating prompt based on deep-research insights. Added adversarial self-review requirement, strict memory write discipline, memory-as-hint verification rule, output contract (files/behavior/verification at task end), parallel subagents policy (independent tasks only), tool discipline rule (search before open, 1–2 lookups per ambiguity), commit hygiene section, and strengthened Context7 MCP rule with explicit fallback on unavailability.
+
+### Added
+- **Equator belt (PluginV2):** Config in `lw-climate.yml` under `equator` (half-width Z band, world allowlist, `reduce_weather`, `gate_cold_events`). `EquatorZone` / `EquatorSettings` registered from events; per-player clear weather in band; frost/blizzard skip ice, strays, and player cold effects in band; Season Guide GUI and `/season` (core + survival/amplified chat) show equator messaging. `SeasonalWeatherListener` respects `seasonal_weather.worlds` when non-empty. Player doc updated (`Docs/player/survival.md`).
 - **Personality Module - 7 Additional Trait Passives COMPLETE (2026-03-19 Evening)**
   - **✅ ALL TRAIT PASSIVES NOW IMPLEMENTED (20/20 = 100%)**
   - **Removed all "Won't Fix" limitations** - only 1 vanilla constraint remains (ALCHEMIST Master 4-potion brewing)

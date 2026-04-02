@@ -1,5 +1,5 @@
 # Citizens NPC Storage
-last-created-npc-id: 6
+last-created-npc-id: 7
 npc:
   '0':
     traits:
@@ -214,3 +214,40 @@ npc:
       speedmodifier: 1.0
       avoidwater: false
     uuid: 62e8eb34-21d2-49b6-be1c-c74975657fed
+  '7':
+    metadata:
+      cached-skin-uuid: c3c0379a-9e7b-40f2-9281-49d306372f2b
+      cached-skin-uuid-name: amos
+    traits:
+      owner:
+        uuid: f9641e82-35c1-4aee-9e24-7a2e8a2f8faf
+      scoreboardtrait:
+        tags:
+        - CITIZENS_NPC
+      skintrait:
+        signature: Z+Ml5ywKU98I1V0Ee3hj8yR+LYGbChb/QevyDVPS+VtWyaGvs7CKryE7XAlHAiBaokIw4+Q4IrJnsnOl3e3eMwNyZZxO63/xQlleNRBEARgUv08zKVvaMvj3uXn4eOQ4vxIZ0DN1LGVIv7HSYH8bN17H+0LsxJOhgEQUi1EgXH8HCs8To1t5wTI9NyWVGEhtXiab3QA3NdWpPjCTcIMomMaEHn27vGRiQjz6o9U7W8o0l7KdAGuA0pfXN/px0T6zNvroNgb0Fwei3aRj3AbkVQdWH0bxwLNfBnCsTtawd4kSqDQAJfSP81qDSXek8D4TUmeujVHbt1uF+8O1kY2a0SbtSPSY842rmWRF86hDtnt8asSe2k0maOoLZlkBmU8rc1YkCL6PfM/E8zwt79NarkIVtqH+84A/w00Lo2Cle0Jiwd8bMd917lzL4i/6aLf96yJnSrcZjKhr6DTQnNPnSqIfTGMndO3s5WBGsVLVC4C/CA7qBGoQgNMhfPd3EgIxnXQDMTE2tbVyaqKac/WRPEw2nRhgQcl5A/cSJ+WgVLU6fJ22oeBxbAmEnNT4RdE1GCKEt4Qsv3x0QAOytnYKQItfrzp6iMZ02dp8jJk2RnAvDcvB1zJctMZEhYFdbyFrtiCIasgMfU6yawi0B32E44UQFe/j19P+08oz9Ncl7w8=
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc3NTAyNDEzMzk2MiwKICAicHJvZmlsZUlkIiA6ICJjM2MwMzc5YTllN2I0MGYyOTI4MTQ5ZDMwNjM3MmYyYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJBbW9zIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzZkNzZlMjY5ZDA4OTgwMGYyMzA0NWJmMjgwMTVmNzcyNzMyODE5NWZjZTEwNWU2ODFhOTdlN2I1ZDAxZmU1YjQiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==
+      location:
+        worldid: 0bcf4ca0-c6ec-41b0-9eba-b6c8191d74f4
+        x: 29.5
+        y: 76.0
+        z: 58.5
+        bodyYaw: 139.09375
+        pitch: -2.909
+        yaw: 159.0937
+      type: PLAYER
+      lookclose:
+        enabled: true
+        randomPitchRange:
+        - 0.0
+        - 0.0
+        randomYawRange:
+        - 0.0
+        - 360.0
+    traitnames: spawned,owner,scoreboardtrait,rotationtrait,skintrait,lookclose,location,type,inventory,targetable,chunktickettrait
+    name: Amos
+    navigator:
+      usedefaultstuckaction: false
+      speedmodifier: 1.0
+      avoidwater: false
+    uuid: 0fa9a79a-c384-454d-a925-c73406f6064f

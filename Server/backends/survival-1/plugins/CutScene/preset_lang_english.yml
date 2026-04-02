@@ -1,0 +1,111 @@
+BlockBreak:
+  Line1: Select a block that will activate
+  Line2: this cutscene when it is broken!
+  Line3: Active
+  Line4: Inactive
+Join:
+  Line1: Toggles whether this scene will
+  Line2: play when joining the server.
+  Line3: Play when resource pack finished loading
+  Line4: Active
+  Line5: Inactive
+  Line6: Current delay
+  Line7: Active
+  Line8: Inactive
+Walk:
+  Line1: Select a block that will activate
+  Line2: this cutscene when a player is walking on it.
+  Line3: Active
+  Line4: Inactive
+Chest:
+  Line1: Toggles whether this scene will
+  Line2: play when opening a chest.
+  Line3: Active
+  Line4: Inactive
+TeleportEnd:
+  Line1: Set the location where the player will
+  Line2: be teleported when the cutscene ends.
+  Line3: Active
+  Line4: Inactive
+  Line5: Teleport to Cutscene Start
+  Line6: Active
+  Line7: Inactive
+Near:
+  Line1: When a player is near a certain
+  Line2: location this cutscene will be played.
+  Line3: Distance from Location to player required to activate
+  Line4: Active
+  Line5: Inactive
+Animation:
+  Line1: Toggles whether an animation will be
+  Line2: played before starting the cutscene.
+Once:
+  Line1: Toggles whether this cutscene
+  Line2: will only be visible once per player!
+  Line3: Active
+  Line4: Inactive
+Song:
+  Line1: Play a song during cutscene.
+  Line2: Current Song
+  Line3: Active
+  Line4: Inactive
+Action:
+  Line1: Configure actions that can occur in
+  Line2: the cutscene, such as titles or commands.
+Chunk:
+  Line1: 'Recommended Use:'
+  Line2: This option is ideal for cutscenes on §clarge maps§7. It ensures that all
+  Line3: chunks around the player's current location in the cutscene are loaded.
+  Line4: 'Why This Matters:'
+  Line5: By default, only chunks near the starting point of the cutscene will load.
+    If the cutscene moves to a
+  Line6: chunk where no other players are present, that chunk won't load, which can
+    disrupt the experience.
+  Line7: Enabling this option ensures those chunks load ahead of time,
+  Line8: but it may negatively affect the smoothness of the cutscene.
+  Line9: 'Customization:'
+  Line10: You can configure how frequently this loading occurs by adjusting the interval
+    settings.
+  Line11: Chunk loading in
+  Line12: intervals.
+  Line13: Active
+  Line14: Inactive
+Blind:
+  Line1: Toggles whether the player receives
+  Line2: a slight blindness effect.
+  Line3: Active
+  Line4: Inactive
+Particle:
+  Line1: Toggles whether the player will
+  Line2: see particles flying around.
+  Line3: 'Selected Particles: '
+Indi:
+  Line1: Control how long a player will see cutscene
+  Line2: positions and the transition style to the next position.
+Pitch:
+  Line1: Click to toggle whether the pitch should be included
+  Line2: in the cutscene. By default, only the yaw is used.
+  Line3: 'Click to toggle: '
+Hide:
+  Line1: 'Hide the player currently in a cutscene from other players '
+  Line2: 'Hide other players from the player viewing the cutscene '
+Transition:
+  Line1: Configure the transition when a position
+  Line2: is about to cycle to the next.
+  Line3: Current Transition
+  Line4: Only works with the default path style.
+ArmorStand:
+  Line1: Toggle whether the player in the
+  Line2: cutscene can see armor stands.
+  Line3: Status
+Scoreboard:
+  Line1: Toggle whether the player in the
+  Line2: cutscene can see the scoreboard.
+  Line3: WARNING! §7This can cause unexpected events in some cases.
+  Line4: Status
+HideChat:
+  Line1: Toggle whether the player in the cutscene should
+  Line2: stop receiving chat messages from other players.
+Endless:
+  Line1: If this option is enabled, the cutscene won't
+  Line2: end automatically it must be stopped manually.

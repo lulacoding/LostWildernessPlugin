@@ -1,0 +1,38 @@
+conversations:
+  Amos:
+    quester: "Amos"
+    first: "greeting_first,greeting_return,greeting_lost"
+    NPC_options:
+      greeting_first:
+        condition: "!met_amos"
+        text: "&7Oh - a new face. Haven't seen anyone come through here in a while. &fI'm heading to Thornwell myself, soon as my feet recover. &7It's northeast, maybe six hundred blocks? Follow the old road fragments - you'll spot the smoke before you see the walls."
+        events: "tag_amos_met"
+        pointer: "want_compass"
+      greeting_return:
+        condition: "met_amos,!thornwell_reached,has_compass"
+        text: "&7Still here, friend. You haven't set off yet?"
+        pointer: "bye_still_here"
+      greeting_lost:
+        condition: "met_amos,!thornwell_reached,!has_compass"
+        text: "&7Lost the compass? Easy enough to do out here. Here, take another - same road, northeast."
+        events: "give_compass"
+        pointer: "bye_lost"
+      offer_compass:
+        text: "&7Here, take this. It'll point you straight to Thornwell. Good people there. &fTell them Amos sent you."
+        events: "give_compass"
+        pointer: "thanks_after_compass"
+      goodbye_line:
+        text: "&7Safe travels."
+    player_options:
+      want_compass:
+        text: "Could I have something to find Thornwell?"
+        pointer: offer_compass
+      thanks_after_compass:
+        text: "Thank you."
+        pointer: goodbye_line
+      bye_still_here:
+        text: "I'm on my way."
+        pointer: goodbye_line
+      bye_lost:
+        text: "Thanks, Amos."
+        pointer: goodbye_line

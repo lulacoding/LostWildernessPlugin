@@ -31,3 +31,10 @@ Scaffold a new RPG module named "{args}".
    - Services injected via `ServiceRegistry`, not static singletons
 
 6. **Build** to verify: `cd PluginV2 && ./gradlew.bat :compileJava -x test`
+
+## Gotchas
+- **`enabled.contains()` check is required** — modules registered without this guard will always load, ignoring `core.yml`
+- **Both `core.yml` files need updating** — the one in `src/main/resources/` (template) AND the live one in `Server/backends/survival-1/`. Missing the live one means the module won't load on the running server
+- **Repository must use async pattern** — any DB call that returns CompletableFuture must never be `.join()`'d on the main thread; use `.whenComplete()` or schedule on async thread
+- **`onDisable()` must unregister listeners** — call `HandlerList.unregisterAll()` or Bukkit will hold stale references across reloads
+- **Module name casing** — the `enabled-modules` list in `core.yml` is case-sensitive and must match the string passed to `enabled.contains()` exactly

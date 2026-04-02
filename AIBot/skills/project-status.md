@@ -14,9 +14,9 @@ When a user asks about project status, progress, or what's been completed:
 
 1. **Check key status files**:
    - `CHANGELOG.md` - Recent changes
-   - `Docs/implementation-status.md` - Feature completion status
-   - `Docs/roadmap.md` - Planned features
-   - `Docs/v2/v2-feature-parity.md` - V1 to V2 migration status
+   - `Docs/roadmap/implementation-status.md` - Feature completion status
+   - `Docs/roadmap/roadmap-hub.md` - Planned features and phases
+   - `Docs/roadmap/feature-parity.md` - V1 to V2 migration checklist
 
 2. **Report on**:
    - Completed features

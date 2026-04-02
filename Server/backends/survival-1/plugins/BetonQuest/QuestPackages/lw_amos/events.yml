@@ -1,0 +1,18 @@
+events:
+  # Compass (optional): remove cmd_give_compass + tag_amos_compass_active from give_compass folder for waypoint-only.
+  # Waypoints: create a permission POI with /waypoints setPermission Thornwell lw.waypoint.thornwell (see Docs/ops).
+  give_compass: "folder cmd_give_compass,tag_amos_compass_active,grant_thornwell_waypoint"
+  cmd_give_compass: "command v2thornwellcompass give %player%"
+  tag_amos_compass_active: "tag add amos_compass_active"
+  grant_thornwell_waypoint: "command lp user %player% permission set lw.waypoint.thornwell true"
+  tag_amos_met: "tag add amos_met"
+
+  # Fired by RPG_Core when player enters Thornwell zone (compass and/or lw.waypoint.thornwell permission).
+  thornwell_arrived: "folder revoke_thornwell_waypoint,deselect_waypoints,tag_thornwell_reached,tag_amos_compass_clear,notify_thornwell_done"
+  revoke_thornwell_waypoint: "command lp user %player% permission unset lw.waypoint.thornwell"
+  deselect_waypoints: "sudo waypointsscript deselectWaypoint"
+  tag_thornwell_reached: "tag add thornwell_reached"
+  tag_amos_compass_clear: "tag delete amos_compass_active"
+  notify_thornwell_done: "notify &aYou found Thornwell!&7 Ask around the gate for work."
+
+  amos_compass_lost: "tag delete amos_compass_active"

@@ -14,9 +14,9 @@ npc:
       x: 10.7248
       y: -49.0
       z: -8.6967
-      bodyYaw: 138.5599
-      pitch: 5.4439
-      yaw: 143.9243
+      bodyYaw: 135.25043
+      pitch: -1.2364
+      yaw: 155.2504
     type: PLAYER
     lookclose:
       enabled: true
@@ -121,9 +121,9 @@ npc:
       x: -41.446
       y: -53.0
       z: -28.8764
-      bodyYaw: -107.6994
-      pitch: 0.0
-      yaw: -107.6994
+      bodyYaw: -97.639755
+      pitch: -0.8876
+      yaw: -97.6398
     type: PLAYER
     lookclose:
       enabled: true

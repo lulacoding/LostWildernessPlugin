@@ -13,12 +13,10 @@ When a user asks to search documentation or find information about a feature, sy
 ## Process
 
 1. **Identify the search query** from the user's message
-2. **Search these documentation directories** in order of priority:
-   - `C:/Users/cthvh/OneDrive/Desktop/Lost Wilderness/Docs/`
-   - `C:/Users/cthvh/OneDrive/Desktop/Lost Wilderness/Docs/v2/`
-   - `C:/Users/cthvh/OneDrive/Desktop/Lost Wilderness/Docs/design/`
-   - `C:/Users/cthvh/OneDrive/Desktop/Lost Wilderness/Docs/development/`
-   - `C:/Users/cthvh/OneDrive/Desktop/Lost Wilderness/Docs/player/`
+2. **Search these documentation directories** in order of priority (repo-relative):
+   - `Docs/documentation-hub.md` (hub)
+   - `Docs/architecture/`, `Docs/systems/`, `Docs/roadmap/`, `Docs/planning/`, `Docs/operations/`
+   - `Docs/design/`, `Docs/development/`, `Docs/player/`, `Docs/testing/`, `Docs/reference/`, `Docs/archive/`
 
 3. **Search for relevant files** containing the query terms
 4. **Read matching files** and extract relevant sections
@@ -30,10 +28,10 @@ When a user asks to search documentation or find information about a feature, sy
 ## Key Documentation Files
 
 - `CHANGELOG.md` - Recent changes and updates
-- `V2_ARCHITECTURE_PLAN.md` - Architecture overview
-- `Docs/implementation-status.md` - Current implementation status
-- `Docs/roadmap.md` - Future plans
-- `Docs/v2/README.md` - V2 documentation index
+- `Docs/architecture/v2-architecture.md` - Architecture overview
+- `Docs/roadmap/implementation-status.md` - Current implementation status
+- `Docs/roadmap/roadmap-hub.md` - Roadmap and phases
+- `Docs/documentation-hub.md` - Documentation hub
 
 ## Example Queries
 

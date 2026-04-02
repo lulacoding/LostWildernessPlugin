@@ -1,11 +1,12 @@
 # =============================================================================
 # Professor Craft — First Contact
-# NPC Citizens ID: TODO — update after volcano lab is built
+# NPC Citizens ID: MUST NOT be 7 — Citizens ID 7 is Amos (lw_amos).
+# Create the Professor NPC in Citizens next (will be ID 8 if last-created was 7).
 # TODO: Replace lab coords in find_lab objective after building
 # =============================================================================
 
 npcs:
-  '7': professor   # TODO: replace '5' with actual Citizens NPC ID
+  '8': professor
 
 conversations:
   professor:

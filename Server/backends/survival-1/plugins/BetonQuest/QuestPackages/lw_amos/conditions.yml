@@ -1,0 +1,5 @@
+conditions:
+  met_amos: "tag amos_met"
+  thornwell_reached: "tag thornwell_reached"
+  # Tracks Amos giving the compass (cleared on arrival, drop, death+respawn without item).
+  has_compass: "tag amos_compass_active"

@@ -1,0 +1,110 @@
+BlockBreak:
+  Line1: Selecciona un bloque que activará
+  Line2: esta escena cuando se rompa.
+  Line3: Activo
+  Line4: Inactivo
+Join:
+  Line1: Activa o desactiva si esta escena
+  Line2: se reproducirá al entrar al servidor.
+  Line3: Reproducir cuando el paquete de recursos haya cargado
+  Line4: Activo
+  Line5: Inactivo
+  Line6: Retraso actual
+  Line7: Activo
+  Line8: Inactivo
+Walk:
+  Line1: Selecciona un bloque que activará
+  Line2: esta escena cuando un jugador camine sobre él.
+  Line3: Activo
+  Line4: Inactivo
+Chest:
+  Line1: Activa o desactiva si esta escena
+  Line2: se reproducirá al abrir un cofre.
+  Line3: Activo
+  Line4: Inactivo
+TeleportEnd:
+  Line1: Establece la ubicación a la que el jugador será
+  Line2: teletransportado cuando termine la escena.
+  Line3: Activo
+  Line4: Inactivo
+  Line5: Teletransportar al inicio de la escena
+  Line6: Activo
+  Line7: Inactivo
+Near:
+  Line1: Cuando un jugador esté cerca de una
+  Line2: ubicación, esta escena se reproducirá.
+  Line3: Distancia desde la ubicación al jugador necesaria para activar
+  Line4: Activo
+  Line5: Inactivo
+Animation:
+  Line1: Activa o desactiva si se reproducirá una animación
+  Line2: antes de comenzar la escena.
+Once:
+  Line1: Activa o desactiva si esta escena
+  Line2: será visible solo una vez por jugador.
+  Line3: Activo
+  Line4: Inactivo
+Song:
+  Line1: Reproduce una canción durante la escena.
+  Line2: Canción actual
+  Line3: Activo
+  Line4: Inactivo
+Action:
+  Line1: Configura las acciones que pueden ocurrir en
+  Line2: la escena, como títulos o comandos.
+Chunk:
+  Line1: 'Uso recomendado:'
+  Line2: Esta opción es ideal para escenas en mapas grandes. Asegura que todos
+  Line3: los chunks alrededor de la ubicación del jugador se carguen.
+  Line4: 'Por qué es importante:'
+  Line5: Por defecto, solo se cargan los chunks cerca del punto inicial de la escena.
+    Si la escena se mueve a un
+  Line6: chunk donde no hay otros jugadores, ese chunk no se cargará, lo que puede
+    interrumpir la experiencia.
+  Line7: Activar esta opción asegura que esos chunks se carguen por adelantado,
+  Line8: pero puede afectar negativamente la fluidez de la escena.
+  Line9: 'Personalización:'
+  Line10: Puedes configurar la frecuencia de carga ajustando los intervalos.
+  Line11: Cargando chunks en
+  Line12: intervalos.
+  Line13: Activo
+  Line14: Inactivo
+Blind:
+  Line1: Activa o desactiva si el jugador recibe
+  Line2: un pequeño efecto de ceguera.
+  Line3: Activo
+  Line4: Inactivo
+Particle:
+  Line1: Activa o desactiva si el jugador
+  Line2: verá partículas volando alrededor.
+  Line3: 'Partículas seleccionadas: '
+Indi:
+  Line1: Controla cuánto tiempo verá el jugador las posiciones
+  Line2: de la escena y el estilo de transición a la siguiente.
+Pitch:
+  Line1: Haz clic para activar o desactivar si la inclinación debe incluirse
+  Line2: en la escena. Por defecto, solo se usa el giro.
+  Line3: 'Haz clic para alternar: '
+Hide:
+  Line1: 'Oculta al jugador en una escena de otros jugadores '
+  Line2: 'Oculta a otros jugadores del jugador que ve la escena '
+Transition:
+  Line1: Configura la transición cuando una posición
+  Line2: esté por cambiar a la siguiente.
+  Line3: Transición actual
+  Line4: Solo funciona con el estilo de ruta predeterminado.
+ArmorStand:
+  Line1: Activa o desactiva si el jugador en la
+  Line2: escena puede ver los soportes de armaduras.
+  Line3: Estado
+Scoreboard:
+  Line1: Activa o desactiva si el jugador en la
+  Line2: escena puede ver el marcador.
+  Line3: ¡ADVERTENCIA! Esto puede causar comportamientos inesperados en algunos casos.
+  Line4: Estado
+HideChat:
+  Line1: Activa o desactiva si el jugador en la escena debe
+  Line2: dejar de recibir mensajes de chat de otros jugadores.
+Endless:
+  Line1: Si esta opción está habilitada, la escena no se reproducirá.
+  Line2: finalizar automáticamente debe detenerse manualmente.

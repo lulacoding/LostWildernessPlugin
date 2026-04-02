@@ -29,7 +29,7 @@ bedrock:
 java:
   # What type of authentication Bedrock players will be checked against when logging into the Java server.
   # Can be "floodgate" (see https://wiki.geysermc.org/floodgate/), "online", or "offline".
-  auth-type: online
+  auth-type: floodgate
 
 # MOTD settings
 motd:
@@ -49,7 +49,7 @@ motd:
   passthrough-player-counts: true
 
   # Whether to use server API methods to determine the Java server's MOTD and ping passthrough.
-  # There is no need to disable this unless your MOTD or player count does not appear properly.
+  # There is no need to disable this unless your MOTD or player coun     t does not appear properly.
   integrated-ping-passthrough: true
 
   # How often to ping the Java server to refresh MOTD and player count, in seconds.

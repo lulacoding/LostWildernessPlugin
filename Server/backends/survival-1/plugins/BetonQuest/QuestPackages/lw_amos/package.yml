@@ -1,0 +1,6 @@
+package:
+  enabled: true
+  version: "1"
+
+npcs:
+  '7': Amos

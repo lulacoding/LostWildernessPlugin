@@ -1,6 +1,5 @@
 target-server: survival-1
-teleporter-block: END_GATEWAY
-
+teleporter-block: NETHER_PORTAL
 spawn:
   x: 0.5
   y: 100

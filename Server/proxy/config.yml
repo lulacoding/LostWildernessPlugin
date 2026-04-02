@@ -1,24 +1,41 @@
 network_compression_threshold: 256
 remote_ping_timeout: 5000
-remote_ping_cache: -1
 online_mode: true
+remote_ping_cache: -1
 forge_support: false
 max_packets_per_second: 4096
-ip_forward: true
+listeners:
+- query_port: 25577
+  motd: Lost Wilderness Proxy
+  tab_list: GLOBAL_PING
+  query_enabled: false
+  proxy_protocol: false
+  forced_hosts:
+    pvp.md-5.net: pvp
+  ping_passthrough: false
+  priorities:
+  - lobby-1
+  - survival-1
+  - amplified-1
+  bind_local_address: true
+  host: 0.0.0.0:25565
+  max_players: 1000
+  tab_size: 60
+  force_default_server: true
 disabled_commands:
 - disabledcommandhere
 max_packets_data_per_second: 33554432
-reject_transfers: false
 player_limit: -1
-log_commands: false
+reject_transfers: false
+connection_throttle: 4000
 connection_throttle_limit: 3
 prevent_proxy_connections: false
-connection_throttle: 4000
+log_commands: false
 log_pings: true
-stats: 16c339df-28b8-4114-99e1-da77db22f469
 groups:
   md_5:
   - admin
+stats: 16c339df-28b8-4114-99e1-da77db22f469
 servers:
   lobby-1:
     motd: Lost Wilderness Lobby
@@ -44,24 +61,7 @@ permissions:
   - bungeecord.command.kick
   - bungeecord.command.send
   - bungeecord.command.find
-listeners:
-- query_port: 25577
-  motd: Lost Wilderness Proxy
-  tab_list: GLOBAL_PING
-  query_enabled: false
-  proxy_protocol: false
-  forced_hosts:
-    pvp.md-5.net: pvp
-  ping_passthrough: false
-  priorities:
-  - lobby-1
-  - survival-1
-  - amplified-1
-  bind_local_address: true
-  host: 0.0.0.0:25565
-  max_players: 1000
-  tab_size: 60
-  force_default_server: true
+ip_forward: true
 enforce_secure_profile: false
 server_connect_timeout: 5000
 timeout: 30000

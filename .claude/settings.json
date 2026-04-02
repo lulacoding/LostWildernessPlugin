@@ -1,12 +1,29 @@
 {
+  "enabledPlugins": {
+    "serena@claude-plugins-official": true
+  },
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/hooks/inject-lessons.py"
+          },
+          {
+            "type": "command",
+            "command": "python .claude/hooks/serena-activate.py"
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .claude/hooks/compile-after-edit.py"
+            "command": "python .claude/hooks/compile-after-edit.py"
           }
         ]
       }
@@ -17,7 +34,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .claude/hooks/block-world-files.py"
+            "command": "python .claude/hooks/block-world-files.py"
           }
         ]
       }

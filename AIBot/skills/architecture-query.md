@@ -14,13 +14,13 @@ When a user asks about architecture, design decisions, or technical structure:
 
 1. **Understand the architectural question**
 2. **Reference these key documents**:
-   - `V2_ARCHITECTURE_PLAN.md` - Main architecture document
-   - `Docs/v2/architecture-overview.md` - Detailed architecture
-   - `Docs/v2/goals-and-scope.md` - Project goals
-   - `Docs/v2/roadmap.md` - Development roadmap
-   - `Docs/v2/phase0-outcomes.md` - Foundation decisions
-   - `Docs/v2/module-contracts.md` - Module system design
-   - `Docs/v2/data-model.md` - Data structures
+   - `Docs/architecture/v2-architecture.md` - Main architecture document
+   - `Docs/architecture/overview.md` - Detailed architecture
+   - `Docs/planning/goals-and-scope.md` - Project goals
+   - `Docs/roadmap/timeline.md` - Development timeline
+   - `Docs/archive/phase0-outcomes.md` - Foundation decisions
+   - `Docs/architecture/module-contracts.md` - Module system design
+   - `Docs/architecture/data-model.md` - Data structures
 
 3. **Provide context about**:
    - Overall architecture (3-server setup: Lobby, Survival, Amplified)

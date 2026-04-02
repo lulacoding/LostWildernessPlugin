@@ -16,7 +16,10 @@ fp = tool_input.get("file_path", "")
 if not fp.endswith(".java"):
     sys.exit(0)
 
-project_root = r"C:\Users\cthvh\OneDrive\Desktop\Lost Wilderness\PluginV2"
+# Repo root = parent of .claude/; Gradle project is PluginV2 under repo root
+_here = os.path.dirname(os.path.abspath(__file__))
+_repo = os.path.dirname(os.path.dirname(_here))
+project_root = os.path.join(_repo, "PluginV2")
 result = subprocess.run(
     "gradlew.bat :compileJava -x test 2>&1",
     shell=True,
